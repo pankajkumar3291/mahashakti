@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.mahashakti.activities.GalleryActivity">
+
+
+
+    <include
+        android:id="@+id/headertoolbar"
+        layout="@layout/toolbar"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+
+
+
+    <LinearLayout
+        android:layout_below="@id/headertoolbar"
+        android:layout_above="@id/txtGetStarted"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="50dp"
+        android:background="@color/appyellowclr"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+
+
+            <LinearLayout
+                android:id="@+id/relativeThoughts"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_margin="10dp"
+
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageMoney"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/money"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/money"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/relativeGallery"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <ImageView
+                    android:id="@+id/imageHealth"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/health"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+
+                    android:text="@string/health"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/relativeProgram"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+
+                <ImageView
+                    android:id="@+id/imageLove"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/love"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+
+                    android:text="@string/love"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+
+
+            <LinearLayout
+                android:id="@+id/relativeBooking"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+
+                <ImageView
+                    android:id="@+id/imageSpriti"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/negative" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+
+                    android:text="@string/spriti"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                >
+
+
+                <ImageView
+                    android:id="@+id/imageNeagive"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/spirituality" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+
+                    android:text="@string/neagtive"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/txtGetStarted"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/getstarted"
+        android:gravity="center"
+        android:padding="15dp"
+        android:textSize="@dimen/_12sdp"
+        android:background="@color/signupbtncolor"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"/>
+
+
+
+
+
+</RelativeLayout>
