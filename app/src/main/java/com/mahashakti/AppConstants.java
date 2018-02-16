@@ -18,6 +18,7 @@ public class AppConstants {
     public static final String EMAIL = "EMAIL";
     public static final String PHONE_NUMBER = "PHONE_NUMBER";
     public static final String PROFILE_PIC = "PROFILE_PIC";
+    public static final String PROFILE_PIC_FACEBOOK = "PROFILE_PIC_FACEBOOK";
     public static final String USER_ID = "USER_ID";
     public static final String USER_SEX = "SEX";
     public static final String VIDEO_URL = "VIDEO_URL";

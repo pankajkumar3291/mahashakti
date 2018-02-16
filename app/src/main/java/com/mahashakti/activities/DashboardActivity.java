@@ -134,18 +134,22 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
                         if (upcomingEventSuccess.getSuccess()) {
 
-                            txtEventName.setText(upcomingEventSuccess.getPayload().get(0).getEventname());
-                            txtStartDate.setText(upcomingEventSuccess.getPayload().get(0).getEventstartdate());
-                            txtEndDate.setText(upcomingEventSuccess.getPayload().get(0).getEventenddate());
+                            txtEventName.setText(upcomingEventSuccess.getPayload().getEventname());
+                            txtStartDate.setText(upcomingEventSuccess.getPayload().getEventstartdate());
+                            txtEndDate.setText(upcomingEventSuccess.getPayload().getEventenddate());
 
-                            String startDate = upcomingEventSuccess.getPayload().get(0).getEventstartdate();
-                            String endDtae = upcomingEventSuccess.getPayload().get(0).getEventenddate();
+                            String startDate = upcomingEventSuccess.getPayload().getEventstartdate();
+                            String endDtae = upcomingEventSuccess.getPayload().getEventenddate();
+
+
 
 
                             String startDa = startDate.replaceAll("-", "/");
                             String endDa = endDtae.replaceAll("-", "/");
 
-                            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                           // SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+                            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+
 
                             Date d1 = null;
                             Date d2 = null;
@@ -186,10 +190,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     }
 
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
 
 
     @Override
@@ -219,10 +219,25 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         String sex = sharedPrefsHelper.get(AppConstants.USER_SEX, "sex");
         String userPic = sharedPrefsHelper.get(AppConstants.PROFILE_PIC, "pic");
 
-        Picasso.with(context)
-                .load("http://mahashaktiradiance.com/" + userPic)
-                .error(R.drawable.user)
-                .into(profile_image);
+
+        if(userPic.contains("facebook")){
+
+            Picasso.with(context)
+                    .load(userPic)
+                    .error(R.drawable.user)
+                    .into(profile_image);
+        }
+        else {
+
+            Picasso.with(context)
+                    .load("http://mahashaktiradiance.com/" + userPic)
+                    .error(R.drawable.user)
+                    .into(profile_image);
+
+        }
+
+
+
 
 
         ((AppController) getApplicationContext()).bus().toObservable().subscribe(new Consumer<Object>() {
@@ -288,7 +303,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     public void gotoNextActivity(Class cla) {
 
         startActivity(new Intent(DashboardActivity.this, cla));
-        overridePendingTransition(R.anim.enter, R.anim.exit);
 
     }
 
@@ -324,6 +338,9 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         } else if (id == R.id.log_out_frag) {
 
 
+
+            sharedPrefsHelper.clearAllSaveddData();
+
             new DroidDialog.Builder(context)
                     .icon(R.drawable.ic_action_tick)
                     .title("Logout")
@@ -338,7 +355,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                             UserDataUtility.setLogin(false, context);
 
                             startActivity(new Intent(DashboardActivity.this, MainActivity.class));
-                            overridePendingTransition(R.anim.enter, R.anim.exit);
                             finish();
 
 
@@ -434,7 +450,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
             @Override
             public void run() {
                 startActivity(new Intent(DashboardActivity.this, aClass));
-                overridePendingTransition(R.anim.enter, R.anim.exit);
             }
         }, 300);
 

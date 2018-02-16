@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:id="@+id/rootView"
+    tools:context="com.mahashakti.activities.GalleryActivity">
+
+
+
+    <include
+        android:id="@+id/headertoolbar"
+        layout="@layout/toolbar"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp" />
+
+
+
+
+    <LinearLayout
+        android:layout_below="@id/headertoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/sliding_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:elevation="2dp"
+            app:tabTextColor="#fff"
+            app:tabIndicatorHeight="4dp"
+            app:tabIndicatorColor="@color/signupbtncolor"
+            app:tabSelectedTextColor="@color/signupbtncolor"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+
+            />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/appyellowclr"
+            />
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/txtUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/nextpaymentinfo"
+        android:gravity="center"
+        android:padding="15dp"
+        android:background="@color/signupbtncolor"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"/>
+
+
+
+
+
+</RelativeLayout>

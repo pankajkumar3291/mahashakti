@@ -2,6 +2,7 @@ package com.mahashakti.manager;
 
 import java.util.HashMap;
 
+import com.mahashakti.response.CreateSocialUser.CreateSocialSuccess;
 import com.mahashakti.response.CreateThought.CreateThoughtSuccess;
 import com.mahashakti.response.CreateUserSuccess.CreateUserSuccess;
 import com.mahashakti.response.EventResponse.EventSuccess;
@@ -90,6 +91,12 @@ public interface GitApiInterface {
 
 
 
+        //-----------------------9
+        @FormUrlEncoded
+        @POST("createusersocial")
+        Observable<CreateSocialSuccess> createusersocial(@Field("name") String Name,
+                                                         @Field("email") String Email,
+                                                        @Field("userfrom") String Userfrom);
 
 
 

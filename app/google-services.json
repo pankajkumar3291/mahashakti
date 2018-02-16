@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "175364315582",
+    "project_id": "mahashakti-194008"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175364315582:android:8f53995dd4eda794",
+        "android_client_info": {
+          "package_name": "com.mahashakti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175364315582-lfvfs9oopjch2ms9p8ufqt1fbbmn9mto.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "175364315582-ql3oaat1r8ori7kssnv0khd4pcnnq9cm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mahashakti",
+            "certificate_hash": "ac4ead8bc2f98e4717d9757d0b08a5feb349f1d1"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEVjQqkjdORKg9phA0F68IMXXuog2870Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

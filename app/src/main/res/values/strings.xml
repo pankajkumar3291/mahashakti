@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">Mahashakti</string>
+
+
+    <string name="facebook_app_id">388292308295573</string>
+    <string name="youtubeapi">AIzaSyCP2x2A7dYPdc-DSgCIG0hAdqyCBTX5IzY</string>
+    <string name="fb_login_protocol_scheme">fb388292308295573</string>
+
+    <string name="clientid">175364315582-lfvfs9oopjch2ms9p8ufqt1fbbmn9mto.apps.googleusercontent.com</string>
+    <string name="clientsecret">73MXsrVEz6i38bStXngYfMh4</string>
+
+    
+    <string-array name="query_suggestions">
+        <item>Android</item>
+        <item>iOS</item>
+        <item>SCALA</item>
+        <item>Ruby</item>
+        <item>JavaScript</item>
+    </string-array>
+
+    <string name="player_error">Error initializing YouTube player: %s</string>
+    <string name="seek_to">Jump To</string>
+    <string name="seek_to_hint">Seconds</string>
+
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+
+    <string name="userinfo">USER INFO</string>
+    <string name="payment">PAYMENT</string>
+    <string name="success">SUCCESS</string>
+    <string name="creditcard">Credit Card</string>
+    <string name="Rs">\u20B9</string>
+    <string name="startdate">START DATE :</string>
+    <string name="enddate">END DATE :</string>
+    <string name="paymentsuccess">PAYMENT SUCCESS</string>
+    <string name="yourpaymentof">YOUR PAYMENT OF </string>
+    <string name="wassuccessfully"> WAS SUCCESSFULLY</string>
+    <string name="completed">COMPLETED</string>
+
+    <string name="cardnumbr">CARD NUMBER</string>
+    <string name="securitycode">SECURITY CODE</string>
+    <string name="cardholdername">CARD HOLDER NAME</string>
+    <string name="expirydate">EXPIRY DATE</string>
+    <string name="amount">AMOUNT</string>
+
+    <string name="health">HEALTH</string>
+    <string name="love">LOVE</string>
+    <string name="money">MONEY</string>
+    <string name="spriti">SPRITUALITY</string>
+    <string name="neagtive">NEGATIVE INFLUENCES</string>
+
+    <string name="areyousuretologout">Are you sure you want to logout?</string>
+    <string name="logoutCap">LOGOUT</string>
+
+    <string name="service">SERVICES</string>
+
+    <string name="login">LOG IN</string>
+    <string name="signup">SIGN UP</string>
+    <string name="haveanaccount">Have an account?</string>
+    <string name="fullname">FULL NAME</string>
+    <string name="password">PASSWORD</string>
+    <string name="address">ADDRESS</string>
+    <string name="forgetpsw">Forget Password?</string>
+    <string name="update">UPDATE</string>
+    <string name="nextpaymentinfo">NEXT -PAYMENT INFO</string>
+    <string name="phonenumber">PHONE NUMBER</string>
+    <string name="cancelprogrambooking">CANCEL PROGRAM BOOKING</string>
+    <string name="areyousure">Are your surecancel the</string>
+    <string name="programbooking">program booking</string>
+
+
+    <string name="emailaddress">EMAIL ADDRESS</string>
+    <string name="confirmpsw">CONFIRM PASSWORD</string>
+    <string name="thought">THOUGHTS</string>
+    <string name="gallery">GALLERY</string>
+    <string name="program">PROGRAM</string>
+    <string name="booking">BOOKING</string>
+    <string name="booked">BOOKED</string>
+    <string name="cancel">CANCEL</string>
+    <string name="profile">PROFILE</string>
+    <string name="chat">CHAT</string>
+    <string name="getstarted">GET STARTED</string>
+    <string name="enternewthoughts">Enter your new thought...</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="edit">Edit Profile</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="str_male">Male</string>
+    <string name="female">Female</string>
+    <string name="search_title">Search</string>
+
+    <string-array name="upcomingeventtxtcolors">
+        <item>#FF0000</item>
+        <item>#42A5F5</item>
+        <item>#66FF33</item>
+        <item>#E64A19</item>
+        <item>#43A047</item>
+        <item>#FFFFFF</item>
+        <item>#CCFFFF</item>
+        <item>#CCFF33</item>
+        <item>#66FF33</item>
+
+
+    </string-array>
+
+
+</resources>

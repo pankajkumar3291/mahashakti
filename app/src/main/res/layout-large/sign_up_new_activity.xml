@@ -169,15 +169,13 @@
         android:textColor="@color/white" />
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:padding="@dimen/_5sdp"
-        >
+        android:padding="@dimen/_5sdp">
 
 
         <TextView
@@ -194,7 +192,7 @@
             android:id="@+id/tvSignIn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/signin"
+            android:text="@string/login"
             android:textColor="@color/black"
             android:padding="@dimen/_5sdp"
             android:textSize="@dimen/_11sdp"/>

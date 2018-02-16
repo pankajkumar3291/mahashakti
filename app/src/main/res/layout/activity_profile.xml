@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:id="@+id/rootView"
+        tools:context="com.mahashakti.activities.GalleryActivity"
+        >
+
+
+
+        <include
+            android:id="@+id/headertoolbar"
+            layout="@layout/toolbar"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="55dp" />
+
+
+
+        <FrameLayout
+            android:layout_below="@id/headertoolbar"
+            android:layout_above="@id/txtUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
+            android:clickable="true"
+            android:focusable="true" >
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/profileTop"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_170sdp"
+                    android:background="@drawable/mahashaktibg">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imageProfile"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_gravity="top|right"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/userbig"
+                        app:civ_border_color="#FF000000"
+                        app:civ_border_width="1dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <ImageView
+                        android:id="@+id/imageCamera"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:srcCompat="@drawable/camera" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.498"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.535" />
+
+
+                </android.support.constraint.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_below="@id/profileTop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_5sdp"
+                    android:background="@color/appyellowclr"
+                    >
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/fullname"
+                        android:theme="@style/TextLabel"
+                        >
+
+                        <EditText
+                            android:id="@+id/edUserNameProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/signinbtncolor"
+                            android:inputType="text"
+                            android:imeActionLabel="Hello"
+                            android:imeOptions="actionUnspecified"
+                            android:maxLines="1"
+                            android:editable="false"
+                            android:ems="10"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            />
+
+
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/emailaddress"
+                        android:theme="@style/TextLabel"
+                        >
+
+                        <EditText
+                            android:id="@+id/edEmailAddressProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/signinbtncolor"
+                            android:inputType="text"
+                            android:drawableRight="@drawable/edit"
+                            android:imeActionLabel="Hello"
+                            android:imeOptions="actionUnspecified"
+                            android:maxLines="1"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            />
+
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/phonenumber"
+                        android:theme="@style/TextLabel"
+                        >
+
+                        <EditText
+                            android:id="@+id/edPhoneNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/signinbtncolor"
+                            android:imeActionLabel="Hello"
+                            android:drawableRight="@drawable/edit"
+                            android:imeOptions="actionUnspecified"
+                            android:maxLines="1"
+                            android:inputType="number"
+                            tools:layout_editor_absoluteX="-62dp"
+                            tools:layout_editor_absoluteY="16dp"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            />
+
+
+                    </android.support.design.widget.TextInputLayout>
+
+
+
+
+
+                    <RadioGroup
+                        android:id="@+id/radioSex"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:id="@+id/radioMale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/str_male"
+                            android:theme="@style/MyRadioButton"
+                            />
+
+                        <RadioButton
+                            android:id="@+id/radioFemale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:theme="@style/MyRadioButton"
+                            android:text="@string/female"/>
+
+                    </RadioGroup>
+
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+        </FrameLayout>
+
+
+        <TextView
+            android:id="@+id/txtUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/update"
+            android:gravity="center"
+            android:padding="15dp"
+            android:textSize="@dimen/_10sdp"
+            android:background="@color/signupbtncolor"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/white"/>
+
+
+
+    </RelativeLayout>
+
+</ScrollView>

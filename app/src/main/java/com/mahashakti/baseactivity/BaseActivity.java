@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import com.awesomedialog.blennersilva.awesomedialoglibrary.AwesomeErrorDialog;
 import com.awesomedialog.blennersilva.awesomedialoglibrary.AwesomeSuccessDialog;
 import com.awesomedialog.blennersilva.awesomedialoglibrary.interfaces.Closure;
 import com.mahashakti.applicationclass.AppController;
@@ -71,22 +72,35 @@ public class BaseActivity extends AppCompatActivity {
 
         new AwesomeSuccessDialog(this)
                 .setTitle(title)
-                .setMessage("Successfully")
-                .setColoredCircle(R.color.signinbtncolor)
-                .setDialogIconAndColor(R.drawable.checkwhite, R.color.white)
+                .setColoredCircle(R.color.dialogSuccessBackgroundColor)
+                .setDialogIconAndColor(R.drawable.ic_dialog_info, R.color.white)
                 .setCancelable(true)
-                .setPositiveButtonText(getString(R.string.dialog_yes_button))
-                .setPositiveButtonbackgroundColor(R.color.signinbtncolor)
-                .setPositiveButtonTextColor(R.color.white)
-                .setPositiveButtonClick(new Closure() {
-                    @Override
-                    public void exec() {
 
-
-                    }
-                }).show();
+                .show();
 
     }
+
+
+    public void showErrorDialog(String title){
+
+        new AwesomeErrorDialog(this)
+                .setTitle(title)
+                .setColoredCircle(R.color.dialogErrorBackgroundColor)
+                .setDialogIconAndColor(R.drawable.ic_dialog_error, R.color.white)
+                .setCancelable(true).setButtonText(getString(R.string.dialog_ok_button))
+                .setButtonBackgroundColor(R.color.dialogErrorBackgroundColor)
+                .setButtonText(getString(R.string.dialog_ok_button))
+                .setErrorButtonClick(new Closure() {
+                    @Override
+                    public void exec() {
+                        // click
+                    }
+                })
+                .show();
+
+
+    }
+
 
     public void didTapButton(View view) {
         final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
@@ -100,11 +114,11 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-    public void flipProgress(){
+    public void flipProgress() {
 
         // Set imageList
         List<Integer> imageList = new ArrayList<Integer>();
-        imageList.add(R.drawable.loader);
+        imageList.add(R.drawable.progress);
 
 
         fpd = new FlipProgressDialog();
@@ -114,7 +128,7 @@ public class BaseActivity extends AppCompatActivity {
         fpd.setDimAmount(0.0f);                                   // Set a dim (How much dark outside of dialog)
 
         // About dialog shape, color
-        fpd.setBackgroundColor(Color.parseColor("#e0e0e0"));      // Set a background color of dialog
+        fpd.setBackgroundColor(Color.parseColor("#7e7e7e"));      // Set a background color of dialog
         fpd.setBackgroundAlpha(0.2f);                             // Set a alpha color of dialog
         fpd.setBorderStroke(0);                                   // Set a width of border stroke of dialog
         fpd.setBorderColor(-1);                                   // Set a border stroke color of dialog
@@ -138,11 +152,9 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-
     public void navigateToNextActivity(Class cla){
 
         startActivity(new Intent(BaseActivity.this,cla));
-        overridePendingTransition(R.anim.enter, R.anim.exit);
 
     }
 

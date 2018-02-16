@@ -1,0 +1,195 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appyellowclr"
+    android:paddingTop="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="mahashakti.mahashakti.com.mahashakti.Fragments.FragmentPayment">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:focusableInTouchMode="true"
+        android:clickable="true"
+        android:focusable="true">
+
+        <LinearLayout
+            android:id="@+id/customCreditLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/linearbgborder">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:src="@drawable/checked"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/creditcard"
+                android:textColor="@color/signupbtncolor"
+                android:layout_gravity="center"
+                android:layout_weight="1"/>
+
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/visa"/>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/mastercard"/>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_below="@id/customCreditLinearLayout"
+            android:id="@+id/creditCardLayout"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_current"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/TextLabel"
+                android:textColorHint="@color/orange_app"
+                android:textSize="@dimen/_10sdp"
+                >
+
+                <EditText
+                    android:id="@+id/edCardnumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/cardnumbr"
+                    android:singleLine="true"
+                    android:maxLength="24"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/signinbtncolor"
+                    android:textSize="@dimen/_10sdp"
+                    android:drawableTint="@color/grey"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:hintTextAppearance="@style/TextLabel"
+                    android:textColorHint="@color/orange_app"
+
+                    android:layout_weight="1"
+                    >
+
+                    <EditText
+                        android:id="@+id/edCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/securitycode"
+                        android:singleLine="true"
+                        android:maxLength="3"
+                        android:backgroundTint="@color/signinbtncolor"
+                        android:textColor="@color/black"
+                        android:inputType="number"
+                        android:textSize="@dimen/_10sdp"
+                        android:drawableTint="@color/grey"
+                        />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:hintTextAppearance="@style/TextLabel"
+                    android:textColorHint="@color/orange_app"
+                    android:layout_weight="1"
+                    >
+
+                    <EditText
+                        android:id="@+id/edExpiryDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:hint="Exp. MM/YYYY"
+                        android:inputType="date"
+                        android:textColor="@color/black"
+                        android:backgroundTint="@color/signinbtncolor"
+                        android:textSize="@dimen/_10sdp"
+                        android:drawableTint="@color/grey"
+                        />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+
+
+
+            </LinearLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/TextLabel"
+                android:textColorHint="@color/orange_app"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                >
+
+                <EditText
+                    android:id="@+id/edCardholderName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/cardholdername"
+                    android:singleLine="true"
+                    android:maxLength="3"
+                    android:backgroundTint="@color/signinbtncolor"
+                    android:textColor="@color/black"
+                    android:inputType="number"
+                    android:textSize="@dimen/_10sdp"
+                    android:drawableTint="@color/grey"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+</FrameLayout>

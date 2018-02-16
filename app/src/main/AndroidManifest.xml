@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.mahashakti">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.flash"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <application
+        android:name=".applicationclass.AppController"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/NoInternetTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.com.vansuita.pickimage.provider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/picker_provider_paths" />
+        </provider>
+
+
+        <activity
+            android:name=".activities.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DashBoardTheme" />
+        <activity
+            android:name=".activities.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DashBoardTheme" />
+        <activity
+            android:name=".UserProfile"
+            android:screenOrientation="portrait"
+            android:theme="@style/DashBoardTheme" />
+        <activity
+            android:name=".activities.SignUpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DashBoardTheme" />
+        <activity
+            android:name=".activities.DashboardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DashBoardTheme"></activity>
+        <activity
+            android:name=".activities.GalleryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DashBoardTheme" />
+        <activity
+            android:name=".activities.ThoughtsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DashBoardTheme" />
+        <activity
+            android:name=".activities.ProgramActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DashBoardTheme" />
+        <activity
+            android:name=".activities.BookingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DashBoardTheme" />
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/DashBoardTheme" />
+
+        <activity android:name=".activities.NotificationActivity"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/DashBoardTheme"/>
+        <activity
+            android:name=".activities.PaymentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DashBoardTheme" />
+        <activity
+            android:name=".activities.ServiceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DashBoardTheme" />
+        <activity
+            android:name=".activities.ChatActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DashBoardTheme" />
+        <activity
+            android:name=".activities.ForgetPasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DashBoardTheme" />
+        <activity
+            android:name=".activities.EventDetailActivity"
+            android:theme="@style/DashBoardTheme" />
+
+        <activity android:name=".activities.GalleryDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DashBoardTheme">
+
+        </activity>
+    </application>
+
+</manifest>

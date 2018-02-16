@@ -3,12 +3,17 @@ package com.mahashakti.presenter;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
+
+import com.awesomedialog.blennersilva.awesomedialoglibrary.AwesomeErrorDialog;
+import com.awesomedialog.blennersilva.awesomedialoglibrary.interfaces.Closure;
+import com.mahashakti.R;
 
 /**
  * Created by dharamveer on 25/1/18.
  */
 
-public class BasePresenter {
+public class BasePresenter extends AppCompatActivity{
 
 
     protected ProgressDialog pDialog;
@@ -35,10 +40,27 @@ public class BasePresenter {
 
     }
 
-    protected void showDialog(String message) {
+
+    public void showErrorDialog(String title){
+
+        new AwesomeErrorDialog(this)
+                .setTitle(title)
+                .setColoredCircle(R.color.dialogErrorBackgroundColor)
+                .setDialogIconAndColor(R.drawable.ic_dialog_error, R.color.white)
+                .setCancelable(true).setButtonText(getString(R.string.dialog_ok_button))
+                .setButtonBackgroundColor(R.color.dialogErrorBackgroundColor)
+                .setButtonText(getString(R.string.dialog_ok_button))
+                .setErrorButtonClick(new Closure() {
+                    @Override
+                    public void exec() {
+                        // click
+                    }
+                })
+                .show();
 
 
     }
+
 
 
 

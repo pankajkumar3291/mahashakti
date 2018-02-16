@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.mahashakti.activities.GalleryActivity">
+
+
+
+    <include
+        android:id="@+id/headertoolbar"
+        layout="@layout/toolbarchat"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="55dp" />
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/chatRecyclerview"
+        android:layout_below="@id/headertoolbar"
+        android:layout_above="@id/linearBottomChat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/appyellowclr">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+
+    <LinearLayout
+        android:id="@+id/linearBottomChat"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:elevation="20dp"
+        android:layout_alignParentBottom="true">
+
+        <hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
+            android:id="@+id/edChat"
+            android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="false"
+            android:layout_weight="1"
+            android:inputType="textMultiLine"
+            android:maxLines="4"
+            android:minLines="1"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@android:color/black"
+            android:hint="@string/enternewthoughts"
+            android:background="@android:color/transparent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/emoji_btn_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:src="@drawable/happy"/>
+
+
+        <ImageView
+            android:id="@+id/imageAttachmentChat"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:padding="8dp"
+            android:src="@drawable/attachment"/>
+
+        <RelativeLayout
+            android:id="@+id/relativeSendChatChat"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@color/signupbtncolor">
+
+            <ImageView
+                android:layout_margin="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/sendchat"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

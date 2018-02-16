@@ -3,16 +3,16 @@ package com.mahashakti.response.UpcomingEventSuccess;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 /**
  * Created by dharamveer on 6/2/18.
  */
 
 public class UpcomingEventSuccess {
+
+
     @Expose
     @SerializedName("payload")
-    private List<PayloadUpcomingEvent> payload;
+    private PayloadUpcomingEvent payload;
     @Expose
     @SerializedName("Error")
     private boolean Error;
@@ -20,11 +20,11 @@ public class UpcomingEventSuccess {
     @SerializedName("Success")
     private boolean Success;
 
-    public List<PayloadUpcomingEvent> getPayload() {
+    public PayloadUpcomingEvent getPayload() {
         return payload;
     }
 
-    public void setPayload(List<PayloadUpcomingEvent> payload) {
+    public void setPayload(PayloadUpcomingEvent payload) {
         this.payload = payload;
     }
 
