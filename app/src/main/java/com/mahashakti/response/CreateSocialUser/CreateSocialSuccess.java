@@ -9,33 +9,82 @@ import com.google.gson.annotations.SerializedName;
 
 public class CreateSocialSuccess {
 
-    @SerializedName("Success")
+//    @SerializedName("Success")
+//    @Expose
+//    private Boolean success;
+//    @SerializedName("Error")
+//    @Expose
+//    private Boolean error;
+//    @SerializedName("message")
+//    @Expose
+//    private String message;
+//    @SerializedName("payload")
+//    @Expose
+//    private CreatePayloadSocial payload;
+//
+//    public Boolean getSuccess() {
+//        return success;
+//    }
+//
+//    public void setSuccess(Boolean success) {
+//        this.success = success;
+//    }
+//
+//    public Boolean getError() {
+//        return error;
+//    }
+//
+//    public void setError(Boolean error) {
+//        this.error = error;
+//    }
+//
+//    public String getMessage() {
+//        return message;
+//    }
+//
+//    public void setMessage(String message) {
+//        this.message = message;
+//    }
+//
+//    public CreatePayloadSocial getPayload() {
+//        return payload;
+//    }
+//
+//    public void setPayload(CreatePayloadSocial payload) {
+//        this.payload = payload;
+//    }
+
+
+    @SerializedName("isSuccess")
     @Expose
-    private Boolean success;
-    @SerializedName("Error")
+    public Boolean isSuccess;
+
+    @SerializedName("isError")
     @Expose
-    private Boolean error;
+    public Boolean isError;
+
     @SerializedName("message")
     @Expose
-    private String message;
-    @SerializedName("payload")
+    public String message;
+
+    @SerializedName("payLoad")
     @Expose
-    private CreatePayloadSocial payload;
+    public PayLoad payLoad;
 
     public Boolean getSuccess() {
-        return success;
+        return isSuccess;
     }
 
     public void setSuccess(Boolean success) {
-        this.success = success;
+        isSuccess = success;
     }
 
     public Boolean getError() {
-        return error;
+        return isError;
     }
 
     public void setError(Boolean error) {
-        this.error = error;
+        isError = error;
     }
 
     public String getMessage() {
@@ -46,12 +95,13 @@ public class CreateSocialSuccess {
         this.message = message;
     }
 
-    public CreatePayloadSocial getPayload() {
-        return payload;
+    public PayLoad getPayLoad() {
+        return payLoad;
     }
 
-    public void setPayload(CreatePayloadSocial payload) {
-        this.payload = payload;
+    public void setPayLoad(PayLoad payLoad) {
+        this.payLoad = payLoad;
     }
+
 
 }

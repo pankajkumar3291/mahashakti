@@ -4,10 +4,13 @@ import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
+import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +19,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,17 +30,26 @@ import android.widget.TextView;
 
 import com.droidbyme.dialoglib.AnimUtils;
 import com.droidbyme.dialoglib.DroidDialog;
+import com.kogitune.activity_transition.ActivityTransitionLauncher;
 import com.mahashakti.AppConstants;
 import com.mahashakti.R;
-import com.mahashakti.applicationclass.AppController;
+import com.mahashakti.ApplicationClass.AppController;
 import com.mahashakti.baseactivity.BaseActivity;
 import com.mahashakti.events.ImageProfileEvent;
+import com.mahashakti.httpNet.HttpModule;
+import com.mahashakti.response.EventResponse.EventSuccess;
 import com.mahashakti.response.UpcomingEventSuccess.UpcomingEventSuccess;
+import com.mahashakti.response.createServices.CreateServices;
+import com.mahashakti.response.createServices.PayLoad;
 import com.mahashakti.sharedPreferences.UserDataUtility;
+import com.sdsmdg.tastytoast.TastyToast;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.TreeSet;
 
 import am.appwise.components.ni.NoInternetDialog;
 import butterknife.BindView;
@@ -46,6 +60,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
@@ -78,6 +95,12 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     CardView cardViewChat;
 
 
+
+    @BindView(R.id.card_view_blog)
+    CardView card_view_blog;
+
+
+
     TextView notifications;
     @BindView(R.id.txtStartDate)
     TextView txtStartDate;
@@ -95,6 +118,9 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     private Context context;
     NoInternetDialog noInternetDialog;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private long lastClickTime = 0;
+
+    ArrayList<PayLoad> payLoadsServices = new ArrayList<>();
 
 
     @Override
@@ -142,12 +168,10 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                             String endDtae = upcomingEventSuccess.getPayload().getEventenddate();
 
 
-
-
                             String startDa = startDate.replaceAll("-", "/");
                             String endDa = endDtae.replaceAll("-", "/");
 
-                           // SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+                            // SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
                             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 
 
@@ -190,8 +214,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     }
 
 
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -208,6 +230,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         View hView = navigationView.getHeaderView(0);
+//        navigationView.setVerticalScrollBarEnabled(false);
 
         profile_image = hView.findViewById(R.id.profile_image);
         tvEmpName = hView.findViewById(R.id.tvEmpName);
@@ -220,14 +243,13 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         String userPic = sharedPrefsHelper.get(AppConstants.PROFILE_PIC, "pic");
 
 
-        if(userPic.contains("facebook")){
+        if (userPic.contains("facebook")) {
 
             Picasso.with(context)
                     .load(userPic)
                     .error(R.drawable.user)
                     .into(profile_image);
-        }
-        else {
+        } else {
 
             Picasso.with(context)
                     .load("http://mahashaktiradiance.com/" + userPic)
@@ -235,9 +257,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                     .into(profile_image);
 
         }
-
-
-
 
 
         ((AppController) getApplicationContext()).bus().toObservable().subscribe(new Consumer<Object>() {
@@ -310,25 +329,30 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         // Handle navigation view item clicks here.
+
+
         int id = item.getItemId();
 
         if (id == R.id.profile_frag) {
 
-
-            gotoNextActivity(ProfileActivity.class);
+//            SpannableString s = new SpannableString("Profile");
+//            s.setSpan(new ForegroundColorSpan(Color.RED), 0, s.length(), 0);
+//            item.setTitle(s);
+//            gotoNextActivity(ProfileActivity.class);
 
         } else if (id == R.id.notification_frag) {
 
+//            SpannableString s = new SpannableString("Notifications");
+//            s.setSpan(new ForegroundColorSpan(Color.RED), 0, s.length(), 0);
+//            item.setTitle(s);
 
             gotoNextActivity(NotificationActivity.class);
-
-
         } else if (id == R.id.chat_frag) {
-
+//            SpannableString s = new SpannableString("Chat to Mahashakti friends");
+//            s.setSpan(new ForegroundColorSpan(Color.RED), 0, s.length(), 0);
+//            item.setTitle(s);
 
             gotoNextActivity(ChatActivity.class);
-
-
         } else if (id == R.id.settings_frag) {
 
         } else if (id == R.id.addbank_frag) {
@@ -338,14 +362,13 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         } else if (id == R.id.log_out_frag) {
 
 
-
             sharedPrefsHelper.clearAllSaveddData();
 
             new DroidDialog.Builder(context)
                     .icon(R.drawable.ic_action_tick)
                     .title("Logout")
                     .content(getString(R.string.areyousuretologout))
-                    .cancelable(true, true)
+                    .cancelable(true, false)
                     .positiveButton("YES", new DroidDialog.onPositiveListener() {
                         @Override
                         public void onPositive(Dialog droidDialog) {
@@ -367,13 +390,86 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                             //Toast.makeText(context, "No", Toast.LENGTH_SHORT).show();
                         }
                     })
-                    .neutralButton("SKIP", new DroidDialog.onNeutralListener() {
-                        @Override
-                        public void onNeutral(Dialog droidDialog) {
-                            droidDialog.dismiss();
-                            // Toast.makeText(context, "Skip", Toast.LENGTH_SHORT).show();
-                        }
-                    })
+//                    .neutralButton("SKIP", new DroidDialog.onNeutralListener() {
+//                        @Override
+//                        public void onNeutral(Dialog droidDialog) {
+//                            droidDialog.dismiss();
+//                            // Toas  private class Uploadtask extends AsyncTask<Void, Integer, String> {
+//        @Override
+//        protected void onPreExecute() {
+//            mProgressBar.setProgress(0);
+//            super.onPreExecute();
+//        }
+//
+//        @Override
+//        protected void onProgressUpdate(Integer... progress) {
+//            mProgressBar.setProgress(progress[0]);
+//        }
+//
+//        @Override
+//        protected String doInBackground(Void... params) {
+//            return upload();
+//        }
+//
+//        private String upload() {
+//            String responseString = "";
+//            File sourceFile = new File(filePath);
+//            if (!sourceFile.isFile()) {
+//                return "not a file";
+//            }
+//            HttpClient httpclient = new DefaultHttpClient();
+//            HttpPost httppost = new HttpPost(urlString);
+////            httppost.addHeader("Content-Type","multipart/form-data");
+//
+//            httppost.addHeader("content-type", "multipart/form-data; boundary= ===12345612===");
+//
+//            try {
+//                CustomMultiPartEntity entity = new CustomMultiPartEntity(new CustomMultiPartEntity.ProgressListener() {
+//                    @Override
+//                    public void transferred(long num) {
+//
+//                        publishProgress((int) ((num / (float) totalSize) * 100));
+//
+//                    }
+//                });
+//
+//                entity.addPart("orderid", new StringBody(orderID));
+//                entity.addPart("myDocs", new FileBody(sourceFile));
+//                totalSize = entity.getContentLength();
+//                httppost.setEntity(entity);
+//                HttpResponse response = httpclient.execute(httppost);
+//                HttpEntity r_entity = response.getEntity();
+//                responseString = EntityUtils.toString(r_entity);
+//
+//            } catch (ClientProtocolException e) {
+//                responseString = e.toString();
+//            } catch (IOException e) {
+//                responseString = e.toString();
+//            }
+//
+//            return responseString;
+//
+//        }
+//
+//
+//        @Override
+//        protected void onPostExecute(String result) {
+//            isClickable = true;
+//            imageUploadingButton.setClickable(isClickable);
+//            mProgressBar.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
+//            dialog.dismiss();
+//            if (imageUploadingButton.getText().toString().equalsIgnoreCase("UPLOADING..."))
+//                imageUploadingButton.setText("UPLOADED");
+//            imageUploadingButton.setClickable(false);
+//
+//            TastyToast.makeText(getApplicationContext(), "Document Uploaded Successfully", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+//            super.onPostExecute(result);
+//
+//        }
+//
+//    }t.makeText(context, "Skip", Toast.LENGTH_SHORT).show();
+//                        }
+//                    })
                     .typeface("regular.ttf")
                     .animation(AnimUtils.AnimZoomInOut)
                     .color(ContextCompat.getColor(context, R.color.signinbtncolor), ContextCompat.getColor(context, R.color.white),
@@ -382,6 +478,16 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                     .show();
 
 
+        } else if (id == R.id.testimonials_frag) {
+
+            Intent intent = new Intent(this, TestimonialActivity.class);
+            startActivity(intent);
+
+        } else if (id == R.id.about_us_frag) {
+
+            TastyToast.makeText(getApplicationContext(), "About Us Activity", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+        } else if (id == R.id.contact_us_frag) {
+            TastyToast.makeText(getApplicationContext(), "Contact Us Activity", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -389,37 +495,64 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         return true;
     }
 
+    private void disableNavigationViewScrollbars(NavigationView navigationView) {
+        if (navigationView != null) {
 
-    @OnClick({R.id.card_view_chat, R.id.card_view_service, R.id.card_view_thoughts, R.id.card_view_gallery, R.id.card_view_program, R.id.card_view_booking, R.id.card_view_profile})
+            NavigationMenuView navigationMenuView = (NavigationMenuView) navigationView.getChildAt(0);
+            if (navigationMenuView != null) {
+                navigationMenuView.setVerticalScrollBarEnabled(false);
+            }
+        }
+    }
+
+
+    @OnClick({R.id.card_view_chat, R.id.card_view_service, R.id.card_view_thoughts, R.id.card_view_gallery, R.id.card_view_program, R.id.card_view_booking, R.id.card_view_profile , R.id.card_view_blog})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.card_view_thoughts:
 
+                if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+                    return;
+                }
+                lastClickTime = SystemClock.elapsedRealtime();
 
                 navigateToNextActivity(ThoughtsActivity.class, cardViewThoughts);
 
                 break;
             case R.id.card_view_gallery:
 
+                if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+                    return;
+                }
+                lastClickTime = SystemClock.elapsedRealtime();
 
                 navigateToNextActivity(GalleryActivity.class, cardViewGallery);
 
 
                 break;
             case R.id.card_view_program:
-
-
+                if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+                    return;
+                }
+                lastClickTime = SystemClock.elapsedRealtime();
                 navigateToNextActivity(ProgramActivity.class, cardViewProgram);
 
 
                 break;
             case R.id.card_view_booking:
-
+                if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+                    return;
+                }
+                lastClickTime = SystemClock.elapsedRealtime();
                 navigateToNextActivity(BookingActivity.class, cardViewBooking);
 
 
                 break;
             case R.id.card_view_profile:
+                if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+                    return;
+                }
+                lastClickTime = SystemClock.elapsedRealtime();
 
                 navigateToNextActivity(ProfileActivity.class, cardViewProfile);
 
@@ -427,19 +560,78 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
             case R.id.card_view_service:
 
-
-                navigateToNextActivity(ServiceActivity.class, card_view_service);
-
+                if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+                    return;
+                }
+                lastClickTime = SystemClock.elapsedRealtime();
+                commonServices();
                 break;
 
             case R.id.card_view_chat:
 
+                if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+                    return;
+                }
+                lastClickTime = SystemClock.elapsedRealtime();
+
                 navigateToNextActivity(ChatActivity.class, cardViewChat);
+                break;
+
+
+            case R.id.card_view_blog:
+                System.out.println("DashboardActivity.onViewClicked blog clicked ");
+                Intent intent = new Intent(DashboardActivity.this, BlogActivity.class);
+                startActivity(intent);
 
 
                 break;
 
         }
+    }
+
+    private void commonServices() {
+
+        HttpModule.provideRepositoryService().creatingService().enqueue(new Callback<CreateServices>() {
+
+            @Override
+            public void onResponse(Call<CreateServices> call, Response<CreateServices> response) {
+
+
+                if (response.body() != null) {
+
+                    if (response.body().isSuccess) {
+
+                        TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+
+                        Intent intent = new Intent(DashboardActivity.this, ServiceActivity.class);
+                        intent.putExtra("serviceList", (Serializable) response.body().payLoad);
+                        startActivity(intent);
+
+//                        navigateToNextActivity(ServiceActivity.class, card_view_service);
+
+                    }
+                } else {
+                    System.out.println("DashboardActivity.onResponse   false ");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CreateServices> call, Throwable t) {
+
+
+                System.out.println("DashboardActivity.onFailure " + t);
+            }
+        });
+
+    }
+
+    private void stoppingDoubleTap() {
+
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+
     }
 
     private void navigateToNextActivity(final Class aClass, CardView cardView) {

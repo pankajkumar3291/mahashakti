@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
 import com.mahashakti.adapters.SimpleFragmentPagerAdapter;
 import com.mahashakti.R;
 import com.mahashakti.baseactivity.BaseActivity;
@@ -22,12 +23,16 @@ public class PaymentActivity extends BaseActivity {
 
     @BindView(R.id.imageBackaroow)
     RelativeLayout imageBackaroow;
+
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
     @BindView(R.id.viewpager)
     ViewPager viewpager;
+
     @BindView(R.id.sliding_tabs)
     TabLayout slidingTabs;
 
@@ -52,19 +57,14 @@ public class PaymentActivity extends BaseActivity {
 
         // Create an adapter that knows which fragment should be shown on each page
         SimpleFragmentPagerAdapter adapter = new SimpleFragmentPagerAdapter(this, getSupportFragmentManager());
-
         // Set the adapter onto the view pager
         viewpager.setAdapter(adapter);
-
         // Give the TabLayout the ViewPager
         slidingTabs.setupWithViewPager(viewpager);
-
         createTabIcons();
 
 
     }
-
-
 
 
     private void createTabIcons() {
@@ -74,15 +74,14 @@ public class PaymentActivity extends BaseActivity {
                 .inflate(R.layout.custom_tab, null, false);
 
 
-        LinearLayout linearLayoutOne =  headerView.findViewById(R.id.ll);
-        LinearLayout linearLayout2 =  headerView.findViewById(R.id.ll2);
-        LinearLayout linearLayout3 =  headerView.findViewById(R.id.ll3);
+        LinearLayout linearLayoutOne = headerView.findViewById(R.id.ll);
+        LinearLayout linearLayout2 = headerView.findViewById(R.id.ll2);
+        LinearLayout linearLayout3 = headerView.findViewById(R.id.ll3);
 
         slidingTabs.getTabAt(0).setCustomView(linearLayoutOne);
         slidingTabs.getTabAt(1).setCustomView(linearLayout2);
         slidingTabs.getTabAt(2).setCustomView(linearLayout3);
     }
-
 
 
     @OnClick(R.id.imageBackaroow)

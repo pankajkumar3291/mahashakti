@@ -11,7 +11,10 @@ import java.lang.annotation.RetentionPolicy;
  */
 
 public class AppConstants {
-    public static final String BASE_URL = "http://mahashaktiradiance.com/api/";
+    public static final String BASE_URL = "http://softwareering.com/mahashakti/public/api/api/";
+
+//    http://softwareering.com/mahashakti/public/api/api/register
+//    "http://mahashaktiradiance.com/api/";
 
     public static final String IS_LOGIN = "IS_LOGIN";
     public static final String USER_NAME = "USER_NAME";
@@ -25,7 +28,8 @@ public class AppConstants {
     public static final String VIDEO_TITLE = "VIDEO_TITLE";
     public static final String IMAGE_TITLE = "IMAGE_TITLE";
     public static final String IMAGE_URL = "IMAGE_URL";
-
+    public static final String GETCREATEDAT = "GETCREATEDAT";
+    public static final String GETAORC = "GETAORC";
 
 
 

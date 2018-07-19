@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    android:id="@+id/rootView"
     tools:context="com.mahashakti.activities.GalleryActivity">
-
-
 
     <include
         android:id="@+id/headertoolbar"
         layout="@layout/toolbar"
-        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp" />
-
-
+        android:layout_height="@dimen/_50sdp"
+        android:layout_alignParentTop="true" />
 
 
     <LinearLayout
-        android:layout_below="@id/headertoolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/headertoolbar"
         android:orientation="vertical">
 
         <android.support.design.widget.TabLayout
@@ -31,12 +27,12 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:elevation="2dp"
-            app:tabTextColor="#fff"
-            app:tabIndicatorHeight="4dp"
-            app:tabIndicatorColor="@color/signupbtncolor"
-            app:tabSelectedTextColor="@color/signupbtncolor"
             app:tabGravity="fill"
+            app:tabIndicatorColor="@color/signupbtncolor"
+            app:tabIndicatorHeight="4dp"
             app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/signupbtncolor"
+            app:tabTextColor="#fff"
 
             />
 
@@ -44,26 +40,21 @@
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/appyellowclr"
-            />
+            android:background="@color/appyellowclr" />
 
     </LinearLayout>
-
 
 
     <TextView
         android:id="@+id/txtUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/nextpaymentinfo"
+        android:layout_alignParentBottom="true"
+        android:background="@color/signupbtncolor"
         android:gravity="center"
         android:padding="15dp"
-        android:background="@color/signupbtncolor"
-        android:layout_alignParentBottom="true"
-        android:textColor="@color/white"/>
-
-
-
+        android:text="@string/nextpaymentinfo"
+        android:textColor="@color/white" />
 
 
 </RelativeLayout>

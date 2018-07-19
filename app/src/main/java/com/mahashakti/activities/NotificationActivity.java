@@ -51,39 +51,27 @@ public class NotificationActivity extends BaseActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
         toolbarTitle.setText("NOTIFICATION");
 
 
         NotificationRecyclerView.setHasFixedSize(true);
-
-
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(NotificationActivity.this);
-
         NotificationRecyclerView.setLayoutManager(mLayoutManager);
         NotificationRecyclerView.setItemAnimator(new DefaultItemAnimator());
         adapterNotifications = new AdapterNotifications(NotificationActivity.this, NotificationCollection.getNotificationList());
-
         NotificationRecyclerView.setAdapter(adapterNotifications);
-
-
 
 
     }
 
     @OnClick(R.id.imageBackaroow)
     public void onViewClicked() {
-
-
         finish();
-
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
-
     }
 
 }

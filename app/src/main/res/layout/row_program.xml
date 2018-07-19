@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/eventRow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/eventRow"
-    android:layout_marginBottom="@dimen/_1sdp"
-    >
+    android:layout_marginBottom="@dimen/_1sdp">
 
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="0dp"
         app:cardUseCompatPadding="true"
-        >
+        card_view:cardCornerRadius="0dp">
 
 
         <RelativeLayout
@@ -24,25 +21,24 @@
             android:layout_height="wrap_content">
 
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/imageProgram"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:src="@drawable/male"
-                app:civ_border_width="1dp"
+                android:layout_alignParentLeft="true"
                 android:layout_margin="8dp"
                 android:padding="@dimen/_5sdp"
-                android:layout_alignParentLeft="true"
-                app:civ_border_color="#FF000000"/>
+                android:src="@drawable/male"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="1dp" />
 
 
             <LinearLayout
-                android:layout_toRightOf="@id/imageProgram"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_margin="5dp"
+                android:layout_toRightOf="@id/imageProgram"
+                android:orientation="vertical"
                 android:weightSum="2">
 
                 <TextView
@@ -53,29 +49,31 @@
                     android:textSize="@dimen/_12sdp"
                     android:textStyle="bold" />
 
-                <TextView
+                <com.mahashakti.AutoScrollableTextView
                     android:id="@+id/txtFestDescription"
-                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Take"
-                    android:maxLines="2"
+                    android:layout_marginTop="5dp"
                     android:ellipsize="end"
+                    android:maxLines="5"
+                    android:padding="@dimen/_10sdp"
+                    android:scrollbars="vertical"
+                    android:text="Take"
                     android:textSize="@dimen/_8sdp"
                     android:textStyle="normal" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp">
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/calendar"/>
+                        android:src="@drawable/calendar" />
 
 
                     <TextView
@@ -83,15 +81,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textSize="@dimen/_8sdp"
-                        android:text="24-10-2017"/>
+                        android:text="24-10-2017"
+                        android:textSize="@dimen/_8sdp" />
 
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/time"/>
+                        android:src="@drawable/time" />
 
 
                     <TextView
@@ -99,9 +97,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textSize="@dimen/_8sdp"
-                        android:text="10:00 AM"/>
-
+                        android:text="10:00 AM"
+                        android:textSize="@dimen/_8sdp" />
 
 
                 </LinearLayout>
@@ -109,29 +106,28 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginBottom="@dimen/_5sdp"
-                    >
+                    android:orientation="horizontal">
 
 
                     <Button
                         android:id="@+id/btnBooking"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
+                        android:background="@drawable/roundbtnbooking"
                         android:text="@string/booking"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_8sdp"
-                        android:background="@drawable/roundbtnbooking"/>
+                        android:textSize="@dimen/_8sdp" />
 
                     <Button
                         android:id="@+id/btnChat"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:text="@string/chat"
-                        android:textSize="@dimen/_8sdp"
                         android:layout_marginLeft="@dimen/_10sdp"
+                        android:background="@drawable/roundbtnchat"
+                        android:text="@string/chat"
                         android:textColor="@color/white"
-                        android:background="@drawable/roundbtnchat"/>
+                        android:textSize="@dimen/_8sdp" />
 
                 </LinearLayout>
 

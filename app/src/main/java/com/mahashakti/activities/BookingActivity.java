@@ -28,10 +28,13 @@ public class BookingActivity extends BaseActivity {
 
     @BindView(R.id.imageBackaroow)
     RelativeLayout imageBackaroow;
+
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
     @BindView(R.id.bookingRecyclerView)
     RecyclerView bookingRecyclerView;
 
@@ -57,10 +60,7 @@ public class BookingActivity extends BaseActivity {
 
 
         bookingRecyclerView.setHasFixedSize(true);
-
-
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(BookingActivity.this);
-
         bookingRecyclerView.setLayoutManager(mLayoutManager);
         bookingRecyclerView.setItemAnimator(new DefaultItemAnimator());
         adapterBooking = new AdapterBooking(BookingActivity.this, BookingCollection.getBookingList());
@@ -77,7 +77,6 @@ public class BookingActivity extends BaseActivity {
 
               BookingCancelDialog bookingCancelDialog = new BookingCancelDialog(BookingActivity.this);
               bookingCancelDialog.show();
-
 
           }
 
@@ -108,7 +107,6 @@ public class BookingActivity extends BaseActivity {
     public void onViewClicked() {
 
         finish();
-
 
     }
 }

@@ -10,37 +10,88 @@ import java.util.List;
  */
 
 public class GetGallerySuccess {
+
+//    @Expose
+//    @SerializedName("payload")
+//    private List<PayloadGallery> payload;
+//    @Expose
+//    @SerializedName("Error")
+//    private boolean Error;
+//    @Expose
+//    @SerializedName("Success")
+//    private boolean Success;
+//
+//    public List<PayloadGallery> getPayload() {
+//        return payload;
+//    }
+//
+//    public void setPayload(List<PayloadGallery> payload) {
+//        this.payload = payload;
+//    }
+//
+//    public boolean getError() {
+//        return Error;
+//    }
+//
+//    public void setError(boolean Error) {
+//        this.Error = Error;
+//    }
+//
+//    public boolean getSuccess() {
+//        return Success;
+//    }
+//
+//    public void setSuccess(boolean Success) {
+//        this.Success = Success;
+//    }
+
+    @SerializedName("isSuccess")
     @Expose
-    @SerializedName("payload")
-    private List<PayloadGallery> payload;
+    public Boolean isSuccess;
+
+    @SerializedName("isError")
     @Expose
-    @SerializedName("Error")
-    private boolean Error;
+    public Boolean isError;
+
+    @SerializedName("message")
     @Expose
-    @SerializedName("Success")
-    private boolean Success;
+    public String message;
 
-    public List<PayloadGallery> getPayload() {
-        return payload;
+    @SerializedName("payLoad")
+    @Expose
+    public List<PayLoad> payLoad = null;
+
+    public Boolean getSuccess() {
+        return isSuccess;
     }
 
-    public void setPayload(List<PayloadGallery> payload) {
-        this.payload = payload;
+    public void setSuccess(Boolean success) {
+        isSuccess = success;
     }
 
-    public boolean getError() {
-        return Error;
+    public Boolean getError() {
+        return isError;
     }
 
-    public void setError(boolean Error) {
-        this.Error = Error;
+    public void setError(Boolean error) {
+        isError = error;
     }
 
-    public boolean getSuccess() {
-        return Success;
+    public String getMessage() {
+        return message;
     }
 
-    public void setSuccess(boolean Success) {
-        this.Success = Success;
+    public void setMessage(String message) {
+        this.message = message;
     }
+
+    public List<PayLoad> getPayLoad() {
+        return payLoad;
+    }
+
+    public void setPayLoad(List<PayLoad> payLoad) {
+        this.payLoad = payLoad;
+    }
+
+
 }

@@ -11,24 +11,21 @@ import com.mahashakti.sharedPreferences.UserDataUtility;
 
 public class SplashActivity extends BaseActivity {
 
-
     // Splash screen timer
     private volatile boolean interrupt;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        setTheme(R.style.SplashTheme_Launcher);
         super.onCreate(savedInstanceState);
+        hidingStatusBar();
 
 
-        // fullscreen
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
-
-
+//        // fullscreen
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Thread timer = new Thread() {
             public void run() {
                 try {
@@ -36,39 +33,37 @@ public class SplashActivity extends BaseActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
+
                     if (!interrupt) {
 
-
-                        if(UserDataUtility.getLogin(SplashActivity.this)){  //true
+                        if (UserDataUtility.getLogin(SplashActivity.this)) {  //true
 
                             Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
                             startActivity(intent);
                             finish();
-
                             return;
-                        }
-                        else {  //false
 
+                        } else {  //false
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
                             finish();
-
                         }
-
                     }
                 }
             }
         };
         timer.start();
-
-
     }
 
-
+    private void hidingStatusBar() {
+        // fullscreen
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
 
     @Override
     protected void onPause() {
-        // TODO Auto-generated method stub
         super.onPause();
         finish();
     }
@@ -78,6 +73,5 @@ public class SplashActivity extends BaseActivity {
         super.onBackPressed();
         interrupt = true;
     }
-
 
 }

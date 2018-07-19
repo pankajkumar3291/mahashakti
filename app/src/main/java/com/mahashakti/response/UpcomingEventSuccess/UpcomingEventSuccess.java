@@ -13,9 +13,11 @@ public class UpcomingEventSuccess {
     @Expose
     @SerializedName("payload")
     private PayloadUpcomingEvent payload;
+
     @Expose
     @SerializedName("Error")
     private boolean Error;
+    
     @Expose
     @SerializedName("Success")
     private boolean Success;

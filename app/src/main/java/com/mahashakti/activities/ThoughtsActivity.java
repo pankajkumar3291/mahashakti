@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -26,7 +27,9 @@ import com.mahashakti.R;
 import com.mahashakti.response.CreateThought.CreateThoughtSuccess;
 import com.mahashakti.response.GetThoughtsResponse.GetAllThoughtPayload;
 import com.mahashakti.response.GetThoughtsResponse.GetAllThoughtSuccess;
+import com.mahashakti.response.GetThoughtsResponse.PayLoad;
 import com.mahashakti.utils.FileUtils;
+import com.sdsmdg.tastytoast.TastyToast;
 import com.taishi.flipprogressdialog.FlipProgressDialog;
 import com.vansuita.pickimage.bean.PickResult;
 import com.vansuita.pickimage.bundle.PickSetup;
@@ -47,6 +50,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.supercharge.shimmerlayout.ShimmerLayout;
+
 import com.mahashakti.baseactivity.BaseActivity;
 
 import okhttp3.MediaType;
@@ -55,44 +59,52 @@ import okhttp3.RequestBody;
 
 public class ThoughtsActivity extends BaseActivity {
 
-    public Toolbar topToolBar;
     @BindView(R.id.imageBackaroow)
     RelativeLayout imageBackaroow;
+
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
+
     @BindView(R.id.thoughtRecyclerView)
     RecyclerView thoughtRecyclerView;
+
     @BindView(R.id.imageAttachment)
     ImageView imageAttachment;
+
     @BindView(R.id.relativeSendChat)
     RelativeLayout relativeSendChat;
+
     @BindView(R.id.linearBottom)
     LinearLayout linearBottom;
 
-
     @BindView(R.id.edEnterThoughts)
     EditText edEnterThoughts;
+
     @BindView(R.id.rootView)
     RelativeLayout rootView;
+
     @BindView(R.id.imageSelect)
     CircleImageView imageSelect;
+
     @BindView(R.id.shimmer_layout)
     ShimmerLayout shimmerLayout;
 
     @BindView(R.id.thoughtsRelative)
     RelativeLayout thoughtsRelative;
+
     @BindView(R.id.no_thought_layout)
     RelativeLayout noThoughtLayout;
 
 
     private TextView toolbar_title;
+    private Uri imagePath;
+    private Context context;
+    public Toolbar topToolBar;
 
     private AdapterThought adapterThought;
-    ArrayList<GetAllThoughtPayload> getAllThoughtPayloadArrayList = new ArrayList<>();
 
-    private Uri imagePath;
+    ArrayList<PayLoad> getAllThoughtPayloadArrayList = new ArrayList<>();
 
-    private Context context;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 
@@ -128,7 +140,6 @@ public class ThoughtsActivity extends BaseActivity {
     }
 
 
-
     private void GetAllThoughtAPi() {
 
 
@@ -140,11 +151,10 @@ public class ThoughtsActivity extends BaseActivity {
                                public void accept(GetAllThoughtSuccess getAllThoughtSuccess) throws Exception {
 
 
-                                   if(getAllThoughtSuccess.getSuccess()){
+                                   if (getAllThoughtSuccess.isSuccess) {
 
 
-                                       getAllThoughtPayloadArrayList = new ArrayList<>(getAllThoughtSuccess.getPayload());
-
+                                       getAllThoughtPayloadArrayList = new ArrayList<>(getAllThoughtSuccess.payLoad);
 
                                        adapterThought = new AdapterThought(ThoughtsActivity.this, getAllThoughtPayloadArrayList);
 
@@ -155,15 +165,11 @@ public class ThoughtsActivity extends BaseActivity {
                                        thoughtRecyclerView.setVisibility(View.VISIBLE);
 
 
-
-                                   }
-                                   else {
+                                   } else {
                                        shimmerLayout.setVisibility(View.GONE);
                                        noThoughtLayout.setVisibility(View.VISIBLE);
 
                                    }
-
-
                                }
                            }, new Consumer<Throwable>() {
                                @Override
@@ -174,16 +180,8 @@ public class ThoughtsActivity extends BaseActivity {
 
                                }
                            }
-
-
                 ));
-
-
-
-
     }
-
-
 
     @OnClick({R.id.imageBackaroow, R.id.imageAttachment, R.id.relativeSendChat})
     public void onViewClicked(View view) {
@@ -200,13 +198,22 @@ public class ThoughtsActivity extends BaseActivity {
                 break;
             case R.id.relativeSendChat:
 
-                flipProgress();
+                if (edEnterThoughts.getText().toString().isEmpty()) {
 
-                String userid = String.valueOf(sharedPrefsHelper.get(AppConstants.USER_ID,0));
+                    TastyToast.makeText(getApplicationContext(), "Share your thoughts", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                } else {
+
+                    flipProgress();
+
+                    String userid = String.valueOf(sharedPrefsHelper.get(AppConstants.USER_ID, 0));
+                    String attachmentPic = (sharedPrefsHelper.get(AppConstants.PROFILE_PIC, ""));
 
 
-                savingProfile(userid, edEnterThoughts.getText().toString().trim(), imagePath);
 
+                    System.out.println("ThoughtsActivity.onViewClicked - - " + imagePath);
+                    System.out.println("ThoughtsActivity.onViewClicked userIDS " + userid);
+                    savingProfile(userid, edEnterThoughts.getText().toString().trim(), imagePath);
+                }
 
                 break;
         }
@@ -266,50 +273,51 @@ public class ThoughtsActivity extends BaseActivity {
 
     void savingProfile(String userId, String thought, Uri imagePath) {
 
-
         RequestBody user = RequestBody.create(MediaType.parse("text/plain"), userId);
         RequestBody thoug = RequestBody.create(MediaType.parse("text/plain"), thought);
+        System.out.println("ThoughtsActivity.savingProfile"   + user);
+        System.out.println("ThoughtsActivity.savingProfile"   + thoug);
 
-        compositeDisposable.add(apiService.createThought(user,thoug,imagePath == null ? null : prepareFilePart("attachment",imagePath))
-                            .subscribeOn(io.reactivex.schedulers.Schedulers.computation())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(new Consumer<CreateThoughtSuccess>() {
-                                @Override
-                                public void accept(CreateThoughtSuccess createThoughtSuccess) throws Exception {
+        compositeDisposable.add(apiService.createThought(user, thoug, imagePath == null ? null : prepareFilePart("attachment", imagePath))
+                .subscribeOn(io.reactivex.schedulers.Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<CreateThoughtSuccess>() {
+                    @Override
+                    public void accept(CreateThoughtSuccess createThoughtSuccess) throws Exception {
 
-                                    if(createThoughtSuccess.getSuccess()){
+                        if (createThoughtSuccess.isSuccess) {
 
-                                        fpd.dismiss();
+                            fpd.dismiss();
 
-                                        showSuccessDialog("Thoughts Created");
+                            showSuccessDialog("Thoughts Created");
 
-                                        edEnterThoughts.setText("");
-
-                                    }
-                                    else {
-
-                                        fpd.dismiss();
-
-                                        showAlertDialog("retry","Thought not created");
-                                    }
+                            edEnterThoughts.setText("");
 
 
-                                }
-                            }, new Consumer<Throwable>() {
-                                @Override
-                                public void accept(Throwable throwable) throws Exception {
+                        } else {
 
-                                    fpd.dismiss();
-                                    compositeDisposable.dispose();
-
-                                    throw new RuntimeException("I'm a cool exception and I crashed the main thread!");
+                            fpd.dismiss();
+                            showAlertDialog("retry", "Something went wrong");
+                            edEnterThoughts.setText("");
+                        }
 
 
-                                  //  showAlertDialog("retry","Something went wrong");
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                        fpd.dismiss();
+                        compositeDisposable.dispose();
+
+                        throw new RuntimeException("I'm a cool exception and I crashed the main thread!");
 
 
-                                }
-                            }));
+                        //  showAlertDialog("retry","Something went wrong");
+
+
+                    }
+                }));
 
     }
 
@@ -345,12 +353,9 @@ public class ThoughtsActivity extends BaseActivity {
     }
 
 
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
-
     }
 
 

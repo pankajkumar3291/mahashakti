@@ -3,6 +3,7 @@ package com.mahashakti.response.EventResponse;
 import com.google.gson.annotations.SerializedName;
 
 public class EventPayload {
+
     @SerializedName("id")
     private int id;
     @SerializedName("eventname")

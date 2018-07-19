@@ -22,6 +22,8 @@ import butterknife.OnClick;
 import com.mahashakti.adapters.AdapterProgram;
 import com.mahashakti.baseactivity.BaseActivity;
 import com.mahashakti.response.EventResponse.EventPayload;
+import com.mahashakti.response.EventResponse.PayLoad;
+import com.sdsmdg.tastytoast.TastyToast;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -33,16 +35,19 @@ public class ProgramActivity extends BaseActivity {
 
     @BindView(R.id.imageBackaroow)
     RelativeLayout imageBackaroow;
+
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
     @BindView(R.id.programRecyclerView)
     RecyclerView programRecyclerView;
 
 
     private AdapterProgram adapterProgram;
-    ArrayList<EventPayload> eventSuccessArrayList = new ArrayList<>();
+    ArrayList<PayLoad> eventSuccessArrayList = new ArrayList<>();
 
     Context context;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -81,6 +86,7 @@ public class ProgramActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         compositeDisposable.dispose();
+
     }
 
     private void GetAllEventAPi() {
@@ -93,9 +99,10 @@ public class ProgramActivity extends BaseActivity {
                     public void accept(EventSuccess eventSuccess) throws Exception {
 
 
-                        if(eventSuccess.getSuccess()){
-                            eventSuccessArrayList = new ArrayList<>(eventSuccess.getPayload());
+                        if(eventSuccess.isSuccess){
+                            eventSuccessArrayList = new ArrayList<>(eventSuccess.payLoad);
 
+                            TastyToast.makeText(getApplicationContext() , eventSuccess.message , TastyToast.LENGTH_SHORT , TastyToast.SUCCESS).show();
 
                             adapterProgram = new AdapterProgram(ProgramActivity.this, eventSuccessArrayList);
 

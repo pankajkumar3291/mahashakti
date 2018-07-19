@@ -35,10 +35,9 @@ public class LoginPresenter extends BasePresenter {
         super((LoginActivity) view);
 
 
-
         compositeDisposable = new CompositeDisposable();
 
-        compositeDisposable.add(apiService.loginUser(email,pass)
+        compositeDisposable.add(apiService.loginUser(email, pass)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<LoginUserSuccess>() {
@@ -48,24 +47,35 @@ public class LoginPresenter extends BasePresenter {
                         compositeDisposable.dispose();
 
 
-                        if(loginUserSuccess.getSuccess()){
+//                        if (loginUserSuccess.isSuccess()) {
+
+//                            sharedPrefsHelper.put(AppConstants.USER_ID, loginUserSuccess.getPayload().getId());
+//                            sharedPrefsHelper.put(AppConstants.USER_NAME, loginUserSuccess.getPayload().getName());
+//                            sharedPrefsHelper.put(AppConstants.EMAIL, loginUserSuccess.getPayload().getEmail());
+////                            sharedPrefsHelper.put(AppConstants.PHONE_NUMBER, loginUserSuccess.getPayload().getPhone());
+//                            sharedPrefsHelper.put(AppConstants.USER_SEX, loginUserSuccess.getPayload().getSex());
+////                            sharedPrefsHelper.put(AppConstants.PROFILE_PIC, loginUserSuccess.getPayload().getUserpic());
+//
+//                            view.loginSuccessful(loginUserSuccess.getMessage());
+
+                        if (loginUserSuccess.isSuccess) {
 
 
+                            System.out.println("LoginPresenter.accept - - - check Success " + loginUserSuccess.payLoad);
 
-                            sharedPrefsHelper.put(AppConstants.USER_ID,loginUserSuccess.getPayload().getId());
-                            sharedPrefsHelper.put(AppConstants.USER_NAME,loginUserSuccess.getPayload().getName());
-                            sharedPrefsHelper.put(AppConstants.EMAIL,loginUserSuccess.getPayload().getEmail());
-                            sharedPrefsHelper.put(AppConstants.PHONE_NUMBER,loginUserSuccess.getPayload().getPhone());
-                            sharedPrefsHelper.put(AppConstants.USER_SEX,loginUserSuccess.getPayload().getSex());
-                            sharedPrefsHelper.put(AppConstants.PROFILE_PIC,loginUserSuccess.getPayload().getUserpic());
+                            sharedPrefsHelper.put(AppConstants.USER_ID, loginUserSuccess.payLoad.id);
+                            sharedPrefsHelper.put(AppConstants.USER_NAME, loginUserSuccess.payLoad.name);
+                            sharedPrefsHelper.put(AppConstants.EMAIL, loginUserSuccess.payLoad.email);
+                            sharedPrefsHelper.put(AppConstants.PHONE_NUMBER, String.valueOf(loginUserSuccess.payLoad.phone));
+                            sharedPrefsHelper.put(AppConstants.USER_SEX, String.valueOf(loginUserSuccess.payLoad.sex));
+                            sharedPrefsHelper.put(AppConstants.PROFILE_PIC, String.valueOf(loginUserSuccess.payLoad.image));
+                            view.loginSuccessful(loginUserSuccess.message);
+//                            sharedPrefsHelper.put(AppConstants.GETCREATEDAT, String.valueOf(loginUserSuccess.getPayLoad().getCreatedAt()));
+//                            sharedPrefsHelper.put(AppConstants.GETAORC, String.valueOf(loginUserSuccess.getPayLoad().getaOrC()));
+//                            view.loginSuccessful(loginUserSuccess.getMessage());
+                        } else {
 
-                            view.loginSuccessful("Success");
-
-                        }
-                        else {
-
-
-                            alertDialog.setMessage("Password is wrong.");
+                            alertDialog.setMessage("Wrong emailid or password, please try again"); // Password is wrong.
                             alertDialog.show();
                         }
 
@@ -76,22 +86,20 @@ public class LoginPresenter extends BasePresenter {
                     public void accept(Throwable throwable) throws Exception {
 
 
+                        System.out.println("LoginPresenter.accept - - - check thrwoable " + throwable);
                         view.loginFailed(throwable);
                         compositeDisposable.dispose();
                     }
                 }));
 
 
-
     }
 
     public interface View {
         void loginSuccessful(String message);
+
         void loginFailed(Throwable t);
     }
-
-
-
 
 
 }

@@ -1,101 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:id="@+id/rootView"
     tools:context=".activities.GalleryDetailActivity">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-   >
-
-
-    <include
-        android:id="@+id/headertoolbar"
-        layout="@layout/toolbar"
-        android:layout_alignParentTop="true"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp" />
+        android:layout_height="match_parent">
 
 
-    <LinearLayout
-        android:layout_below="@id/headertoolbar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/_5sdp"
-        android:orientation="vertical">
-
-
-
-        <TextView
-            android:id="@+id/txtVideoTitle"
+        <include
+            android:id="@+id/headertoolbar"
+            layout="@layout/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Title"
-            android:layout_gravity="center"
-            android:textAppearance="@style/TextAppearance.FontPath"
-            android:textSize="@dimen/_14sdp"
-            android:textColor="@color/dimorange"
-            android:layout_marginBottom="@dimen/_10sdp"
-            />
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true" />
 
 
-        <com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView
-            android:id="@+id/youtube_player_view"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/male"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="PHOTOS"
-            android:gravity="center"
-            android:background="@color/grey"
-            android:textAppearance="@style/TextAppearance.FontPath"
-            android:textSize="@dimen/_14sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textColor="@color/pdlg_color_red"
-            />
+            android:layout_height="match_parent"
+            android:layout_below="@id/headertoolbar"
+            android:layout_margin="@dimen/_5sdp"
+            android:orientation="vertical">
 
 
-        <TextView
-            android:id="@+id/txtImageTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Title"
-            android:layout_gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
-            android:textSize="@dimen/_14sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:textColor="@color/dimorange"
-            />
+            <TextView
+                android:id="@+id/txtVideoTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:text="Title"
+                android:textAppearance="@style/TextAppearance.FontPath"
+                android:textColor="@color/dimorange"
+                android:textSize="@dimen/_14sdp" />
 
 
+            <com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView
+                android:id="@+id/youtube_player_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/male" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/grey"
+                android:gravity="center"
+                android:text="PHOTOS"
+                android:textAppearance="@style/TextAppearance.FontPath"
+                android:textColor="@color/pdlg_color_red"
+                android:textSize="@dimen/_14sdp" />
 
 
-        <ImageView
-            android:id="@+id/imageGallery"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"
-            android:scaleType="fitXY"
-            android:src="@drawable/male"/>
+            <TextView
+                android:id="@+id/txtImageTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="Title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+                android:textColor="@color/dimorange"
+                android:textSize="@dimen/_14sdp" />
 
 
+            <ImageView
+                android:id="@+id/imageGallery"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                android:scaleType="fitXY"
+                android:src="@drawable/male" />
 
 
-
-    </LinearLayout>
-
+        </LinearLayout>
 
 
-
-
-</RelativeLayout>
+    </RelativeLayout>
 </ScrollView>

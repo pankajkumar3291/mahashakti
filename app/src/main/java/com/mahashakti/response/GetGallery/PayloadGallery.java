@@ -4,30 +4,39 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class PayloadGallery {
+
     @Expose
     @SerializedName("updated_at")
     private String updated_at;
+
     @Expose
     @SerializedName("created_at")
     private String created_at;
+
     @Expose
     @SerializedName("approved")
     private String approved;
+
     @Expose
     @SerializedName("imagedesc")
     private String imagedesc;
+
     @Expose
     @SerializedName("image")
     private String image;
+
     @Expose
     @SerializedName("videodesc")
     private String videodesc;
+
     @Expose
     @SerializedName("videourl")
     private String videourl;
+
     @Expose
     @SerializedName("user_id")
     private String user_id;
+
     @Expose
     @SerializedName("id")
     private int id;

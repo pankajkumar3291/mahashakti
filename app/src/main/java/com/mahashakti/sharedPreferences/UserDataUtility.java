@@ -24,103 +24,95 @@ public class UserDataUtility {
     private String userPic;
 
 
-
     public UserDataUtility(Context context) {
         this.context = context;
-        this.sharedPreferences = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE);;
+        this.sharedPreferences = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+
     }
 
 
-
-    public static boolean getLogin(Context context)
-    {
-
-        SharedPreferences sharedPreferences = context.getSharedPreferences("lll",Context.MODE_PRIVATE);
-        return  sharedPreferences.getBoolean("first",false);
+    public static boolean getLogin(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("lll", Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean("first", false);
     }
 
+    public static void setLogin(boolean login, Context context) {
 
-    public static void setLogin(boolean login, Context context)
-    {
-
-        SharedPreferences sharedPreferences = context.getSharedPreferences("lll",Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("lll", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("first",login);
+        editor.putBoolean("first", login);
         editor.clear();
         editor.apply();
-
     }
-
 
 
     public int getUserId() {
-        userId = sharedPreferences.getInt("userId",userId);
-
+        userId = sharedPreferences.getInt("userId", userId);
         return userId;
     }
 
     public void setUserId(int userId) {
         this.userId = userId;
-        sharedPreferences.edit().putInt("userId",userId).commit();
+        sharedPreferences.edit().putInt("userId", userId).commit();
 
     }
 
     public String getUserName() {
-        userName = sharedPreferences.getString("userName",userName);
+        userName = sharedPreferences.getString("userName", userName);
 
         return userName;
     }
 
     public void setUserName(String userName) {
         this.userName = userName;
-        sharedPreferences.edit().putString("userName",userName).commit();
+        sharedPreferences.edit().putString("userName", userName).commit();
 
     }
 
     public String getUserEmail() {
-        userEmail = sharedPreferences.getString("userEmail",userEmail);
+        userEmail = sharedPreferences.getString("userEmail", userEmail);
 
         return userEmail;
     }
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
-        sharedPreferences.edit().putString("userEmail",userEmail).commit();
+        sharedPreferences.edit().putString("userEmail", userEmail).commit();
 
     }
 
     public String getPhoneNo() {
-        phoneNo = sharedPreferences.getString("phoneNo",phoneNo);
+        phoneNo = sharedPreferences.getString("phoneNo", phoneNo);
         return phoneNo;
     }
 
     public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
-        sharedPreferences.edit().putString("phoneNo",phoneNo).commit();
+        sharedPreferences.edit().putString("phoneNo", phoneNo).commit();
 
     }
 
     public String getSex() {
-        sex = sharedPreferences.getString("sex",sex);
+        sex = sharedPreferences.getString("sex", sex);
 
         return sex;
     }
 
     public void setSex(String sex) {
         this.sex = sex;
-        sharedPreferences.edit().putString("sex",sex).commit();
+        sharedPreferences.edit().putString("sex", sex).commit();
 
     }
 
     public String getUserPic() {
-        userPic = sharedPreferences.getString("userPic",userPic);
+        userPic = sharedPreferences.getString("userPic", userPic);
 
         return userPic;
     }
 
     public void setUserPic(String userPic) {
         this.userPic = userPic;
-        sharedPreferences.edit().putString("userPic",userPic).commit();
+        sharedPreferences.edit().putString("userPic", userPic).commit();
 
     }
 }

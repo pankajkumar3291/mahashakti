@@ -8,7 +8,7 @@ public class NotificationModel {
 
 
     private int imageNotification;
-    private String notificationName,notificationDesc;
+    private String notificationName, notificationDesc;
 
     public int getImageNotification() {
         return imageNotification;

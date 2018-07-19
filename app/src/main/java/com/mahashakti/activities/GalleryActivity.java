@@ -25,7 +25,7 @@ import com.mahashakti.R;
 import com.mahashakti.adapters.CustomGrid;
 import com.mahashakti.baseactivity.BaseActivity;
 import com.mahashakti.response.GetGallery.GetGallerySuccess;
-import com.mahashakti.response.GetGallery.PayloadGallery;
+import com.mahashakti.response.GetGallery.PayLoad;
 
 public class GalleryActivity extends BaseActivity {
 
@@ -37,7 +37,7 @@ public class GalleryActivity extends BaseActivity {
     GridView grid;
     private TextView toolbar_title;
 
-    private ArrayList<PayloadGallery> payloadGalleryArrayList;
+    private ArrayList<PayLoad> payloadGalleryArrayList;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private Context context;
 
@@ -61,18 +61,18 @@ public class GalleryActivity extends BaseActivity {
 
 
         compositeDisposable.add(apiService.getgalleryitems()
-                 .subscribeOn(Schedulers.computation())
+                .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<GetGallerySuccess>() {
                     @Override
                     public void accept(GetGallerySuccess getGallerySuccess) throws Exception {
 
-                        if(getGallerySuccess.getSuccess()){
+                        if (getGallerySuccess.isSuccess) {
 
 
-                            payloadGalleryArrayList = new ArrayList<>(getGallerySuccess.getPayload());
+                            payloadGalleryArrayList = new ArrayList<>(getGallerySuccess.getPayLoad());
 
-                            adapter = new CustomGrid(context,payloadGalleryArrayList);
+                            adapter = new CustomGrid(context, payloadGalleryArrayList);
 
                             grid.setAdapter(adapter);
 
@@ -81,28 +81,27 @@ public class GalleryActivity extends BaseActivity {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                                   String videoURl =  payloadGalleryArrayList.get(position).getVideourl();
+                                    String videoURl = payloadGalleryArrayList.get(position).getVideourl();
 
-                                   String videoTitle = payloadGalleryArrayList.get(position).getVideodesc();
-                                   String imageTitle = payloadGalleryArrayList.get(position).getImagedesc();
-                                   String imageurl = payloadGalleryArrayList.get(position).getImage();
+                                    String videoTitle = payloadGalleryArrayList.get(position).getVideodesc();
+                                    String imageTitle = payloadGalleryArrayList.get(position).getImagedesc();
+                                    String imageurl = payloadGalleryArrayList.get(position).getImage();
 
-                                   sharedPrefsHelper.put(AppConstants.VIDEO_URL,videoURl);
-                                   sharedPrefsHelper.put(AppConstants.VIDEO_TITLE,videoTitle);
-                                   sharedPrefsHelper.put(AppConstants.IMAGE_TITLE,imageTitle);
-                                   sharedPrefsHelper.put(AppConstants.IMAGE_URL,imageurl);
+                                    sharedPrefsHelper.put(AppConstants.VIDEO_URL, videoURl);
+                                    sharedPrefsHelper.put(AppConstants.VIDEO_TITLE, videoTitle);
+                                    sharedPrefsHelper.put(AppConstants.IMAGE_TITLE, imageTitle);
+                                    sharedPrefsHelper.put(AppConstants.IMAGE_URL, imageurl);
 
-                                    startActivity(new Intent(context,GalleryDetailActivity.class));
+                                    startActivity(new Intent(context, GalleryDetailActivity.class));
 
 
                                 }
                             });
 
-                        }
-                        else {
+                        } else {
 
 
-                            showAlertDialog("Retry","Success false");
+                            showAlertDialog("Retry", "Success false");
                         }
 
                     }
@@ -118,7 +117,6 @@ public class GalleryActivity extends BaseActivity {
                 }));
 
 
-
     }
 
 
@@ -127,7 +125,6 @@ public class GalleryActivity extends BaseActivity {
         super.onDestroy();
         compositeDisposable.dispose();
     }
-
 
 
     @OnClick(R.id.imageBackaroow)

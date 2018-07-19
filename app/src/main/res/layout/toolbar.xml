@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fitsSystemWindows="true"
-    tools:context=".activities.DashboardActivity"
-    >
+    tools:context=".activities.DashboardActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -16,14 +15,14 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:gravity="center"
-            android:layout_gravity="top"
             android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="top"
+            android:background="@color/signinbtncolor"
+            android:gravity="center"
             app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
-            android:background="@color/signinbtncolor"
-            android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/AppTheme.PopupOverlay" >
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
 
             <RelativeLayout
@@ -37,20 +36,19 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:padding="@dimen/_12sdp"
-                    android:src="@drawable/backarrowwhite"
-                    />
+                    android:src="@drawable/backarrowwhite" />
 
             </RelativeLayout>
 
 
             <TextView
+                android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="Mahashakti"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_13sdp"
-                android:layout_gravity="center"
-                android:id="@+id/toolbar_title" />
+                android:textSize="@dimen/_13sdp" />
 
 
         </android.support.v7.widget.Toolbar>

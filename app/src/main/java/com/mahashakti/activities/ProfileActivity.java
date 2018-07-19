@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -21,7 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mahashakti.R;
-import com.mahashakti.applicationclass.AppController;
+import com.mahashakti.ApplicationClass.AppController;
 import com.mahashakti.events.ImageProfileEvent;
 import com.orhanobut.hawk.Hawk;
 import com.squareup.picasso.Picasso;
@@ -40,6 +41,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import id.zelory.compressor.Compressor;
+
 import com.mahashakti.AppConstants;
 import com.mahashakti.baseactivity.BaseActivity;
 import com.mahashakti.response.ProfileUpdateResponse.ProfileUpdateSuccess;
@@ -98,7 +100,6 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,23 +117,26 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
         toolbarTitle.setText("PROFILE");
 
 
-        String fullname = sharedPrefsHelper.get(AppConstants.USER_NAME,"username");
-        String emailId = sharedPrefsHelper.get(AppConstants.EMAIL,"email");
-        String phoneNo = sharedPrefsHelper.get(AppConstants.PHONE_NUMBER,"");
-        String sex = sharedPrefsHelper.get(AppConstants.USER_SEX,"sex");
-        String userPic = sharedPrefsHelper.get(AppConstants.PROFILE_PIC,"");
+        String fullname = sharedPrefsHelper.get(AppConstants.USER_NAME, "username");
+        String emailId = sharedPrefsHelper.get(AppConstants.EMAIL, "email");
+        String phoneNo = sharedPrefsHelper.get(AppConstants.PHONE_NUMBER, "phonenumber"); // Shahzeb editted the phone number default value
+        String sex = sharedPrefsHelper.get(AppConstants.USER_SEX, "sex");
+        String userPic = sharedPrefsHelper.get(AppConstants.PROFILE_PIC, "");
 
 
+// Actually if you want your entire layout pan up than you should use :
+        // this will keep the keyboard closed and when opened it'll push your entire activity up.
+        this.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
 
-        if(userPic.contains("facebook")){
+        if (userPic.contains("facebook")) {
 
             Picasso.with(context)
                     .load(userPic)
                     .error(R.drawable.user)
                     .into(imageProfile);
-        }
-        else {
+        } else {
 
             Picasso.with(context)
                     .load("http://mahashaktiradiance.com/" + userPic)
@@ -147,8 +151,6 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
         edPhoneNumber.setText(phoneNo);
 
 
-
-
         progressBar.setVisibility(View.GONE);
 
 
@@ -161,10 +163,7 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
         }
 
 
-
     }
-
-
 
 
     @Override
@@ -198,14 +197,14 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
                 radioSexButton = findViewById(selectedId);
 
 
-                userId = String.valueOf(sharedPrefsHelper.get(AppConstants.USER_ID,1));
+                userId = String.valueOf(sharedPrefsHelper.get(AppConstants.USER_ID, 1));
                 email = edEmailAddressProfile.getText().toString();
                 phone = edPhoneNumber.getText().toString().trim();
                 sex = String.valueOf(radioSexButton.getText());
 
+                System.out.println("ProfileActivity.onViewClicked - Phone number check  - -" + phone);
 
                 updateProfileApi(userId, email, phone, sex, imagePath);
-
 
 
                 break;
@@ -221,9 +220,13 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
         RequestBody phoNE = RequestBody.create(MediaType.parse("text/plain"), phone);
         RequestBody seX = RequestBody.create(MediaType.parse("text/plain"), sex);
 
+        System.out.println("ProfileActivity.updateProfileApi - - -" + userID);
+        System.out.println("ProfileActivity.updateProfileApi - - -" + emailID);
+        System.out.println("ProfileActivity.updateProfileApi - - -" + phoNE);
+        System.out.println("ProfileActivity.updateProfileApi - - -" + seX);
 
 
-        compositeDisposable.add(apiService.updateProfile(userID,emailID,phoNE,imagePath == null ? null : prepareFilePart("userpic", imagePath),seX)
+        compositeDisposable.add(apiService.updateProfile(userID, emailID, phoNE, imagePath == null ? null : prepareFilePart("userpic", imagePath), seX)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<ProfileUpdateSuccess>() {
@@ -231,35 +234,40 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
                     public void accept(ProfileUpdateSuccess profileUpdateSuccess) throws Exception {
 
 
-
-                        if(profileUpdateSuccess.getSuccess()){
+                        if (profileUpdateSuccess.isSuccess) {
 
                             fpd.dismiss();
 
-                            showSuccessDialog("Profile Updated");
+//                            showSuccessDialog("Profile Updated");
+                            showSuccessDialog(profileUpdateSuccess.message);
 
                             UserDataUtility utility = new UserDataUtility(context);
 
-                            utility.setUserId(profileUpdateSuccess.getPayload().getId());
-                            utility.setUserName(profileUpdateSuccess.getPayload().getName());
-                            utility.setUserEmail(profileUpdateSuccess.getPayload().getEmail());
-                            utility.setPhoneNo(profileUpdateSuccess.getPayload().getPhone());
-                            utility.setSex(profileUpdateSuccess.getPayload().getSex());
-                            utility.setUserPic(profileUpdateSuccess.getPayload().getUserpic());
+                            utility.setUserId(profileUpdateSuccess.payLoad.id);
+                            utility.setUserName(profileUpdateSuccess.payLoad.name);
+                            utility.setUserEmail(profileUpdateSuccess.payLoad.email);
+                            utility.setPhoneNo(profileUpdateSuccess.payLoad.phone);
+                            System.out.println("ProfileActivity.accept - - -" + profileUpdateSuccess.payLoad.phone);
+
+                            utility.setSex(profileUpdateSuccess.payLoad.sex);
+                            utility.setUserPic(profileUpdateSuccess.payLoad.image);
 
 
-                            sharedPrefsHelper.put(AppConstants.IMAGE_URL,profileUpdateSuccess.getPayload().getUserpic());
+//                            utility.setUserPic(profileUpdateSuccess.getPayLoad().getUpdatedAt());
+//                            utility.setUserPic(profileUpdateSuccess.getPayLoad().getCreatedAt());
+//                            utility.setUserPic(profileUpdateSuccess.getPayLoad().getaOrC());
 
-                            ( (AppController)  getApplication()).bus().send(new ImageProfileEvent(profileUpdateSuccess.getPayload().getUserpic()));
+
+                            sharedPrefsHelper.put(AppConstants.IMAGE_URL, profileUpdateSuccess.payLoad.image);
+
+                            ((AppController) getApplication()).bus().send(new ImageProfileEvent(profileUpdateSuccess.payLoad.image));
 
 
-
-                        }
-                        else {
+                        } else {
 
                             fpd.dismiss();
 
-                            showAlertDialog("Retry","Profile Not Updated");
+                            showAlertDialog("Retry", "Profile Not Updated");
 
                         }
                     }
@@ -270,14 +278,11 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
                         fpd.dismiss();
                         compositeDisposable.dispose();
                         throw new RuntimeException("I'm a cool exception and I crashed the main thread!");
-                       // showAlertDialog("Retry",throwable.getMessage());
+                        // showAlertDialog("Retry",throwable.getMessage());
 
 
                     }
                 }));
-
-
-
 
 
     }

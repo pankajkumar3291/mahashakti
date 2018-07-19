@@ -1,36 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     tools:context="com.mahashakti.activities.GalleryActivity">
 
     <include
         android:id="@+id/headertoolbar"
         layout="@layout/toolbar"
-        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:layout_height="60dp" />
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true" />
 
     <FrameLayout
-        android:layout_below="@id/headertoolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/appyellowclr"
-        >
+        android:layout_below="@id/headertoolbar"
+        android:background="@color/appyellowclr">
 
 
         <GridView
             android:id="@+id/grid"
-            android:numColumns="auto_fit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:columnWidth="@dimen/_100sdp"
-            android:stretchMode="columnWidth"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-           />
+            android:horizontalSpacing="5dp"
+            android:numColumns="2"
+            android:verticalSpacing="15dp" />
+        <!--android:columnWidth="@dimen/_100sdp"-->
+        <!--android:stretchMode="columnWidth"-->
+        <!--android:gravity="center"-->
+        <!--android:numColumns="@integer/grid_rows"-->
 
 
     </FrameLayout>

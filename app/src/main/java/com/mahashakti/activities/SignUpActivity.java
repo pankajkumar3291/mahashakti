@@ -28,18 +28,25 @@ public class SignUpActivity extends BaseActivity implements RegisterPresenter.Vi
 
     @BindView(R.id.imageBack)
     ImageView imageBack;
+
     @BindView(R.id.edUserName)
     EditText edUserName;
+
     @BindView(R.id.edEmail)
     EditText edEmail;
+
     @BindView(R.id.edPsword)
     EditText edPsword;
+
     @BindView(R.id.edConfirmPsw)
     EditText edConfirmPsw;
+
     @BindView(R.id.btnSignup)
     Button btnSignup;
+
     @BindView(R.id.tvSignIn)
     TextView tvSignIn;
+
     @BindView(R.id.mainRegisterLayout)
     RelativeLayout mainRegisterLayout;
 
@@ -78,12 +85,8 @@ public class SignUpActivity extends BaseActivity implements RegisterPresenter.Vi
                 break;
             case R.id.btnSignup:
 
-
-
-
                 if (TextUtils.isEmpty(edUserName.getText().toString()) || !isValidEmail(edEmail.getText().toString()) || TextUtils.isEmpty(edPsword.getText().toString())
                         || TextUtils.isEmpty(edConfirmPsw.getText().toString()) || !edPsword.getText().toString().equals(edConfirmPsw.getText().toString())) {
-
 
                     if (TextUtils.isEmpty(edUserName.getText().toString())) {
                         Snackbar.make(mainRegisterLayout, "Username cant be empty", Snackbar.LENGTH_SHORT).show();
@@ -95,34 +98,28 @@ public class SignUpActivity extends BaseActivity implements RegisterPresenter.Vi
                         Snackbar.make(mainRegisterLayout, "Use valid email address", Snackbar.LENGTH_SHORT).show();
                     } else if (TextUtils.isEmpty(edPsword.getText().toString())) {
                         Snackbar.make(mainRegisterLayout, "Password can't be empty", Snackbar.LENGTH_SHORT).show();
-                    }
-                    else if (TextUtils.isEmpty(edConfirmPsw.getText().toString())) {
+                    } else if (TextUtils.isEmpty(edConfirmPsw.getText().toString())) {
                         Snackbar.make(mainRegisterLayout, "Confirm Password can't be empty", Snackbar.LENGTH_SHORT).show();
-                    }
-
-                    else if (!edPsword.getText().toString().equals(edConfirmPsw.getText().toString())) {
+                    } else if (!edPsword.getText().toString().equals(edConfirmPsw.getText().toString())) {
                         Snackbar.make(mainRegisterLayout, "Password doesn't match", Snackbar.LENGTH_SHORT).show();
                     }
 
 
-
-                }
-                else {
+                } else {
 
                     flipProgress();
 
 
                     View view1 = this.getCurrentFocus();
 
-                    if(view1 !=null){
+                    if (view1 != null) {
 
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(view1.getWindowToken(),0);
+                        imm.hideSoftInputFromWindow(view1.getWindowToken(), 0);
                     }
-                    new RegisterPresenter(getApplicationContext(),SignUpActivity.this,apiService,sharedPrefsHelper,edUserName.getText().toString().trim(),edEmail.getText().toString().trim(),
-                            edPsword.getText().toString().trim());
+                    new RegisterPresenter(getApplicationContext(), SignUpActivity.this, apiService, sharedPrefsHelper, edEmail.getText().toString().trim(),
+                            edPsword.getText().toString().trim(), edUserName.getText().toString().trim());
                 }
-
 
 
                 break;
@@ -160,9 +157,6 @@ public class SignUpActivity extends BaseActivity implements RegisterPresenter.Vi
 
             }
         }, 1000);
-
-
-
 
 
     }

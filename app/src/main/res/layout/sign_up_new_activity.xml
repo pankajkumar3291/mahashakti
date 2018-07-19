@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainRegisterLayout"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <LinearLayout
@@ -37,24 +37,19 @@
                     android:layout_width="@dimen/_180sdp"
                     android:layout_height="@dimen/_150sdp"
                     android:layout_gravity="center"
-                    android:src="@drawable/logomahashakti"
-                    />
+                    android:src="@drawable/logomahashakti" />
 
 
             </LinearLayout>
 
 
-
-
-
         </LinearLayout>
 
 
-
         <LinearLayout
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
         </LinearLayout>
@@ -66,84 +61,196 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_50sdp"
         android:layout_marginLeft="@dimen/_40sdp"
         android:layout_marginRight="@dimen/_40sdp"
         android:layout_marginTop="@dimen/_200sdp"
         android:elevation="20dp"
-        android:layout_marginBottom="@dimen/_50sdp">
+        app:cardCornerRadius="@dimen/_5sdp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:focusableInTouchMode="true"
             android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
             android:paddingBottom="@dimen/_20sdp"
             android:paddingTop="@dimen/_15sdp">
 
-            <EditText
-                android:id="@+id/edUserName"
-                android:hint="@string/fullname"
-                android:textColorHint="@color/tomato"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:textSize="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_10sdp"
-                android:backgroundTint="@color/grey"/>
+                android:theme="@style/TextLabel">
+
+                <!--<EditText-->
+
+                <!--android:id="@+id/edUserName"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/_10sdp"-->
+                <!--android:layout_marginRight="@dimen/_10sdp"-->
+                <!--android:backgroundTint="@color/grey"-->
+                <!--android:hint="@string/fullname"-->
+                <!--android:inputType="text"-->
+                <!--android:paddingBottom="@dimen/_10sdp"-->
+                <!--android:singleLine="true"-->
+                <!--android:textColorHint="@color/tomato"-->
+                <!--android:textSize="@dimen/_10sdp" />-->
 
 
-            <EditText
-                android:id="@+id/edEmail"
-                android:hint="@string/emailaddress"
-                android:textColorHint="@color/tomato"
+                <com.alimuzaffar.lib.widgets.AnimatedEditText
+
+                    android:id="@+id/edUserName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:backgroundTint="@color/grey"
+                    android:hint="@string/fullname"
+                    android:inputType="text"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:textColorHint="@color/tomato"
+                    android:textSize="@dimen/_10sdp"
+                    app:animateCursor="true"
+                    app:animateTextClear="true"
+                    app:animationType="fromRight" />
+
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:textSize="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:backgroundTint="@color/grey"/>
+                android:theme="@style/TextLabel">
+
+                <!--<EditText-->
+                <!--android:id="@+id/edEmail"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/_10sdp"-->
+                <!--android:layout_marginRight="@dimen/_10sdp"-->
+                <!--android:layout_marginTop="@dimen/_10sdp"-->
+                <!--android:backgroundTint="@color/grey"-->
+                <!--android:hint="@string/emailaddress"-->
+                <!--android:inputType="textEmailAddress"-->
+                <!--android:paddingBottom="@dimen/_10sdp"-->
+                <!--android:singleLine="true"-->
+                <!--android:textColorHint="@color/tomato"-->
+                <!--android:textSize="@dimen/_10sdp" />-->
 
 
+                <com.alimuzaffar.lib.widgets.AnimatedEditText
 
-            <EditText
-                android:id="@+id/edPsword"
-                android:hint="@string/password"
-                android:textColorHint="@color/tomato"
+                    android:id="@+id/edEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:backgroundTint="@color/grey"
+                    android:hint="@string/emailaddress"
+                    android:inputType="textEmailAddress"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:textColorHint="@color/tomato"
+                    android:textSize="@dimen/_10sdp"
+                    app:animateCursor="true"
+                    app:animateTextClear="true"
+                    app:animationType="fromRight" />
+
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:textSize="@dimen/_10sdp"
-                android:inputType="textPassword"
-                android:backgroundTint="@color/grey"/>
+                android:theme="@style/TextLabel">
+
+                <!--<EditText-->
+                <!--android:id="@+id/edPsword"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/_10sdp"-->
+                <!--android:layout_marginRight="@dimen/_10sdp"-->
+                <!--android:layout_marginTop="@dimen/_10sdp"-->
+                <!--android:backgroundTint="@color/grey"-->
+                <!--android:hint="@string/password"-->
+                <!--android:inputType="textPassword"-->
+                <!--android:paddingBottom="@dimen/_10sdp"-->
+                <!--android:singleLine="true"-->
+                <!--android:textColorHint="@color/tomato"-->
+                <!--android:textSize="@dimen/_10sdp" />-->
 
 
+                <com.alimuzaffar.lib.widgets.AnimatedEditText
+
+                    android:id="@+id/edPsword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:backgroundTint="@color/grey"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:textColorHint="@color/tomato"
+                    android:textSize="@dimen/_10sdp"
+                    app:animateCursor="true"
+                    app:animateTextClear="true"
+                    app:animationType="fromRight" />
 
 
-            <EditText
-                android:id="@+id/edConfirmPsw"
-                android:hint="@string/confirmpsw"
-                android:textColorHint="@color/tomato"
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:textSize="@dimen/_10sdp"
-                android:inputType="textPassword"
-                android:backgroundTint="@color/grey"/>
+                android:theme="@style/TextLabel">
+
+                <!--<EditText-->
+                <!--android:id="@+id/edConfirmPsw"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/_10sdp"-->
+                <!--android:layout_marginRight="@dimen/_10sdp"-->
+                <!--android:layout_marginTop="@dimen/_10sdp"-->
+                <!--android:backgroundTint="@color/grey"-->
+                <!--android:hint="@string/confirmpsw"-->
+                <!--android:inputType="textPassword"-->
+                <!--android:paddingBottom="@dimen/_10sdp"-->
+                <!--android:singleLine="true"-->
+                <!--android:textColorHint="@color/tomato"-->
+                <!--android:textSize="@dimen/_10sdp" />-->
 
 
+                <com.alimuzaffar.lib.widgets.AnimatedEditText
+
+                    android:id="@+id/edConfirmPsw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:backgroundTint="@color/grey"
+                    android:hint="@string/confirmpsw"
+                    android:inputType="textPassword"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:textColorHint="@color/tomato"
+                    android:textSize="@dimen/_10sdp"
+                    app:animateCursor="true"
+                    app:animateTextClear="true"
+                    app:animationType="fromRight" />
 
 
+            </android.support.design.widget.TextInputLayout>
 
 
         </LinearLayout>
@@ -155,22 +262,21 @@
         android:id="@+id/btnSignup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/roundbtnlogin"
-        android:text="@string/signup"
         android:layout_marginLeft="@dimen/_70sdp"
         android:layout_marginRight="@dimen/_70sdp"
-        android:elevation="20dp"
-        android:textSize="@dimen/_11sdp"
         android:layout_marginTop="@dimen/_392sdp"
-        android:textColor="@color/white" />
-
+        android:background="@drawable/roundbtnlogin"
+        android:elevation="20dp"
+        android:text="@string/signup"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_11sdp" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
         android:gravity="center"
         android:padding="@dimen/_5sdp">
 
@@ -179,30 +285,23 @@
             android:id="@+id/tvForgetPsw"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textColor="@color/tomato"
-            android:text="@string/haveanaccount"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textSize="@dimen/_10sdp"/>
+            android:text="@string/haveanaccount"
+            android:textColor="@color/tomato"
+            android:textSize="@dimen/_10sdp" />
 
         <TextView
             android:id="@+id/tvSignIn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:padding="@dimen/_5sdp"
             android:text="@string/login"
             android:textColor="@color/black"
-            android:padding="@dimen/_5sdp"
-            android:textSize="@dimen/_11sdp"/>
-
-
-
+            android:textSize="@dimen/_11sdp" />
 
 
     </LinearLayout>
-
-
-
-
 
 
 </RelativeLayout>

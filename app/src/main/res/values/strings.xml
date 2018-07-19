@@ -9,7 +9,7 @@
     <string name="clientid">175364315582-lfvfs9oopjch2ms9p8ufqt1fbbmn9mto.apps.googleusercontent.com</string>
     <string name="clientsecret">73MXsrVEz6i38bStXngYfMh4</string>
 
-    
+
     <string-array name="query_suggestions">
         <item>Android</item>
         <item>iOS</item>
@@ -49,10 +49,29 @@
     <string name="spriti">SPRITUALITY</string>
     <string name="neagtive">NEGATIVE INFLUENCES</string>
 
+
+    <string name="switchmantras">Switchmantras</string>
+    <string name="mantra_articles">Mantra Articles</string>
+    <string name="shambala_articles">Shambala Articles</string>
+    <string name="healing_articles">Healing Articles</string>
+    <string name="spiritual_insights">Spiritual Insights</string>
+    <string name="lama_fera">Lama fera</string>
+    <string name="mev_healing">MEV healing</string>
+    <string name="shakti_sadhna">Shakti Sadhna</string>
+    <string name="astro_insights">Astro Insights</string>
+    <string name="our_regular_workshops">Our regular workshops</string>
+    <string name="upcoming_events">Upcoming events</string>
+    <string name="free_healin_services">Free healing services</string>
+    <string name="pai_services">Paid services</string>
+
+
     <string name="areyousuretologout">Are you sure you want to logout?</string>
     <string name="logoutCap">LOGOUT</string>
 
     <string name="service">SERVICES</string>
+
+    <string name="blog">BLOG</string>
+
 
     <string name="login">LOG IN</string>
     <string name="signup">SIGN UP</string>
@@ -65,7 +84,7 @@
     <string name="nextpaymentinfo">NEXT -PAYMENT INFO</string>
     <string name="phonenumber">PHONE NUMBER</string>
     <string name="cancelprogrambooking">CANCEL PROGRAM BOOKING</string>
-    <string name="areyousure">Are your surecancel the</string>
+    <string name="areyousure">Are your sure cancel the</string>
     <string name="programbooking">program booking</string>
 
 

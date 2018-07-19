@@ -8,29 +8,46 @@
 
         <item
             android:id="@+id/profile_frag"
-            android:title="Profile"
             android:icon="@drawable/profile"
+            android:title="Profile"
 
             />
 
         <item
             android:id="@+id/notification_frag"
+            android:icon="@drawable/notifications"
             android:title="Notifications"
-            app:actionViewClass="android.widget.TextView"
-            android:icon="@drawable/notifications"/>
+            app:actionViewClass="android.widget.TextView" />
 
 
         <item
             android:id="@+id/chat_frag"
-            android:title="Chat to Mahashakti friends"
             android:icon="@drawable/chat"
-            />
+            android:title="Chat to Mahashakti friends" />
 
 
         <item
             android:id="@+id/addbank_frag"
-            android:title="Add Bank Account"
-            android:icon="@drawable/bank"/>
+            android:icon="@drawable/bank"
+            android:title="Add Bank Account" />
+
+
+        <item
+            android:id="@+id/testimonials_frag"
+            android:icon="@drawable/bank"
+            android:title="Testimonials" />
+
+
+        <item
+            android:id="@+id/about_us_frag"
+            android:icon="@drawable/bank"
+            android:title="About us" />
+
+        <item
+            android:id="@+id/contact_us_frag"
+            android:icon="@drawable/bank"
+            android:title="Contact us" />
+
 
     </group>
 
@@ -40,19 +57,24 @@
 
         <item
             android:id="@+id/settings_frag"
-            android:title="Settings"
-            android:icon="@drawable/settings"/>
+            android:icon="@drawable/settings"
+            android:title="Settings" />
 
+    <group
+
+        android:id="@+id/group_help"
+        android:checkableBehavior="single">
 
         <item
             android:id="@+id/help_frag"
-            android:title="Help"
-            android:icon="@drawable/help" />
+            android:icon="@drawable/help"
+            android:title="Help" />
+    </group>
 
         <item
             android:id="@+id/log_out_frag"
-            android:title="Logout"
-            android:icon="@drawable/logout" />
+            android:icon="@drawable/logout"
+            android:title="Logout" />
 
     </group>
 

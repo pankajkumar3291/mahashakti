@@ -28,6 +28,7 @@ public class GalleryDetailActivity extends BaseActivity {
 
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -36,10 +37,13 @@ public class GalleryDetailActivity extends BaseActivity {
 
 
     Context context;
+
     @BindView(R.id.txtVideoTitle)
     TextView txtVideoTitle;
+
     @BindView(R.id.txtImageTitle)
     TextView txtImageTitle;
+
     @BindView(R.id.imageGallery)
     ImageView imageGallery;
 
@@ -58,16 +62,14 @@ public class GalleryDetailActivity extends BaseActivity {
         this.getLifecycle().addObserver(youTubePlayerView);
 
 
-        txtVideoTitle.setText("Video:- "+ sharedPrefsHelper.get(AppConstants.VIDEO_TITLE, ""));
+        txtVideoTitle.setText("Video:- " + sharedPrefsHelper.get(AppConstants.VIDEO_TITLE, ""));
         txtImageTitle.setText(sharedPrefsHelper.get(AppConstants.IMAGE_TITLE, ""));
 
 
-          Picasso.with(context)
-                    .load("http://mahashaktiradiance.com/" + sharedPrefsHelper.get(AppConstants.IMAGE_URL,""))
-                    .error(R.drawable.user)
-                    .into(imageGallery);
-
-
+        Picasso.with(context)
+                .load("http://mahashaktiradiance.com/" + sharedPrefsHelper.get(AppConstants.IMAGE_URL, ""))
+                .error(R.drawable.user)
+                .into(imageGallery);
 
 
         youTubePlayerView.initialize(initializedYouTubePlayer -> {

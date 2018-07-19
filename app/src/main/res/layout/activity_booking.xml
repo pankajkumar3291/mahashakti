@@ -1,32 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:id="@+id/rootView"
     tools:context="com.mahashakti.activities.GalleryActivity">
-
 
 
     <include
         android:id="@+id/headertoolbar"
         layout="@layout/toolbar"
-        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:layout_height="55dp" />
+        android:layout_height="55dp"
+        android:layout_alignParentTop="true" />
 
 
     <android.support.v7.widget.RecyclerView
-        android:layout_below="@id/headertoolbar"
         android:id="@+id/bookingRecyclerView"
-        android:background="@color/appyellowclr"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
-
-
-
-    </android.support.v7.widget.RecyclerView>
+        android:layout_below="@id/headertoolbar"
+        android:background="@color/appyellowclr" />
 
 </RelativeLayout>

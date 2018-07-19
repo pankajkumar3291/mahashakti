@@ -8,7 +8,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import com.mahashakti.applicationclass.AppController;
+
+import com.mahashakti.ApplicationClass.AppController;
 
 
 @Module
@@ -33,6 +34,8 @@ public class SharedPrefsHelper {
     public void put(String key, String value) {
         mSharedPreferences.edit().putString(key, value).apply();
     }
+
+
 
     public void put(String key, int value) {
         mSharedPreferences.edit().putInt(key, value).apply();
@@ -65,7 +68,8 @@ public class SharedPrefsHelper {
     public void deleteSavedData(String key) {
         mSharedPreferences.edit().remove(key).apply();
     }
-    public void clearAllSaveddData(){
+
+    public void clearAllSaveddData() {
         mSharedPreferences.edit().clear().apply();
     }
 }

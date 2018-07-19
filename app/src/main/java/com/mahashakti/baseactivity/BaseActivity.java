@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,12 +15,16 @@ import android.view.animation.AnimationUtils;
 
 import com.awesomedialog.blennersilva.awesomedialoglibrary.AwesomeErrorDialog;
 import com.awesomedialog.blennersilva.awesomedialoglibrary.AwesomeSuccessDialog;
+import com.awesomedialog.blennersilva.awesomedialoglibrary.AwesomeWarningDialog;
 import com.awesomedialog.blennersilva.awesomedialoglibrary.interfaces.Closure;
-import com.mahashakti.applicationclass.AppController;
+import com.mahashakti.ApplicationClass.AppController;
+
+import com.mahashakti.ApplicationClass.AppController;
 import com.mahashakti.R;
 import com.mahashakti.di.modules.SharedPrefsHelper;
 import com.mahashakti.manager.GitApiInterface;
 import com.mahashakti.widgets.MyBounceInterpolator;
+import com.sdsmdg.tastytoast.TastyToast;
 import com.taishi.flipprogressdialog.FlipProgressDialog;
 
 import java.util.ArrayList;
@@ -59,6 +64,7 @@ public class BaseActivity extends AppCompatActivity {
         unbinder = ButterKnife.bind(this);
 
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -67,21 +73,33 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
+    public void showSuccessDialog(String title) {
+//        new AwesomeSuccessDialog(this)
+//                .setTitle(title)
+//                .setColoredCircle(R.color.dialogSuccessBackgroundColor)
+//                .setDialogIconAndColor(R.drawable.ic_dialog_info, R.color.white)
+//                .setCancelable(true)
+//                .show();
 
-    public void showSuccessDialog(String title){
-
-        new AwesomeSuccessDialog(this)
+        new AwesomeErrorDialog(this)
                 .setTitle(title)
                 .setColoredCircle(R.color.dialogSuccessBackgroundColor)
                 .setDialogIconAndColor(R.drawable.ic_dialog_info, R.color.white)
-                .setCancelable(true)
-
+                .setCancelable(false).setButtonText(getString(R.string.dialog_ok_button))
+                .setButtonBackgroundColor(R.color.dialogSuccessBackgroundColor)
+                .setButtonText(getString(R.string.dialog_ok_button))
+                .setErrorButtonClick(new Closure() {
+                    @Override
+                    public void exec() {
+                        // click
+//                        TastyToast.makeText(getApplicationContext(), "Thanks for your valuable contribution", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                    }
+                })
                 .show();
-
     }
 
 
-    public void showErrorDialog(String title){
+    public void showErrorDialog(String title) {
 
         new AwesomeErrorDialog(this)
                 .setTitle(title)
@@ -118,7 +136,7 @@ public class BaseActivity extends AppCompatActivity {
 
         // Set imageList
         List<Integer> imageList = new ArrayList<Integer>();
-        imageList.add(R.drawable.progress);
+//        imageList.add(R.drawable.progress);
 
 
         fpd = new FlipProgressDialog();
@@ -147,14 +165,14 @@ public class BaseActivity extends AppCompatActivity {
         fpd.setMaxAlpha(1.0f);                                    // Set an alpha while image is flipping
 
 
-        fpd.show(getFragmentManager(),"");                        // Show flip-progress-dialg
+        fpd.show(getFragmentManager(), "");                        // Show flip-progress-dialg
 
 
     }
 
-    public void navigateToNextActivity(Class cla){
+    public void navigateToNextActivity(Class cla) {
 
-        startActivity(new Intent(BaseActivity.this,cla));
+        startActivity(new Intent(BaseActivity.this, cla));
 
     }
 
@@ -168,9 +186,8 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         ((AppController) getApplication()).getComponent().inject(this);
         super.onCreate(savedInstanceState);
-       noInternetDialog =  new NoInternetDialog.Builder(BaseActivity.this).build();
+        noInternetDialog = new NoInternetDialog.Builder(BaseActivity.this).build();
     }
-
 
     @Override
     protected void onDestroy() {
@@ -182,21 +199,15 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
-
-    public void showAlertDialog(String action,String message){
-
+    public void showAlertDialog(String action, String message) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         builder1.setMessage(message);
         builder1.setCancelable(true);
-
         builder1.setPositiveButton(
                 action,
-
-
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
-
                     }
                 });
 
@@ -206,8 +217,6 @@ public class BaseActivity extends AppCompatActivity {
 
 
     }
-
-
 
 
 }

@@ -1,5 +1,6 @@
 package com.mahashakti.response.ProfileUpdateResponse;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -8,34 +9,95 @@ import com.google.gson.annotations.SerializedName;
 
 public class ProfileUpdateSuccess {
 
-    @SerializedName("Success")
-    private boolean Success;
-    @SerializedName("Error")
-    private boolean Error;
-    @SerializedName("payload")
-    private Payload payload;
+//    @SerializedName("isSuccess")
+//    @Expose
+//    public Boolean isSuccess;
+//
+//    @SerializedName("isError")
+//    @Expose
+//    public Boolean isError;
+//
+//    @SerializedName("message")
+//    @Expose
+//    public String message;
+//
+//    @SerializedName("payLoad")
+//    @Expose
+//    public PayLoad payLoad;
+//
+//    public Boolean getSuccess() {
+//        return isSuccess;
+//    }
+//
+//    public void setSuccess(Boolean success) {
+//        isSuccess = success;
+//    }
+//
+//    public Boolean getError() {
+//        return isError;
+//    }
+//
+//    public void setError(Boolean error) {
+//        isError = error;
+//    }
+//
+//    public String getMessage() {
+//        return message;
+//    }
+//
+//    public void setMessage(String message) {
+//        this.message = message;
+//    }
+//
+//    public PayLoad getPayLoad() {
+//        return payLoad;
+//    }
+//
+//    public void setPayLoad(PayLoad payLoad) {
+//        this.payLoad = payLoad;
+//    }
 
-    public boolean getSuccess() {
-        return Success;
-    }
 
-    public void setSuccess(boolean Success) {
-        this.Success = Success;
-    }
+//
+//    public boolean getSuccess() {
+//        return isSuccess;
+//    }
+//
+//    public void setSuccess(boolean Success) {
+//        this.isSuccess = Success;
+//    }
+//
+//    public boolean getError() {
+//        return isError;
+//    }
+//
+//    public void setError(boolean Error) {
+//        this.isError = Error;
+//    }
+//
+//    public PayLoad getPayload() {
+//        return payLoad;
+//    }
+//
+//    public void setPayload(PayLoad payload) {
+//        this.payLoad = payload;
+//    }
 
-    public boolean getError() {
-        return Error;
-    }
+    @SerializedName("isSuccess")
+    @Expose
+    public Boolean isSuccess;
 
-    public void setError(boolean Error) {
-        this.Error = Error;
-    }
+    @SerializedName("isError")
+    @Expose
+    public Boolean isError;
 
-    public Payload getPayload() {
-        return payload;
-    }
+    @SerializedName("message")
+    @Expose
+    public String message;
 
-    public void setPayload(Payload payload) {
-        this.payload = payload;
-    }
+    @SerializedName("payLoad")
+    @Expose
+    public PayLoad payLoad;
+
+
 }
