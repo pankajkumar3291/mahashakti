@@ -1,6 +1,7 @@
 package com.mahashakti.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import com.mahashakti.Adapters.BlogAdapter;
 import com.mahashakti.R;
 import com.mahashakti.httpNet.HttpModule;
 import com.mahashakti.interfaces.ItemClickListenerForBlogDetails;
+import com.mahashakti.response.commentByBlog.PayLoad;
 import com.mahashakti.response.createBlog.CreateBlog;
 import com.mahashakti.response.createBlog.Payload;
 import com.sdsmdg.tastytoast.TastyToast;
@@ -32,7 +34,7 @@ public class BlogActivity extends AppCompatActivity implements ItemClickListener
     private Context context;
 
 
-    ArrayList<Payload> createBlogPaylod;
+    ArrayList<Payload> list = new ArrayList<>();
 
 
     @Override
@@ -42,10 +44,8 @@ public class BlogActivity extends AppCompatActivity implements ItemClickListener
 
 
         context = this;
-        createBlogPaylod = new ArrayList<>();
 
         findingIdsHere();
-//        recyclerviewInitializationHere();
         gettingBlogsDadaHere();
 
 
@@ -77,6 +77,10 @@ public class BlogActivity extends AppCompatActivity implements ItemClickListener
                         TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
                         recyclerviewInitializationHere(response.body().payload);
 
+
+                        list = (ArrayList<Payload>) response.body().payload;
+
+
                     } else {
                         TastyToast.makeText(getApplicationContext(), "SOMETHING WENT WRONG", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
 
@@ -95,6 +99,7 @@ public class BlogActivity extends AppCompatActivity implements ItemClickListener
 
     }
 
+
     private void findingIdsHere() {
 
         rvBlog = findViewById(R.id.rvBlog);
@@ -104,6 +109,9 @@ public class BlogActivity extends AppCompatActivity implements ItemClickListener
     @Override
     public void onClick(View view, int position) {
 
-        TastyToast.makeText(getApplicationContext(), "Blog Details Click", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+        Intent intent = new Intent(BlogActivity.this, BlogDetailsActivity.class);
+        intent.putExtra("BlogDetails", list.get(position));
+        startActivity(intent);
+
     }
 }

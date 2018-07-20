@@ -12,6 +12,7 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.siyamed.shapeimageview.mask.PorterShapeImageView;
 import com.mahashakti.R;
 import com.mahashakti.VerticalMarqueeTextView;
 import com.mahashakti.response.createParticularServiceInfo.PayLoad;
@@ -72,7 +73,9 @@ public class ParticularServiceInfoAdapter extends RecyclerView.Adapter<Particula
 
         private TextView tvHeader;
         private VerticalMarqueeTextView tvContents;
-        private ImageView imgBottom;
+//        private ImageView imgBottom;
+
+        private PorterShapeImageView imgBottom;
 
         public ParticularServiceInfoViewHolder(View itemView) {
 

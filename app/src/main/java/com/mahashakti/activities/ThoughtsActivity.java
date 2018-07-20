@@ -212,6 +212,8 @@ public class ThoughtsActivity extends BaseActivity {
 
                     System.out.println("ThoughtsActivity.onViewClicked - - " + imagePath);
                     System.out.println("ThoughtsActivity.onViewClicked userIDS " + userid);
+                    System.out.println("ThoughtsActivity.onViewClicked userIDS " + edEnterThoughts.getText().toString());
+
                     savingProfile(userid, edEnterThoughts.getText().toString().trim(), imagePath);
                 }
 
@@ -278,7 +280,7 @@ public class ThoughtsActivity extends BaseActivity {
         System.out.println("ThoughtsActivity.savingProfile"   + user);
         System.out.println("ThoughtsActivity.savingProfile"   + thoug);
 
-        compositeDisposable.add(apiService.createThought(user, thoug, imagePath == null ? null : prepareFilePart("attachment", imagePath))
+        compositeDisposable.add(apiService.createThought(user, thoug, imagePath == null ? null : prepareFilePart("image", imagePath))
                 .subscribeOn(io.reactivex.schedulers.Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<CreateThoughtSuccess>() {
@@ -292,6 +294,8 @@ public class ThoughtsActivity extends BaseActivity {
                             showSuccessDialog("Thoughts Created");
 
                             edEnterThoughts.setText("");
+//                            imageAttachment.setVisibility(View.GONE);
+
 
 
                         } else {

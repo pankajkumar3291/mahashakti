@@ -198,6 +198,14 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
 
 
+    compile 'com.github.siyamed:android-shape-imageview:0.9.3'
+
+
+    compile "com.hanks:htextview-rainbow:0.1.6"
+
+
+    compile 'hanks.xyz:htextview-library:0.1.5'
+
 
 
 }

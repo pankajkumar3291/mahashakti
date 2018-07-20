@@ -182,6 +182,14 @@
             android:theme="@style/DashBoardTheme" />
 
 
+
+        <activity
+            android:windowSoftInputMode="adjustPan"
+            android:name=".activities.BlogDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DashBoardTheme" />
+
+
     </application>
 
 </manifest>

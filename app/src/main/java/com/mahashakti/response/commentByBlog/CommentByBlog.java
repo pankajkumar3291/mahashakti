@@ -1,4 +1,4 @@
-package com.mahashakti.response.createBlog;
+package com.mahashakti.response.commentByBlog;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
-public class CreateBlog implements Serializable {
+public class CommentByBlog implements Serializable {
 
     @SerializedName("isSuccess")
     @Expose
@@ -20,8 +20,9 @@ public class CreateBlog implements Serializable {
     @Expose
     public String message;
 
-    @SerializedName("payload")
+    @SerializedName("payLoad")
     @Expose
-    public List<Payload> payload = null;
+    public List<PayLoad> payLoad = null;
+
 
 }

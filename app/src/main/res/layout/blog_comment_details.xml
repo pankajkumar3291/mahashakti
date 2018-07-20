@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+
+        android:id="@+id/blogName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/blogCreatername"
+        android:padding="5dp"
+        android:singleLine="false"
+        android:text="Blog Nane"
+        android:textColor="@color/white"
+        android:textSize="11dp" />
+
+    <TextView
+        android:singleLine="false"
+        android:id="@+id/blogCreatername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="10dp"
+        android:padding="5dp"
+        android:text="Blog Creater Name"
+        android:textColor="@color/white"
+        android:textSize="11dp" />
+
+</RelativeLayout>
