@@ -1,6 +1,7 @@
 package com.mahashakti.activities;
 
 import android.animation.ObjectAnimator;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +31,7 @@ import android.widget.TextView;
 
 import com.droidbyme.dialoglib.AnimUtils;
 import com.droidbyme.dialoglib.DroidDialog;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.kogitune.activity_transition.ActivityTransitionLauncher;
 import com.mahashakti.AppConstants;
 import com.mahashakti.R;
@@ -41,6 +43,7 @@ import com.mahashakti.response.EventResponse.EventSuccess;
 import com.mahashakti.response.UpcomingEventSuccess.UpcomingEventSuccess;
 import com.mahashakti.response.createServices.CreateServices;
 import com.mahashakti.response.createServices.PayLoad;
+import com.mahashakti.response.displayingUserChat.DisplayingUserChat;
 import com.mahashakti.sharedPreferences.UserDataUtility;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.squareup.picasso.Picasso;
@@ -95,10 +98,8 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     CardView cardViewChat;
 
 
-
     @BindView(R.id.card_view_blog)
     CardView card_view_blog;
-
 
 
     TextView notifications;
@@ -120,7 +121,12 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private long lastClickTime = 0;
 
+
+    KProgressHUD hud;
+
     ArrayList<PayLoad> payLoadsServices = new ArrayList<>();
+
+    String userid;
 
 
     @Override
@@ -130,6 +136,10 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         ButterKnife.bind(this);
 
         context = this;
+        hud = new KProgressHUD(this);
+
+        userid = String.valueOf(sharedPrefsHelper.get(AppConstants.USER_ID, 0));
+
 
         topToolBar = findViewById(R.id.toolbar);
 
@@ -147,6 +157,12 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hud.dismiss();
+    }
 
     private void UpcomingEventApi() {
 
@@ -348,11 +364,14 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
             gotoNextActivity(NotificationActivity.class);
         } else if (id == R.id.chat_frag) {
+
 //            SpannableString s = new SpannableString("Chat to Mahashakti friends");
 //            s.setSpan(new ForegroundColorSpan(Color.RED), 0, s.length(), 0);
 //            item.setTitle(s);
 
+
             gotoNextActivity(ChatActivity.class);
+
         } else if (id == R.id.settings_frag) {
 
         } else if (id == R.id.addbank_frag) {
@@ -495,6 +514,17 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         return true;
     }
 
+    private void pleaseWaitDilaog() {
+
+        hud = KProgressHUD.create(DashboardActivity.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("Please wait")
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
+    }
+
     private void disableNavigationViewScrollbars(NavigationView navigationView) {
         if (navigationView != null) {
 
@@ -506,7 +536,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     }
 
 
-    @OnClick({R.id.card_view_chat, R.id.card_view_service, R.id.card_view_thoughts, R.id.card_view_gallery, R.id.card_view_program, R.id.card_view_booking, R.id.card_view_profile , R.id.card_view_blog})
+    @OnClick({R.id.card_view_chat, R.id.card_view_service, R.id.card_view_thoughts, R.id.card_view_gallery, R.id.card_view_program, R.id.card_view_booking, R.id.card_view_profile, R.id.card_view_blog})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.card_view_thoughts:
@@ -574,7 +604,46 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                 }
                 lastClickTime = SystemClock.elapsedRealtime();
 
-                navigateToNextActivity(ChatActivity.class, cardViewChat);
+
+                pleaseWaitDilaog();
+
+
+                HttpModule.provideRepositoryService().displayUserChatMessages(Integer.valueOf(userid)).enqueue(new Callback<DisplayingUserChat>() {
+                    @Override
+                    public void onResponse(Call<DisplayingUserChat> call, Response<DisplayingUserChat> response) {
+
+
+                        if (response.body() != null)
+
+                        {
+                            if (response.body().isSuccess) {
+
+                                TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+
+                                Intent intent = new Intent(DashboardActivity.this, ChatActivity.class);
+                                intent.putExtra("DisplayingUserChat", (Serializable) response.body().payload);
+                                startActivity(intent);
+
+
+//                                navigateToNextActivity(ChatActivity.class, cardViewChat);
+
+                            } else {
+
+
+                                TastyToast.makeText(getApplicationContext(), "Ooops ! You are missing something..", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<DisplayingUserChat> call, Throwable t) {
+                        System.out.println("DashboardActivity.onFailure " + t);
+
+                    }
+                });
+
+
                 break;
 
 

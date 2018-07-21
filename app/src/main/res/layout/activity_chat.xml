@@ -22,7 +22,7 @@
         android:layout_height="match_parent"
         android:layout_above="@id/linearBottomChat"
         android:layout_below="@id/headertoolbar"
-        android:background="@color/appyellowclr" />
+        android:background="#f8f8ff" />
 
 
     <LinearLayout

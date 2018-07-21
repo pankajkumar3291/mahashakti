@@ -7,64 +7,42 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
+import com.mahashakti.Adapters.ChatAdapter;
 import com.mahashakti.R;
+import com.mahashakti.httpNet.HttpModule;
+import com.mahashakti.response.displayingAdminApproveChat.DisplayingAdminChat;
+import com.mahashakti.response.displayingUserChat.Payload;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.vanniktech.emoji.EmojiEditText;
-import com.vanniktech.emoji.EmojiManager;
 import com.vanniktech.emoji.EmojiPopup;
-import com.vanniktech.emoji.one.EmojiOneProvider;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-import hani.momanii.supernova_emoji_library.Helper.EmojiconEditText;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class ChatActivity extends AppCompatActivity implements View.OnClickListener {
 
-
-//    @BindView(R.id.chatRecyclerview)
-//    RecyclerView chatRecyclerview;
-
-//    @BindView(R.id.edChat)
-//    EmojiconEditText edChat;
-
-//    @BindView(R.id.emoji_btn_chat)
-//    ImageView emojiBtnChat;
-
-//    @BindView(R.id.imageAttachmentChat)
-//    ImageView imageAttachmentChat;
-
-//    @BindView(R.id.relativeSendChatChat)
-//    RelativeLayout relativeSendChatChat;
-
-//    @BindView(R.id.imageBackarrowChat)
-//    ImageView imageBackarrowChat;
-
-//    @BindView(R.id.toolbar_title_chat)
-//    TextView toolbarTitleChat;
-
-
-//    @BindView(R.id.linearBottomChat)
-//    LinearLayout linearBottomChat;
-
-//    @BindView(R.id.toolbarChat)
-//    Toolbar toolbarChat;
-
     private RecyclerView chatRecyclerview;
+    private RecyclerView.LayoutManager mlayoutManager;
+    private ChatAdapter chatAdapter;
+
     private EditText edChat;
     private ImageView emojiBtnChat, imageAttachmentChat, imageBackarrowChat;
     private RelativeLayout relativeSendChatChat;
@@ -77,6 +55,11 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private Context context;
     private View v;
 
+    KProgressHUD hud;
+
+
+    ArrayList<Payload> listDisplayingMessage = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,16 +68,30 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+
+        if (getIntent() != null) {
+            if (getIntent().hasExtra("DisplayingUserChat")) {
+                listDisplayingMessage = (ArrayList<Payload>) getIntent().getSerializableExtra("DisplayingUserChat");
+            }
+        }
+
         findindIdsHere();
         clickListener();
+        initializeAdapterHere();
 
         context = this;
-//        final EmojiPopup emojiPopup = EmojiPopup.Builder.fromRootView(viewGroup).build((EmojiEditText) edChat);
-//        emojiPopup.toggle(); // Toggles visibility of the Popup.
-//        emojiPopup.dismiss(); // Dismisses the Popup.
-//        emojiPopup.isShowing(); // Returns true when Popup is showing.
+        hud = new KProgressHUD(this);
+        hud.dismiss();
+    }
 
-//        setSupportActionBar(toolbarChat);  Shahzeb commented this code
+    private void initializeAdapterHere() {
+
+
+        chatRecyclerview.setHasFixedSize(true);
+        mlayoutManager = new LinearLayoutManager(this);
+        chatRecyclerview.setLayoutManager(mlayoutManager);
+        chatAdapter = new ChatAdapter(context, listDisplayingMessage);
+        chatRecyclerview.setAdapter(chatAdapter);
 
 
     }
@@ -182,10 +179,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
-
         finish();
-
+        hud.dismiss();
     }
 
 
@@ -215,7 +210,39 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.relativeSendChatChat:
 
-                TastyToast.makeText(getApplicationContext(), "Sending The Thoughts", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+
+                HttpModule.provideRepositoryService().displayAdminChatMessages(32, edChat.getText().toString()).enqueue(new Callback<DisplayingAdminChat>() {
+                    @Override
+                    public void onResponse(Call<DisplayingAdminChat> call, Response<DisplayingAdminChat> response) {
+
+                        if (response.body() != null) {
+                            if (response.body().isSuccess) {
+
+
+                                TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+
+                                edChat.setText("");
+
+
+                            } else {
+                                TastyToast.makeText(getApplicationContext(), "Ooops ! You are missing something", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                                edChat.setText("");
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<DisplayingAdminChat> call, Throwable t) {
+
+
+                        System.out.println("ChatActivity.onFailure " + t);
+
+                    }
+                });
+
+
+//                TastyToast.makeText(getApplicationContext(), "Sending The Thoughts", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
                 break;
 
             case R.id.imageBackarrowChat:
@@ -235,8 +262,11 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == 1) {
+
             if (resultCode == Activity.RESULT_OK) {
+
                 if (data != null) {
                     try {
 
@@ -248,9 +278,11 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
+
                 Toast.makeText(getApplicationContext(), "Cancelled", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
 
 }

@@ -206,6 +206,9 @@ dependencies {
 
     compile 'hanks.xyz:htextview-library:0.1.5'
 
+    implementation 'com.kaopiz:kprogresshud:1.0.2'
+
+
 
 
 }

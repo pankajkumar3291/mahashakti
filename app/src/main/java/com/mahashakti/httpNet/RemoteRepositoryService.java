@@ -7,6 +7,8 @@ import com.mahashakti.response.createBlog.CreateBlog;
 import com.mahashakti.response.createComment.CreateComment;
 import com.mahashakti.response.createParticularServiceInfo.CreateParticularServiceInfo;
 import com.mahashakti.response.createServices.CreateServices;
+import com.mahashakti.response.displayingAdminApproveChat.DisplayingAdminChat;
+import com.mahashakti.response.displayingUserChat.DisplayingUserChat;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
@@ -47,6 +49,18 @@ public interface RemoteRepositoryService {
     Call<CreateComment> createComment(@Field("blogId") Integer blogId,
                                       @Field("userId") Integer userId,
                                       @Field("message") String message);
+
+
+    // 6
+    @FormUrlEncoded
+    @POST("showChatsWithUser")
+    Call<DisplayingUserChat> displayUserChatMessages(@Field("userId") Integer userId);
+
+
+    // 7
+    @FormUrlEncoded
+    @POST("chat")
+    Call<DisplayingAdminChat> displayAdminChatMessages(@Field("userId") Integer userId, @Field("message") String message);
 
 
 }
