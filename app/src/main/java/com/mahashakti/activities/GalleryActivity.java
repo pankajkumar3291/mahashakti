@@ -26,6 +26,7 @@ import com.mahashakti.adapters.CustomGrid;
 import com.mahashakti.baseactivity.BaseActivity;
 import com.mahashakti.response.GetGallery.GetGallerySuccess;
 import com.mahashakti.response.GetGallery.PayLoad;
+import com.mahashakti.response.GetGallery.Payload;
 
 public class GalleryActivity extends BaseActivity {
 
@@ -37,7 +38,8 @@ public class GalleryActivity extends BaseActivity {
     GridView grid;
     private TextView toolbar_title;
 
-    private ArrayList<PayLoad> payloadGalleryArrayList;
+//    private ArrayList<PayLoad> payloadGalleryArrayList;
+    private ArrayList<Payload> payloadGalleryArrayList;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private Context context;
 
@@ -64,16 +66,15 @@ public class GalleryActivity extends BaseActivity {
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<GetGallerySuccess>() {
+
                     @Override
                     public void accept(GetGallerySuccess getGallerySuccess) throws Exception {
 
                         if (getGallerySuccess.isSuccess) {
 
-
-                            payloadGalleryArrayList = new ArrayList<>(getGallerySuccess.getPayLoad());
+                            payloadGalleryArrayList = new ArrayList<>(getGallerySuccess.getPayload());
 
                             adapter = new CustomGrid(context, payloadGalleryArrayList);
-
                             grid.setAdapter(adapter);
 
 
@@ -81,16 +82,16 @@ public class GalleryActivity extends BaseActivity {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                                    String videoURl = payloadGalleryArrayList.get(position).getVideourl();
+                                    String videoURl = payloadGalleryArrayList.get(position).getVideoPath();
 
-                                    String videoTitle = payloadGalleryArrayList.get(position).getVideodesc();
-                                    String imageTitle = payloadGalleryArrayList.get(position).getImagedesc();
-                                    String imageurl = payloadGalleryArrayList.get(position).getImage();
+//                                    String videoTitle = payloadGalleryArrayList.get(position).d;
+                                    String imageTitle = payloadGalleryArrayList.get(position).getDescription();
+//                                    String imageurl = payloadGalleryArrayList.get(position).getImage();
 
                                     sharedPrefsHelper.put(AppConstants.VIDEO_URL, videoURl);
-                                    sharedPrefsHelper.put(AppConstants.VIDEO_TITLE, videoTitle);
+//                                    sharedPrefsHelper.put(AppConstants.VIDEO_TITLE, videoTitle);
                                     sharedPrefsHelper.put(AppConstants.IMAGE_TITLE, imageTitle);
-                                    sharedPrefsHelper.put(AppConstants.IMAGE_URL, imageurl);
+//                                    sharedPrefsHelper.put(AppConstants.IMAGE_URL, imageurl);
 
                                     startActivity(new Intent(context, GalleryDetailActivity.class));
 

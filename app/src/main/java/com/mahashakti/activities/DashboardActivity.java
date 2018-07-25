@@ -5,11 +5,15 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
@@ -22,6 +26,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Base64;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,10 +49,13 @@ import com.mahashakti.response.UpcomingEventSuccess.UpcomingEventSuccess;
 import com.mahashakti.response.createServices.CreateServices;
 import com.mahashakti.response.createServices.PayLoad;
 import com.mahashakti.response.displayingUserChat.DisplayingUserChat;
+import com.mahashakti.response.upcomingEvent.UpcomingEvent;
+import com.mahashakti.response.userInfo.UserInfo;
 import com.mahashakti.sharedPreferences.UserDataUtility;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -122,6 +130,9 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     private long lastClickTime = 0;
 
 
+    private RelativeLayout rlflashingNxtEvent;
+
+
     KProgressHUD hud;
 
     ArrayList<PayLoad> payLoadsServices = new ArrayList<>();
@@ -137,6 +148,8 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
         context = this;
         hud = new KProgressHUD(this);
+
+        rlflashingNxtEvent = findViewById(R.id.rlflashingNxtEvent);
 
         userid = String.valueOf(sharedPrefsHelper.get(AppConstants.USER_ID, 0));
 
@@ -167,64 +180,97 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     private void UpcomingEventApi() {
 
 
-        compositeDisposable.add(apiService.getUpcomingEvent()
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<UpcomingEventSuccess>() {
-                    @Override
-                    public void accept(UpcomingEventSuccess upcomingEventSuccess) throws Exception {
+//        compositeDisposable.add(apiService.getUpcomingEvent()
+//                .subscribeOn(Schedulers.computation())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<UpcomingEventSuccess>() {
+//                    @Override
+//                    public void accept(UpcomingEventSuccess upcomingEventSuccess) throws Exception {
+//
+//                        if (upcomingEventSuccess.getSuccess()) {
+//
+//                            txtEventName.setText(upcomingEventSuccess.getPayload().getEventname());
+//                            txtStartDate.setText(upcomingEventSuccess.getPayload().getEventstartdate());
+//                            txtEndDate.setText(upcomingEventSuccess.getPayload().getEventenddate());
+//
+//                            String startDate = upcomingEventSuccess.getPayload().getEventstartdate();
+//                            String endDtae = upcomingEventSuccess.getPayload().getEventenddate();
+//
+//
+//                            String startDa = startDate.replaceAll("-", "/");
+//                            String endDa = endDtae.replaceAll("-", "/");
+//
+//                            // SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+//                            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+//
+//
+//                            Date d1 = null;
+//                            Date d2 = null;
+//
+//                            d1 = format.parse(startDa);
+//                            d2 = format.parse(endDa);
+//
+//                            //in milliseconds
+//                            long diff = d2.getTime() - d1.getTime();
+//
+//                            long diffHours = diff / (60 * 60 * 1000) % 24;
+//                            long diffDays = diff / (24 * 60 * 60 * 1000);
+//
+//                            System.out.print(diffDays + " days, ");
+//                            System.out.print(diffHours + " hours, ");
+//
+//                            txtDays.setText(String.valueOf(diffDays));
+//                            txtHours.setText(String.valueOf(diffHours));
+//
+//                        } else {
+//
+//
+//                        }
+//
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(Throwable throwable) throws Exception {
+//
+//
+//                        compositeDisposable.dispose();
+//
+//
+//                    }
+//                }));
 
-                        if (upcomingEventSuccess.getSuccess()) {
 
-                            txtEventName.setText(upcomingEventSuccess.getPayload().getEventname());
-                            txtStartDate.setText(upcomingEventSuccess.getPayload().getEventstartdate());
-                            txtEndDate.setText(upcomingEventSuccess.getPayload().getEventenddate());
+        HttpModule.provideRepositoryService().createUpcomingEvent().enqueue(new Callback<UpcomingEvent>() {
+            @Override
+            public void onResponse(Call<UpcomingEvent> call, Response<UpcomingEvent> response) {
 
-                            String startDate = upcomingEventSuccess.getPayload().getEventstartdate();
-                            String endDtae = upcomingEventSuccess.getPayload().getEventenddate();
+                if (response.body() != null) {
 
+                    if (response.body().isSuccess) {
 
-                            String startDa = startDate.replaceAll("-", "/");
-                            String endDa = endDtae.replaceAll("-", "/");
+                        rlflashingNxtEvent.setVisibility(View.VISIBLE);
+                        txtEventName.setText(response.body().payLoad.name);
+                        txtStartDate.setText(response.body().payLoad.startDate);
+                        txtEndDate.setText(response.body().payLoad.endDate);
 
-                            // SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-                            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-
-
-                            Date d1 = null;
-                            Date d2 = null;
-
-                            d1 = format.parse(startDa);
-                            d2 = format.parse(endDa);
-
-                            //in milliseconds
-                            long diff = d2.getTime() - d1.getTime();
-
-                            long diffHours = diff / (60 * 60 * 1000) % 24;
-                            long diffDays = diff / (24 * 60 * 60 * 1000);
-
-                            System.out.print(diffDays + " days, ");
-                            System.out.print(diffHours + " hours, ");
-
-                            txtDays.setText(String.valueOf(diffDays));
-                            txtHours.setText(String.valueOf(diffHours));
-
-                        } else {
-
-
-                        }
 
                     }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
+
+                }
 
 
-                        compositeDisposable.dispose();
+            }
+
+            @Override
+            public void onFailure(Call<UpcomingEvent> call, Throwable t) {
 
 
-                    }
-                }));
+                rlflashingNxtEvent.setVisibility(View.GONE);
+                System.out.println("DashboardActivity.onFailure " + t);
+
+
+            }
+        });
 
 
     }
@@ -252,6 +298,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         tvEmpName = hView.findViewById(R.id.tvEmpName);
         tvDesignation = hView.findViewById(R.id.tvDesignation);
 
+
         String fullname = sharedPrefsHelper.get(AppConstants.USER_NAME, "username");
         String emailId = sharedPrefsHelper.get(AppConstants.EMAIL, "email");
         String phoneNo = sharedPrefsHelper.get(AppConstants.PHONE_NUMBER, "phone");
@@ -268,7 +315,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         } else {
 
             Picasso.with(context)
-                    .load("http://mahashaktiradiance.com/" + userPic)
+                    .load("http://softwareering.com/mahashakti/storage/app/" + userPic)  // .load("http://mahashaktiradiance.com/" + userPic)
                     .error(R.drawable.user)
                     .into(profile_image);
 
@@ -284,7 +331,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                     String userPic = ((ImageProfileEvent) o).getImageUrl();
 
                     Picasso.with(context)
-                            .load("http://mahashaktiradiance.com/" + userPic)
+                            .load("http://softwareering.com/mahashakti/storage/app/" + userPic) // .load("http://mahashaktiradiance.com/" + userPic)
                             .error(R.drawable.user)
                             .into(profile_image);
 
@@ -302,7 +349,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         tvEmpName.setText(fullname);
         tvDesignation.setText(emailId);
 
-
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
 
@@ -311,10 +357,12 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         //This method will initialize the count value
         initializeCountDrawer();
 
+
     }
 
     @Override
     public void onBackPressed() {
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -326,6 +374,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     private void initializeCountDrawer() {
 
         //Gravity property aligns the text
+
         notifications.setGravity(Gravity.CENTER_VERTICAL);
         notifications.setTypeface(null, Typeface.BOLD);
         notifications.setTextColor(getResources().getColor(R.color.colorAccent));
@@ -345,7 +394,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         // Handle navigation view item clicks here.
-
 
         int id = item.getItemId();
 
@@ -584,20 +632,50 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                 }
                 lastClickTime = SystemClock.elapsedRealtime();
 
-                navigateToNextActivity(ProfileActivity.class, cardViewProfile);
+
+                HttpModule.provideRepositoryService().UserInfoAPI(Integer.valueOf(userid)).enqueue(new Callback<UserInfo>() {
+                    @Override
+                    public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+
+//                        if (response.body() != null) {
+
+                        if (response.body().isSuccess) {
+
+                            TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+
+                            Picasso.with(context).load("http://softwareering.com/mahashakti/storage/app/" + response.body().payLoad.image).into(profile_image);
+
+
+                            Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
+                            intent.putExtra("UserInfo", response.body().payLoad);
+
+                            startActivity(intent);
+
+//                                navigateToNextActivity(ProfileActivity.class, cardViewProfile);
+
+                        } else {
+
+                            TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+
+                        }
+
+
+                    }
+
+
+//                    }
+
+                    @Override
+                    public void onFailure(Call<UserInfo> call, Throwable t) {
+
+                        System.out.println("DashboardActivity.onFailure " + t);
+                    }
+                });
+
 
                 break;
 
             case R.id.card_view_service:
-
-                if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
-                    return;
-                }
-                lastClickTime = SystemClock.elapsedRealtime();
-                commonServices();
-                break;
-
-            case R.id.card_view_chat:
 
                 if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
                     return;
@@ -608,6 +686,17 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                 pleaseWaitDilaog();
 
 
+                commonServices();
+                break;
+
+            case R.id.card_view_chat:
+
+                if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+                    return;
+                }
+                lastClickTime = SystemClock.elapsedRealtime();
+
+                pleaseWaitDilaog();
                 HttpModule.provideRepositoryService().displayUserChatMessages(Integer.valueOf(userid)).enqueue(new Callback<DisplayingUserChat>() {
                     @Override
                     public void onResponse(Call<DisplayingUserChat> call, Response<DisplayingUserChat> response) {
@@ -623,12 +712,9 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                                 Intent intent = new Intent(DashboardActivity.this, ChatActivity.class);
                                 intent.putExtra("DisplayingUserChat", (Serializable) response.body().payload);
                                 startActivity(intent);
-
-
 //                                navigateToNextActivity(ChatActivity.class, cardViewChat);
 
                             } else {
-
 
                                 TastyToast.makeText(getApplicationContext(), "Ooops ! You are missing something..", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
                             }
@@ -648,7 +734,10 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
 
             case R.id.card_view_blog:
-                System.out.println("DashboardActivity.onViewClicked blog clicked ");
+
+
+                pleaseWaitDilaog();
+
                 Intent intent = new Intent(DashboardActivity.this, BlogActivity.class);
                 startActivity(intent);
 
@@ -657,6 +746,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
         }
     }
+
 
     private void commonServices() {
 
@@ -670,6 +760,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
                     if (response.body().isSuccess) {
 
+                        hud.dismiss();
                         TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
 
                         Intent intent = new Intent(DashboardActivity.this, ServiceActivity.class);
@@ -686,7 +777,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
             @Override
             public void onFailure(Call<CreateServices> call, Throwable t) {
-
+                hud.dismiss();
 
                 System.out.println("DashboardActivity.onFailure " + t);
             }

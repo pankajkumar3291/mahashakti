@@ -1,13 +1,17 @@
 package com.mahashakti.activities;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -21,11 +25,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.Blur;
 import com.mahashakti.R;
 import com.mahashakti.ApplicationClass.AppController;
 import com.mahashakti.events.ImageProfileEvent;
+import com.mahashakti.response.userInfo.PayLoad;
 import com.orhanobut.hawk.Hawk;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 import com.vansuita.pickimage.bean.PickResult;
 import com.vansuita.pickimage.bundle.PickSetup;
 import com.vansuita.pickimage.dialog.PickImageDialog;
@@ -34,6 +42,7 @@ import com.vansuita.pickimage.listeners.IPickResult;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -61,43 +70,64 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
 
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
     @BindView(R.id.imageProfile)
     CircleImageView imageProfile;
+
     @BindView(R.id.edUserNameProfile)
     EditText edUserNameProfile;
+
     @BindView(R.id.edEmailAddressProfile)
     EditText edEmailAddressProfile;
+
     @BindView(R.id.edPhoneNumber)
     EditText edPhoneNumber;
 
-
     @BindView(R.id.txtUpdate)
     TextView txtUpdate;
+
     @BindView(R.id.imageBackaroow)
     RelativeLayout imageBackaroow;
+
     @BindView(R.id.imageCamera)
     ImageView imageCamera;
+
     @BindView(R.id.rootView)
     RelativeLayout rootView;
+
     @BindView(R.id.profileTop)
     ConstraintLayout profileTop;
+
     @BindView(R.id.radioMale)
     RadioButton radioMale;
+
     @BindView(R.id.radioFemale)
     RadioButton radioFemale;
+
     @BindView(R.id.radioSex)
     RadioGroup radioSex;
+
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
     private Context context;
+
     private RadioButton radioSexButton;
+
     private String userId, email, phone, sex;
 
     private Uri imagePath;
+
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+
+    private PayLoad UserInfoload = new PayLoad();
+
+    String userName, userEmail, userPhone, userGender, userImage;
+    Integer userID;
 
 
     @Override
@@ -117,10 +147,31 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
         toolbarTitle.setText("PROFILE");
 
 
-        String fullname = sharedPrefsHelper.get(AppConstants.USER_NAME, "username");
-        String emailId = sharedPrefsHelper.get(AppConstants.EMAIL, "email");
-        String phoneNo = sharedPrefsHelper.get(AppConstants.PHONE_NUMBER, "phonenumber"); // Shahzeb editted the phone number default value
-        String sex = sharedPrefsHelper.get(AppConstants.USER_SEX, "sex");
+        if (getIntent() != null) {
+
+            if (getIntent().hasExtra("UserInfo")) {
+
+                UserInfoload = (PayLoad) getIntent().getSerializableExtra("UserInfo");
+
+                userID = UserInfoload.id;
+                userName = UserInfoload.name;
+                userEmail = UserInfoload.email;
+                userPhone = UserInfoload.phone;
+                userGender = UserInfoload.sex;
+                userImage = UserInfoload.image;
+
+            }
+
+        }
+
+
+
+        // Shahzeb commented this code
+
+//        String fullname = sharedPrefsHelper.get(AppConstants.USER_NAME, "username");
+//        String emailId = sharedPrefsHelper.get(AppConstants.EMAIL, "email");
+//        String phoneNo = sharedPrefsHelper.get(AppConstants.PHONE_NUMBER, "phonenumber"); // Shahzeb editted the phone number default value
+//        String sex = sharedPrefsHelper.get(AppConstants.USER_SEX, "sex");
         String userPic = sharedPrefsHelper.get(AppConstants.PROFILE_PIC, "");
 
 
@@ -130,6 +181,7 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
 
+//         Shahzeb commented this code
         if (userPic.contains("facebook")) {
 
             Picasso.with(context)
@@ -139,24 +191,69 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
         } else {
 
             Picasso.with(context)
-                    .load("http://mahashaktiradiance.com/" + userPic)
+                    .load("http://softwareering.com/mahashakti/storage/app/" + userPic) // .load("http://mahashaktiradiance.com/" + userPic)
                     .error(R.drawable.user)
                     .into(imageProfile);
 
+
         }
 
+// Shahzeb commented this code
+//        edUserNameProfile.setText(fullname);
+//        edEmailAddressProfile.setText(emailId);
+//        edPhoneNumber.setText(phoneNo);
 
-        edUserNameProfile.setText(fullname);
-        edEmailAddressProfile.setText(emailId);
-        edPhoneNumber.setText(phoneNo);
+        edUserNameProfile.setText(userName);
+        edEmailAddressProfile.setText(userEmail);
+        edPhoneNumber.setText(userPhone);
 
+
+
+
+
+        Bitmap thumb = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile("http://softwareering.com/mahashakti/storage/app/\" + UserInfoload.image"), 100, 100);
+
+//
+//        Transformation blurTransformation = new Transformation() {
+//            @Override
+//            public Bitmap transform(Bitmap source) {
+//                Bitmap blurred = Blur.fastblur(ProfileActivity.this.context, source, 10);
+//                source.recycle();
+//                return blurred;
+//            }
+//
+//            @Override
+//            public String key() {
+//                return "blur()";
+//            }
+//        };
+//
+//        Picasso.with(context)
+//                .load(String.valueOf(thumb)) // thumbnail url goes here
+//                .resize(100, 100)
+//                .transform(blurTransformation)
+//                .into(imageProfile, new Callback() {
+//                    @Override
+//                    public void onSuccess() {
+//                        Picasso.with(context)
+//                                .load("http://softwareering.com/mahashakti/storage/app/" + UserInfoload.image) // image url goes here
+//                                .resize(100, 100)
+//                                .into(imageProfile);
+//                    }
+//
+//                    @Override
+//                    public void onError() {
+//                    }
+//                });
+
+
+        Picasso.with(context).load("http://softwareering.com/mahashakti/storage/app/" + UserInfoload.image).into(imageProfile);
 
         progressBar.setVisibility(View.GONE);
-
-
-        if (sex.equalsIgnoreCase("Male")) {
+        if (UserInfoload.sex.equalsIgnoreCase("Male")) {
 
             radioMale.setChecked(true);
+
         } else {
 
             radioFemale.setChecked(true);
@@ -197,12 +294,11 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
                 radioSexButton = findViewById(selectedId);
 
 
-                userId = String.valueOf(sharedPrefsHelper.get(AppConstants.USER_ID, 1));
+                userId = String.valueOf(UserInfoload.id); // String.valueOf(sharedPrefsHelper.get(AppConstants.USER_ID, 1));
+
                 email = edEmailAddressProfile.getText().toString();
                 phone = edPhoneNumber.getText().toString().trim();
                 sex = String.valueOf(radioSexButton.getText());
-
-                System.out.println("ProfileActivity.onViewClicked - Phone number check  - -" + phone);
 
                 updateProfileApi(userId, email, phone, sex, imagePath);
 
@@ -220,13 +316,8 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
         RequestBody phoNE = RequestBody.create(MediaType.parse("text/plain"), phone);
         RequestBody seX = RequestBody.create(MediaType.parse("text/plain"), sex);
 
-        System.out.println("ProfileActivity.updateProfileApi - - -" + userID);
-        System.out.println("ProfileActivity.updateProfileApi - - -" + emailID);
-        System.out.println("ProfileActivity.updateProfileApi - - -" + phoNE);
-        System.out.println("ProfileActivity.updateProfileApi - - -" + seX);
 
-
-        compositeDisposable.add(apiService.updateProfile(userID, emailID, phoNE, imagePath == null ? null : prepareFilePart("userpic", imagePath), seX)
+        compositeDisposable.add(apiService.updateProfile(userID, emailID, phoNE, imagePath == null ? null : prepareFilePart("image", imagePath), seX)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<ProfileUpdateSuccess>() {
@@ -256,8 +347,6 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
 //                            utility.setUserPic(profileUpdateSuccess.getPayLoad().getUpdatedAt());
 //                            utility.setUserPic(profileUpdateSuccess.getPayLoad().getCreatedAt());
 //                            utility.setUserPic(profileUpdateSuccess.getPayLoad().getaOrC());
-
-
                             sharedPrefsHelper.put(AppConstants.IMAGE_URL, profileUpdateSuccess.payLoad.image);
 
                             ((AppController) getApplication()).bus().send(new ImageProfileEvent(profileUpdateSuccess.payLoad.image));

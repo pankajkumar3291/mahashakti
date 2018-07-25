@@ -9,10 +9,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.mahashakti.Adapters.ServiceAdapter;
 import com.mahashakti.R;
 import com.mahashakti.baseactivity.BaseActivity;
@@ -36,12 +40,14 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
     private TextView toolbarTitle;
     private Toolbar toolbar;
     private Context context;
+    private ImageView imageBackarrowChat;
 
 
     private RecyclerView serviceRecyclerView;
     ArrayList<PayLoad> eventSuccessArrayList = new ArrayList<>();
 
 
+    KProgressHUD hud;
 
 
     ArrayList<com.mahashakti.response.createParticularServiceInfo.PayLoad> payLoadArrayList = new ArrayList<>();
@@ -50,7 +56,11 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hidingStatusBar();
         setContentView(R.layout.bhaisalman);
+
+
+
 
 
         if (getIntent() != null) {
@@ -62,8 +72,11 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
 
 
         context = this;
+        hud = new KProgressHUD(this);
+        hud.dismiss();
 
         findingIdsHere();
+        clickListner();
         initializeAdapterHere();
 
 
@@ -77,6 +90,18 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
+    private void hidingStatusBar() {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+
+    private void clickListner() {
+        imageBackarrowChat.setOnClickListener(this);
+    }
+
+
+
+
     private void initializeAdapterHere() {
 
         System.out.println("ServiceActivity.initializeAdapterHere - - - " + eventSuccessArrayList.size());
@@ -89,9 +114,16 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
+
+
+
     private void findingIdsHere() {
         serviceRecyclerView = findViewById(R.id.serviceRecyclerView);
+        imageBackarrowChat = findViewById(R.id.imageBackarrowChat);
     }
+
+
+
 
 
     @Override
@@ -100,14 +132,18 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
+
+
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+
             case R.id.txtGetStarted:
                 TastyToast.makeText(getApplicationContext(), "Getting Services ", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
                 break;
 
-            case R.id.imageBackaroow:
+            case R.id.imageBackarrowChat:
 
                 finish();
                 break;
@@ -115,8 +151,14 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+
+
+
     @Override
     public void onClick(View view, int position) {
+
+
+        pleaseWaitDilaog();
 
         HttpModule.provideRepositoryService().creatingparticularService(eventSuccessArrayList.get(position).id).enqueue(new Callback<CreateParticularServiceInfo>() {
             @Override
@@ -126,13 +168,14 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
 
                     if (response.body().isSuccess) {
 
+                        hud.dismiss();
+
                         Intent intent = new Intent(ServiceActivity.this, ParticularServiceInformationActivity.class);
-                        intent.putExtra("creatingServiceForParticularOne" , (Serializable) response.body().payLoad);
+                        intent.putExtra("creatingServiceForParticularOne", (Serializable) response.body().payLoad);
                         startActivity(intent);
 
                     } else {
                         TastyToast.makeText(getApplicationContext(), "SOMETHING WENT WRONG", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
-
                     }
                 }
             }
@@ -140,10 +183,29 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onFailure(Call<CreateParticularServiceInfo> call, Throwable t) {
 
+                hud.dismiss();
                 System.out.println("ServiceActivity.onFailure " + t);
 
             }
         });
 
     }
+
+    private void pleaseWaitDilaog() {
+
+
+
+        hud = KProgressHUD.create(ServiceActivity.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("Please wait")
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
+
+
+
+    }
+
+
 }

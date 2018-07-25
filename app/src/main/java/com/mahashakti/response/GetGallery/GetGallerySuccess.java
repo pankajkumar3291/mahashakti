@@ -45,6 +45,55 @@ public class GetGallerySuccess {
 //        this.Success = Success;
 //    }
 
+//    @SerializedName("isSuccess")
+//    @Expose
+//    public Boolean isSuccess;
+//
+//    @SerializedName("isError")
+//    @Expose
+//    public Boolean isError;
+//
+//    @SerializedName("message")
+//    @Expose
+//    public String message;
+//
+//    @SerializedName("payLoad")
+//    @Expose
+//    public List<PayLoad> payLoad = null;
+//
+//    public Boolean getSuccess() {
+//        return isSuccess;
+//    }
+//
+//    public void setSuccess(Boolean success) {
+//        isSuccess = success;
+//    }
+//
+//    public Boolean getError() {
+//        return isError;
+//    }
+//
+//    public void setError(Boolean error) {
+//        isError = error;
+//    }
+//
+//    public String getMessage() {
+//        return message;
+//    }
+//
+//    public void setMessage(String message) {
+//        this.message = message;
+//    }
+//
+//    public List<PayLoad> getPayLoad() {
+//        return payLoad;
+//    }
+//
+//    public void setPayLoad(List<PayLoad> payLoad) {
+//        this.payLoad = payLoad;
+//    }
+
+
     @SerializedName("isSuccess")
     @Expose
     public Boolean isSuccess;
@@ -57,40 +106,25 @@ public class GetGallerySuccess {
     @Expose
     public String message;
 
-    @SerializedName("payLoad")
+    @SerializedName("payload")
     @Expose
-    public List<PayLoad> payLoad = null;
+    public List<Payload> payload = null;
+
 
     public Boolean getSuccess() {
         return isSuccess;
-    }
-
-    public void setSuccess(Boolean success) {
-        isSuccess = success;
     }
 
     public Boolean getError() {
         return isError;
     }
 
-    public void setError(Boolean error) {
-        isError = error;
-    }
-
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public List<PayLoad> getPayLoad() {
-        return payLoad;
-    }
-
-    public void setPayLoad(List<PayLoad> payLoad) {
-        this.payLoad = payLoad;
+    public List<Payload> getPayload() {
+        return payload;
     }
 
 

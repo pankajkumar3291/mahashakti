@@ -8,12 +8,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.siyamed.shapeimageview.mask.PorterShapeImageView;
 import com.hanks.htextview.rainbow.RainbowTextView;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.mahashakti.Adapters.BlogDetailsAdapter;
 import com.mahashakti.R;
 import com.mahashakti.VerticalMarqueeTextView;
@@ -56,13 +59,22 @@ public class BlogDetailsActivity extends AppCompatActivity implements View.OnCli
     List<PayLoad> loadList = new ArrayList<>();
 
 
+
+    KProgressHUD hud;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        hidingStatusBar();
         setContentView(R.layout.blog_details_activity);
 
 
         context = this;
+
+        hud = new KProgressHUD(this);
+        hud.dismiss();
 
 
         findingIdsHere();
@@ -87,6 +99,14 @@ public class BlogDetailsActivity extends AppCompatActivity implements View.OnCli
 
     }
 
+    private void hidingStatusBar() {
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
+    }
+
 
     private void listenTheClickHere() {
 
@@ -97,6 +117,7 @@ public class BlogDetailsActivity extends AppCompatActivity implements View.OnCli
 
     private void blogCommentAPICallingHere(Payload commentBlog) {
 
+//        pleaseWaitDilaog();
 
         HttpModule.provideRepositoryService().createBlogComment(commentBlog.id).enqueue(new Callback<CommentByBlog>() {
             @Override
@@ -105,8 +126,8 @@ public class BlogDetailsActivity extends AppCompatActivity implements View.OnCli
                 if (response.body() != null) {
                     if (response.body().isSuccess) {
 
+//                        hud.dismiss();
                         initializeAdapterHere(response.body().payLoad);
-
 
 //                        TastyToast.makeText(getApplicationContext(), "Success wala", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
 
@@ -118,11 +139,27 @@ public class BlogDetailsActivity extends AppCompatActivity implements View.OnCli
 
             @Override
             public void onFailure(Call<CommentByBlog> call, Throwable t) {
+//                hud.dismiss();
 
                 System.out.println("BlogDetailsActivity.onFailure " + t);
 
             }
         });
+
+
+    }
+
+    private void pleaseWaitDilaog() {
+
+        hud = KProgressHUD.create(BlogDetailsActivity.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("Please wait")
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
+
+
 
 
     }

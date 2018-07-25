@@ -67,7 +67,7 @@ public class GalleryDetailActivity extends BaseActivity {
 
 
         Picasso.with(context)
-                .load("http://mahashaktiradiance.com/" + sharedPrefsHelper.get(AppConstants.IMAGE_URL, ""))
+                .load("http://softwareering.com/mahashakti/public/api/api/" + sharedPrefsHelper.get(AppConstants.IMAGE_URL, "")) // .load("http://mahashaktiradiance.com/" + sharedPrefsHelper.get(AppConstants.IMAGE_URL, ""))
                 .error(R.drawable.user)
                 .into(imageGallery);
 

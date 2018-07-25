@@ -83,7 +83,7 @@ public interface GitApiInterface {
     Observable<EventSuccess> getallevent();
 
     //-----------------------7
-    @GET("getgalleryitems")
+    @GET("getGallery")
     Observable<GetGallerySuccess> getgalleryitems();
 
 

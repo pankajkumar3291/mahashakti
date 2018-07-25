@@ -104,15 +104,20 @@ public class UserDataUtility {
 
     }
 
+
     public String getUserPic() {
         userPic = sharedPreferences.getString("userPic", userPic);
-
         return userPic;
     }
 
     public void setUserPic(String userPic) {
+
         this.userPic = userPic;
         sharedPreferences.edit().putString("userPic", userPic).commit();
 
     }
+
+
+
+
 }

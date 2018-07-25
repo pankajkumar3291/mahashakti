@@ -7,42 +7,55 @@ public class PayloadUpcomingEvent {
     @Expose
     @SerializedName("updated_at")
     private String updated_at;
+
     @Expose
     @SerializedName("created_at")
     private String created_at;
+
     @Expose
     @SerializedName("showonhomepage")
     private int showonhomepage;
+
     @Expose
     @SerializedName("eventexpirestatus")
     private int eventexpirestatus;
+
     @Expose
     @SerializedName("eventpic")
     private String eventpic;
+
     @Expose
     @SerializedName("eventseats")
     private int eventseats;
+
     @Expose
     @SerializedName("eventenddate")
     private String eventenddate;
+
     @Expose
     @SerializedName("eventstartdate")
     private String eventstartdate;
+
     @Expose
     @SerializedName("eventpriceperperson")
     private int eventpriceperperson;
+
     @Expose
     @SerializedName("eventdesc")
     private String eventdesc;
+
     @Expose
     @SerializedName("eventcreator")
     private int eventcreator;
+
     @Expose
     @SerializedName("eventlocation")
     private String eventlocation;
+
     @Expose
     @SerializedName("eventname")
     private String eventname;
+
     @Expose
     @SerializedName("id")
     private int id;

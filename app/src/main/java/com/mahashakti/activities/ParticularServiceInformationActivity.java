@@ -7,7 +7,10 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Window;
+import android.view.WindowManager;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.mahashakti.Adapters.ParticularServiceInfoAdapter;
 import com.mahashakti.R;
 import com.mahashakti.response.createParticularServiceInfo.PayLoad;
@@ -22,10 +25,16 @@ public class ParticularServiceInformationActivity extends AppCompatActivity {
 
     ArrayList<PayLoad> payLoadArrayList = new ArrayList<>();
 
+    KProgressHUD hud;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        hidingStatusBar();
+
         setContentView(R.layout.particular_service_information_activity);
 
 
@@ -38,8 +47,21 @@ public class ParticularServiceInformationActivity extends AppCompatActivity {
         }
 
 
+
+        hud = new KProgressHUD(this);
+        hud.dismiss();
+
         findingIdsHere();
         recyclerviewInitializationHere();
+
+    }
+
+    private void hidingStatusBar() {
+
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 
     }
 

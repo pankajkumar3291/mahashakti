@@ -8,7 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.mahashakti.Adapters.BlogAdapter;
 import com.mahashakti.R;
 import com.mahashakti.httpNet.HttpModule;
@@ -36,18 +39,33 @@ public class BlogActivity extends AppCompatActivity implements ItemClickListener
 
     ArrayList<Payload> list = new ArrayList<>();
 
+    KProgressHUD hud;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        hidingStatusBar();
+
         setContentView(R.layout.activity_blog);
 
 
         context = this;
+        hud = new KProgressHUD(this);
+        hud.dismiss();
 
         findingIdsHere();
         gettingBlogsDadaHere();
 
+
+    }
+
+    private void hidingStatusBar() {
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     }
 
@@ -65,6 +83,10 @@ public class BlogActivity extends AppCompatActivity implements ItemClickListener
 
     private void gettingBlogsDadaHere() {
 
+
+        pleaseWaitDilaog();
+
+
         HttpModule.provideRepositoryService().creatingBlog().enqueue(new Callback<CreateBlog>() {
             @Override
             public void onResponse(Call<CreateBlog> call, Response<CreateBlog> response) {
@@ -73,6 +95,8 @@ public class BlogActivity extends AppCompatActivity implements ItemClickListener
                 if (response.body() != null) {
 
                     if (response.body().isSuccess) {
+
+                        hud.dismiss();
 
                         TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
                         recyclerviewInitializationHere(response.body().payload);
@@ -92,11 +116,25 @@ public class BlogActivity extends AppCompatActivity implements ItemClickListener
             @Override
             public void onFailure(Call<CreateBlog> call, Throwable t) {
 
+                hud.dismiss();
                 System.out.println("BlogActivity.onFailure " + t);
 
             }
         });
 
+    }
+
+    private void pleaseWaitDilaog() {
+
+
+
+        hud = KProgressHUD.create(BlogActivity.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("Please wait")
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
     }
 
 

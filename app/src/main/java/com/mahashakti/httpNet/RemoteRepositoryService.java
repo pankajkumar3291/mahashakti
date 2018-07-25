@@ -9,6 +9,8 @@ import com.mahashakti.response.createParticularServiceInfo.CreateParticularServi
 import com.mahashakti.response.createServices.CreateServices;
 import com.mahashakti.response.displayingAdminApproveChat.DisplayingAdminChat;
 import com.mahashakti.response.displayingUserChat.DisplayingUserChat;
+import com.mahashakti.response.upcomingEvent.UpcomingEvent;
+import com.mahashakti.response.userInfo.UserInfo;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
@@ -61,6 +63,16 @@ public interface RemoteRepositoryService {
     @FormUrlEncoded
     @POST("chat")
     Call<DisplayingAdminChat> displayAdminChatMessages(@Field("userId") Integer userId, @Field("message") String message);
+
+    // 8
+    @FormUrlEncoded
+    @POST("getUserInfo")
+    Call<UserInfo> UserInfoAPI(@Field("id") Integer userId);
+
+    // 9
+
+    @GET("upcommingEvent/")
+    Call<UpcomingEvent> createUpcomingEvent();
 
 
 }

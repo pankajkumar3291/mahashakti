@@ -92,6 +92,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         chatRecyclerview.setLayoutManager(mlayoutManager);
         chatAdapter = new ChatAdapter(context, listDisplayingMessage);
         chatRecyclerview.setAdapter(chatAdapter);
+//        chatAdapter.notifyDataSetChanged();
+
 
 
     }

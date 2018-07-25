@@ -49,7 +49,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:padding="@dimen/_5sdp"
-            android:text="DHARAMVEER"/>
+            android:text="SHAHZEB"/>
     </LinearLayout>
 
 </RelativeLayout>
