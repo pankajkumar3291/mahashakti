@@ -69,7 +69,11 @@ public class LoginPresenter extends BasePresenter {
                             sharedPrefsHelper.put(AppConstants.PHONE_NUMBER, String.valueOf(loginUserSuccess.payLoad.phone));
                             sharedPrefsHelper.put(AppConstants.USER_SEX, String.valueOf(loginUserSuccess.payLoad.sex));
                             sharedPrefsHelper.put(AppConstants.PROFILE_PIC, String.valueOf(loginUserSuccess.payLoad.image));
-                            view.loginSuccessful(loginUserSuccess.message);
+//                            view.loginSuccessful(loginUserSuccess.message);
+
+
+                            view.loginSuccessful("You are successfully logged in");
+
 //                            sharedPrefsHelper.put(AppConstants.GETCREATEDAT, String.valueOf(loginUserSuccess.getPayLoad().getCreatedAt()));
 //                            sharedPrefsHelper.put(AppConstants.GETAORC, String.valueOf(loginUserSuccess.getPayLoad().getaOrC()));
 //                            view.loginSuccessful(loginUserSuccess.getMessage());

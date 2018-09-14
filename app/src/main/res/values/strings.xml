@@ -2,9 +2,18 @@
     <string name="app_name">Mahashakti</string>
 
 
-    <string name="facebook_app_id">388292308295573</string>
+    <!--before 388292308295573-->
+    <!--298427674284205-->
+    <!--<string name="facebook_app_id">298427674284205</string>-->
     <string name="youtubeapi">AIzaSyCP2x2A7dYPdc-DSgCIG0hAdqyCBTX5IzY</string>
-    <string name="fb_login_protocol_scheme">fb388292308295573</string>
+    <!--<string name="fb_login_protocol_scheme">fb388292308295573</string>-->
+
+
+    <!--new-->
+
+    <string name="facebook_app_id">264934024150454</string>
+    <string name="fb_login_protocol_scheme">fb264934024150454</string>
+
 
     <string name="clientid">175364315582-lfvfs9oopjch2ms9p8ufqt1fbbmn9mto.apps.googleusercontent.com</string>
     <string name="clientsecret">73MXsrVEz6i38bStXngYfMh4</string>
@@ -80,6 +89,17 @@
     <string name="password">PASSWORD</string>
     <string name="address">ADDRESS</string>
     <string name="forgetpsw">Forget Password?</string>
+
+
+    <string name="changePassword">Change Password?</string>
+
+
+    <string name="oldpassword">OLD PASSWORD</string>
+    <string name="newpassword">NEW PASSWORD</string>
+    <string name="confirmpassword">CONFIRM PASSWORD</string>
+    <string name="changebutton">CHANGE</string>
+
+
     <string name="update">UPDATE</string>
     <string name="nextpaymentinfo">NEXT -PAYMENT INFO</string>
     <string name="phonenumber">PHONE NUMBER</string>
@@ -92,6 +112,7 @@
     <string name="confirmpsw">CONFIRM PASSWORD</string>
     <string name="thought">THOUGHTS</string>
     <string name="gallery">GALLERY</string>
+    <string name="video">VIDEO</string>
     <string name="program">PROGRAM</string>
     <string name="booking">BOOKING</string>
     <string name="booked">BOOKED</string>

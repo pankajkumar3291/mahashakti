@@ -1,0 +1,136 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_300sdp"
+        android:background="@drawable/mahashaktibg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/backarrowwhite" />
+
+        <ImageView
+            android:id="@+id/imageView16"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logomahashakti" />
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:elevation="20dp"
+        android:paddingBottom="@dimen/_30sdp"
+        android:paddingTop="@dimen/_20sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6">
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/_40sdp"
+            android:paddingTop="@dimen/_10sdp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabel">
+
+
+                <!--<EditText-->
+                <!--android:id="@+id/edEmailForget"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/_10sdp"-->
+                <!--android:layout_marginRight="@dimen/_10sdp"-->
+                <!--android:layout_marginTop="@dimen/_10sdp"-->
+                <!--android:backgroundTint="@color/grey"-->
+                <!--android:hint="@string/emailaddress"-->
+                <!--android:paddingBottom="@dimen/_10sdp"-->
+                <!--android:singleLine="true"-->
+                <!--android:textColorHint="@color/tomato"-->
+                <!--android:textSize="@dimen/_10sdp" />-->
+
+
+                <com.alimuzaffar.lib.widgets.AnimatedEditText
+
+                    android:id="@+id/edEmailForget"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:backgroundTint="@color/grey"
+                    android:hint="@string/emailaddress"
+                    android:inputType="textEmailAddress"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:textColorHint="@color/tomato"
+                    android:textSize="@dimen/_10sdp"
+                    app:animateCursor="true"
+                    app:animateTextClear="true"
+                    app:animationType="fromRight" />
+                <!--"popIn|fromBottom|fromRight|fromMiddle|none"-->
+
+
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:id="@+id/btnSubmitForget"
+        android:layout_width="172dp"
+        android:layout_height="39dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/roundbtnlogin"
+        android:elevation="20dp"
+        android:text="submit"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout5"
+        app:layout_constraintVertical_bias="0.7" />
+
+
+</android.support.constraint.ConstraintLayout>

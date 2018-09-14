@@ -2,6 +2,7 @@ package com.mahashakti.httpNet;
 
 
 import com.mahashakti.response.LoginUserResponse.LoginUserSuccess;
+import com.mahashakti.response.changePassword.ChangePassword;
 import com.mahashakti.response.commentByBlog.CommentByBlog;
 import com.mahashakti.response.createBlog.CreateBlog;
 import com.mahashakti.response.createComment.CreateComment;
@@ -9,6 +10,7 @@ import com.mahashakti.response.createParticularServiceInfo.CreateParticularServi
 import com.mahashakti.response.createServices.CreateServices;
 import com.mahashakti.response.displayingAdminApproveChat.DisplayingAdminChat;
 import com.mahashakti.response.displayingUserChat.DisplayingUserChat;
+import com.mahashakti.response.forgetPassword.ForgetPassword;
 import com.mahashakti.response.upcomingEvent.UpcomingEvent;
 import com.mahashakti.response.userInfo.UserInfo;
 
@@ -73,6 +75,19 @@ public interface RemoteRepositoryService {
 
     @GET("upcommingEvent/")
     Call<UpcomingEvent> createUpcomingEvent();
+
+
+    // 10
+
+    @FormUrlEncoded
+    @POST("forgotPassword")
+    Call<ForgetPassword> forgetPasswordAPI(@Field("email") String email);
+
+    // 11
+
+    @FormUrlEncoded
+    @POST("changePassword")
+    Call<ChangePassword> changePasswordAPI(@Field("email") String email, @Field(("oldPassword")) String oldPassword, @Field(("newPassword")) String newPassword);
 
 
 }

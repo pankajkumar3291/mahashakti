@@ -15,10 +15,12 @@ import com.kogitune.activity_transition.ActivityTransitionLauncher;
 import com.mahashakti.R;
 import com.mahashakti.response.EventResponse.EventSuccess;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
 import com.mahashakti.adapters.AdapterProgram;
 import com.mahashakti.baseactivity.BaseActivity;
 import com.mahashakti.response.EventResponse.EventPayload;
@@ -99,10 +101,10 @@ public class ProgramActivity extends BaseActivity {
                     public void accept(EventSuccess eventSuccess) throws Exception {
 
 
-                        if(eventSuccess.isSuccess){
+                        if (eventSuccess.isSuccess) {
                             eventSuccessArrayList = new ArrayList<>(eventSuccess.payLoad);
 
-                            TastyToast.makeText(getApplicationContext() , eventSuccess.message , TastyToast.LENGTH_SHORT , TastyToast.SUCCESS).show();
+//                            TastyToast.makeText(getApplicationContext() , eventSuccess.message , TastyToast.LENGTH_SHORT , TastyToast.SUCCESS).show();
 
                             adapterProgram = new AdapterProgram(ProgramActivity.this, eventSuccessArrayList);
 
@@ -126,8 +128,19 @@ public class ProgramActivity extends BaseActivity {
 
 
                                 }
-                            });
 
+                                @Override
+                                public void onProgramClick(View view, int position) {
+//                                    startActivity(new Intent(ProgramActivity.this, ProgramInformation.class));
+
+
+                                    Intent intent = new Intent(ProgramActivity.this, ProgramInformation.class);
+                                    intent.putExtra("eventArrayInfo", eventSuccessArrayList.get(position));
+                                    startActivity(intent);
+
+
+                                }
+                            });
 
 
                             adapterProgram.setOnRowClickListener(new AdapterProgram.EventListenerActivity() {
@@ -135,7 +148,7 @@ public class ProgramActivity extends BaseActivity {
                                 public void onRowClick(View image, String title, String des, String startDate, String endDate, int seats, int perprice, String location) {
 
 
-                                    Intent intent = new Intent(context,EventDetailActivity.class);
+                                    Intent intent = new Intent(context, EventDetailActivity.class);
                                     Bundle transitionBundle = ActivityTransitionLauncher
                                             .with(ProgramActivity.this)
                                             .from(image)
@@ -157,15 +170,14 @@ public class ProgramActivity extends BaseActivity {
 
 
 
+
+
                                 }
                             });
+                        } else {
+
+                            showAlertDialog("Retry", "Events Not");
                         }
-                        else {
-
-                            showAlertDialog("Retry","Events Not");
-                        }
-
-
 
 
                     }
@@ -175,7 +187,7 @@ public class ProgramActivity extends BaseActivity {
 
                         compositeDisposable.dispose();
                         throw new RuntimeException("I'm a cool exception and I crashed the main thread!");
-                       // showAlertDialog("Retry",throwable.getMessage());
+                        // showAlertDialog("Retry",throwable.getMessage());
 
 
                     }
@@ -183,8 +195,6 @@ public class ProgramActivity extends BaseActivity {
 
 
     }
-
-
 
 
     @Override

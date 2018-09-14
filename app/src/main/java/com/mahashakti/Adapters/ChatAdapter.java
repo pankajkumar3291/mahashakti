@@ -22,10 +22,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int SENDER = 0;
     private static final int RECEIVER = 1;
 
-    ArrayList<Payload> payload;
+    ArrayList<com.mahashakti.response.displayingAdminApproveChat.Payload> payload;
 
 
-    public ChatAdapter(Context context, ArrayList<Payload> listDisplayingMessage) {
+    public ChatAdapter(Context context, ArrayList<com.mahashakti.response.displayingAdminApproveChat.Payload> listDisplayingMessage) {
 
         this.context = context;
         this.payload = listDisplayingMessage;
@@ -39,17 +39,34 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
 
-        if (viewType == SENDER)
-        {
+        if (viewType == SENDER) {
+
+//            before
+//            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_chat_adapter_right, parent, false);
+//            viewHolder = new ChatViewHolderSender(view);
+//            return viewHolder;
+
+//            now
+
+            // shahzeb
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_chat_adapter_left, parent, false);
+            viewHolder = new ChatViewHolderReceiver(view);
+            return viewHolder;
+
+
+        } else {
+
+//            before
+//            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_chat_adapter_left, parent, false);
+//            viewHolder = new ChatViewHolderReceiver(view);
+//            return viewHolder;
+
+            // hrp
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_chat_adapter_right, parent, false);
             viewHolder = new ChatViewHolderSender(view);
             return viewHolder;
 
-        } else {
 
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_chat_adapter_left, parent, false);
-            viewHolder = new ChatViewHolderReceiver(view);
-            return viewHolder;
         }
     }
 
@@ -57,26 +74,18 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
 
-        final Payload payloadFinal = payload.get(position);
-        if(holder instanceof ChatViewHolderSender)
-        {
+        final com.mahashakti.response.displayingAdminApproveChat.Payload payloadFinal = payload.get(position);
+        if (holder instanceof ChatViewHolderSender) {
 
             ((ChatViewHolderSender) holder).tv_messageSender.setText(payloadFinal.message);
 
             ((ChatViewHolderSender) holder).tv_senderCreatedTime.setText(payloadFinal.createdAt);
-        }
-
-        else if(holder instanceof ChatViewHolderReceiver)
-        {
+        } else if (holder instanceof ChatViewHolderReceiver) {
             ((ChatViewHolderReceiver) holder).tv_ReceiverMessage.setText(payloadFinal.message);
 
             ((ChatViewHolderReceiver) holder).tv_ReceiverCreatedTime.setText(payloadFinal.createdAt);
 
         }
-
-
-
-
 
 
     }
@@ -115,10 +124,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
 
-
-
-
-
     public class ChatViewHolderReceiver extends RecyclerView.ViewHolder {
 
 
@@ -134,9 +139,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         }
     }
-
-
-
 
 
 }

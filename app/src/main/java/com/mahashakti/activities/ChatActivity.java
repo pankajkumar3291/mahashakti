@@ -21,7 +21,9 @@ import android.widget.Toast;
 
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.mahashakti.Adapters.ChatAdapter;
+import com.mahashakti.AppConstants;
 import com.mahashakti.R;
+import com.mahashakti.di.modules.SharedPrefsHelper;
 import com.mahashakti.httpNet.HttpModule;
 import com.mahashakti.response.displayingAdminApproveChat.DisplayingAdminChat;
 import com.mahashakti.response.displayingUserChat.Payload;
@@ -45,7 +47,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
     private EditText edChat;
     private ImageView emojiBtnChat, imageAttachmentChat, imageBackarrowChat;
-    private RelativeLayout relativeSendChatChat;
+    private RelativeLayout relativeSendChatChat, imageBackaroow;
     private LinearLayout linearBottomChat;
     private TextView toolbarTitleChat;
     private Toolbar toolbarChat;
@@ -58,7 +60,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     KProgressHUD hud;
 
 
-    ArrayList<Payload> listDisplayingMessage = new ArrayList<>();
+    ArrayList<com.mahashakti.response.displayingAdminApproveChat.Payload> listDisplayingMessage = new ArrayList<>();
+    SharedPrefsHelper sharedPrefsHelper;
 
 
     @Override
@@ -70,10 +73,12 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
 
         if (getIntent() != null) {
+
             if (getIntent().hasExtra("DisplayingUserChat")) {
-                listDisplayingMessage = (ArrayList<Payload>) getIntent().getSerializableExtra("DisplayingUserChat");
+                listDisplayingMessage = (ArrayList<com.mahashakti.response.displayingAdminApproveChat.Payload>) getIntent().getSerializableExtra("DisplayingUserChat");
             }
         }
+
 
         findindIdsHere();
         clickListener();
@@ -95,7 +100,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 //        chatAdapter.notifyDataSetChanged();
 
 
-
     }
 
     private void clickListener() {
@@ -109,6 +113,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         linearBottomChat.setOnClickListener(this);
         toolbarTitleChat.setOnClickListener(this);
         toolbarChat.setOnClickListener(this);
+        imageBackaroow.setOnClickListener(this);
 
     }
 
@@ -123,59 +128,9 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         toolbarTitleChat = findViewById(R.id.toolbar_title_chat);
         toolbarChat = findViewById(R.id.toolbarChat);
         viewGroup = findViewById(R.id.main_activity_root_view);
+        imageBackaroow = findViewById(R.id.imageBackaroow);
 
     }
-
-
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//
-//        getMenuInflater().inflate(R.menu.menu_search, menu);
-//
-//        MenuItem search = menu.findItem(R.id.search);
-//        SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
-//        search(searchView);
-//        return true;
-//    }
-//
-//    private void search(SearchView searchView) {
-//
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//
-//                if ( != null) mAdapter.getFilter().filter(newText);
-//                return true;
-//            }
-//        });
-//    }
-
-//    @OnClick({R.id.imageBackarrowChat, R.id.emoji_btn_chat, R.id.imageAttachmentChat, R.id.relativeSendChatChat})
-//    public void onViewClicked(View view) {
-//        switch (view.getId()) {
-//
-//            case R.id.emoji_btn_chat:
-//                break;
-//            case R.id.imageAttachmentChat:
-//                break;
-//            case R.id.relativeSendChatChat:
-//                break;
-//
-//            case R.id.imageBackarrowChat:
-//
-//                finish();
-//                break;
-//
-//
-//        }
-//    }
 
 
     @Override
@@ -213,7 +168,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.relativeSendChatChat:
 
 
-                HttpModule.provideRepositoryService().displayAdminChatMessages(32, edChat.getText().toString()).enqueue(new Callback<DisplayingAdminChat>() {
+                HttpModule.provideRepositoryService().displayAdminChatMessages(Integer.valueOf(DashboardActivity.userid), edChat.getText().toString()).enqueue(new Callback<DisplayingAdminChat>() {
                     @Override
                     public void onResponse(Call<DisplayingAdminChat> call, Response<DisplayingAdminChat> response) {
 
@@ -224,6 +179,9 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                                 TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
 
                                 edChat.setText("");
+                                listDisplayingMessage.add(response.body().payload);
+
+                                chatAdapter.notifyDataSetChanged();
 
 
                             } else {
@@ -247,7 +205,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 //                TastyToast.makeText(getApplicationContext(), "Sending The Thoughts", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
                 break;
 
-            case R.id.imageBackarrowChat:
+            case R.id.imageBackaroow:
                 finish();
                 break;
         }

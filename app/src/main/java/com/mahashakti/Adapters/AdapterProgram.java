@@ -1,6 +1,7 @@
 package com.mahashakti.adapters;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
@@ -18,6 +19,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import com.mahashakti.R;
 import com.mahashakti.response.EventResponse.EventPayload;
 import com.mahashakti.response.EventResponse.PayLoad;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by dharamveer on 11/1/18.
@@ -48,6 +50,9 @@ public class AdapterProgram extends RecyclerView.Adapter<AdapterProgram.MyHolder
         void onChatButtonClik(View view, int position);
 
         void onBookingButtonClicked(View view, int position);
+
+
+        void onProgramClick(View view, int position);
 
     }
 
@@ -83,6 +88,16 @@ public class AdapterProgram extends RecyclerView.Adapter<AdapterProgram.MyHolder
         holder.txtFestDescription.setText(plainText);
         holder.txtDate.setText(eventPayload.startDate);
         holder.txtTime.setText(eventPayload.endDate);
+        holder.txtAddress.setText(eventPayload.location);
+
+
+        holder.txtTimeStart.setText(eventPayload.startTime);
+        holder.txtTimeEnd.setText(eventPayload.endTime);
+
+
+        Picasso.with(view.getContext())
+                .load("http://softwareering.com/mahashakti/storage/app/" + eventPayload.imagePath)
+                .into(holder.imageProgram);
 
 
         holder.btnChat.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +115,17 @@ public class AdapterProgram extends RecyclerView.Adapter<AdapterProgram.MyHolder
 
 
                 adapterProgramListener.onBookingButtonClicked(holder.btnBooking, position);
+            }
+        });
+
+
+        holder.card_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                adapterProgramListener.onProgramClick(holder.card_view, position);
+
             }
         });
 
@@ -138,9 +164,10 @@ public class AdapterProgram extends RecyclerView.Adapter<AdapterProgram.MyHolder
     public class MyHolder extends RecyclerView.ViewHolder {
 
         private CircleImageView imageProgram;
-        private TextView txtFestivalName, txtFestDescription, txtDate, txtTime;
+        private TextView txtFestivalName, txtFestDescription, txtDate, txtTime, txtAddress, txtTimeStart, txtTimeEnd;
         private Button btnBooking, btnChat;
         private RelativeLayout eventRow;
+        private CardView card_view;
 
 
         public MyHolder(View itemView) {
@@ -157,11 +184,16 @@ public class AdapterProgram extends RecyclerView.Adapter<AdapterProgram.MyHolder
             txtFestDescription = itemView.findViewById(R.id.txtFestDescription);
             txtDate = itemView.findViewById(R.id.txtDate);
             txtTime = itemView.findViewById(R.id.txtTime);
+            txtAddress = itemView.findViewById(R.id.txtAddress);
 
 
             //Buttons
             btnBooking = itemView.findViewById(R.id.btnBooking);
             btnChat = itemView.findViewById(R.id.btnChat);
+            card_view = itemView.findViewById(R.id.card_view);
+
+            txtTimeStart = itemView.findViewById(R.id.txtTimeStart);
+            txtTimeEnd = itemView.findViewById(R.id.txtTimeEnd);
 
 
         }

@@ -1,58 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:example="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
 
     <TextView
+
         android:id="@+id/tvHeader"
+        fontPath="fonts/HindVadodara-Bold.ttf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:padding="5dp"
         android:text="TextView"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/black" />
 
 
-    <com.mahashakti.VerticalMarqueeTextView
+    <TextView
         android:id="@+id/tvContents"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/tv_back"
-        android:padding="5dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/tvHeader"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:scrollbars="vertical"
-        example:marqueeSpeed="25"
-        example:textStyle="bold" />
+        android:textColor="#000"
+        android:textSize="@dimen/_12sdp" />
+    <!--android:background="@drawable/tv_back"-->
 
 
     <ImageView
-        android:id="@+id/imgBottom12"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvContents" />
 
-    <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
         android:id="@+id/imgBottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        app:siShape="@drawable/shape_rounded_rectangle"
-        app:siSquare="true" />
+        android:layout_below="@+id/tvContents"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp" />
+
+    <!--app:siShape="@drawable/shape_rounded_rectangle"-->
+    <!--app:siSquare="true"-->
 
 
-</LinearLayout>
+</RelativeLayout>

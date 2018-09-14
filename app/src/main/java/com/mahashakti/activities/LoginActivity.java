@@ -79,10 +79,17 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
 
     @BindView(R.id.edEmailId)
     EditText edEmailId;
+
     @BindView(R.id.mainLoginLayout)
     RelativeLayout mainLoginLayout;
+
     private Context context;
+
     private long lastClickTime = 0;
+
+
+    @BindView(R.id.tvChangePassword)
+    TextView tvChangePassword;
 
 
     @Override
@@ -106,7 +113,7 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
 
     }
 
-    @OnClick({R.id.imgBack, R.id.tvForgetPsw, R.id.btnSignIn})
+    @OnClick({R.id.imgBack, R.id.tvForgetPsw, R.id.btnSignIn, R.id.tvChangePassword})
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.imgBack:
@@ -160,6 +167,14 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
 
                     fpd.dismiss();
                 }
+
+                break;
+
+            case R.id.tvChangePassword:
+
+                Intent intent = new Intent(LoginActivity.this, ChangePasswordActivity.class);
+                startActivity(intent);
+                finish();
 
                 break;
 

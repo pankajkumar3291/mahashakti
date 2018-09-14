@@ -4,7 +4,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/appyellowclr"
+    android:background="#f9f5dc"
     android:fitsSystemWindows="true">
 
 
@@ -21,7 +21,6 @@
             android:layout_alignParentTop="true" />
 
         <RelativeLayout
-            android:visibility="gone"
             android:id="@+id/rlflashingNxtEvent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,8 +28,10 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/_2sdp"
             android:alpha="1.0"
-            android:background="#e5e5ff"
-            android:orientation="horizontal">
+            android:background="#FFBF90"
+
+            android:orientation="horizontal"
+            android:visibility="gone">
 
 
             <LinearLayout
@@ -49,24 +50,29 @@
 
 
                     <TextView
+
+                        fontPath="fonts/HindVadodara-Bold.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:padding="@dimen/_3sdp"
                         android:text="Upcoming Event "
                         android:textColor="@color/tomato"
-                        android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"
-                        app:fontPath="fonts/Pacifico.ttf" />
+                        android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold" />
+
+                    <!--app:fontPath="fonts/Pacifico.ttf"-->
 
 
                     <TextView
                         android:id="@+id/txtEventName"
+                        fontPath="fonts/HindVadodara-Bold.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Mahashakti"
                         android:textColor="@color/darkgreen"
-                        android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"
-                        app:fontPath="fonts/Pacifico.ttf" />
+                        android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold" />
+                    <!--app:fontPath="fonts/Pacifico.ttf"-->
 
 
                 </LinearLayout>
@@ -87,22 +93,26 @@
 
 
                         <TextView
+                            fontPath="fonts/HindVadodara-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/startdate"
                             android:textColor="#1C2833"
-                            android:textSize="@dimen/_10sdp"
-                            app:fontPath="fonts/Pacifico.ttf" />
+                            android:textSize="@dimen/_14sdp" />
+
+                        <!--app:fontPath="fonts/Pacifico.ttf"-->
 
 
                         <TextView
                             android:id="@+id/txtStartDate"
+                            fontPath="fonts/HindVadodara-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="12/01/2017"
                             android:textColor="@color/darkgreen"
-                            android:textSize="@dimen/_12sdp"
-                            app:fontPath="fonts/Pacifico.ttf" />
+                            android:textSize="@dimen/_14sdp" />
+
+                        <!--app:fontPath="fonts/Pacifico.ttf"-->
 
                     </LinearLayout>
 
@@ -115,22 +125,25 @@
 
 
                         <TextView
+                            fontPath="fonts/HindVadodara-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/enddate"
                             android:textColor="#1C2833"
-                            android:textSize="@dimen/_10sdp"
-                            app:fontPath="fonts/Pacifico.ttf" />
+                            android:textSize="@dimen/_14sdp" />
+                        <!--app:fontPath="fonts/Pacifico.ttf"-->
 
 
                         <TextView
                             android:id="@+id/txtEndDate"
+                            fontPath="fonts/HindVadodara-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="12/01/2017"
                             android:textColor="@color/darkgreen"
-                            android:textSize="@dimen/_12sdp"
-                            app:fontPath="fonts/Pacifico.ttf" />
+                            android:textSize="@dimen/_14sdp" />
+
+                        <!--app:fontPath="fonts/Pacifico.ttf"-->
 
 
                     </LinearLayout>
@@ -147,26 +160,31 @@
 
 
                     <TextView
+                        fontPath="fonts/HindVadodara-Bold.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:padding="@dimen/_2sdp"
-                        android:text="Approx event duration"
+                        android:text="Event Location:"
                         android:textColor="@color/red"
-                        android:textSize="@dimen/_10sdp"
-                        app:fontPath="fonts/Pacifico.ttf" />
+                        android:textSize="@dimen/_14sdp" />
+
+                    <!--app:fontPath="fonts/Pacifico.ttf"-->
 
 
                     <TextView
-                        android:id="@+id/txtDays"
+                        android:id="@+id/txtEventLocation"
+                        fontPath="fonts/HindVadodara-Bold.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:padding="@dimen/_2sdp"
                         android:text=" 0 "
                         android:textColor="@color/darkgreen"
-                        android:textSize="@dimen/_10sdp"
-                        app:fontPath="fonts/Pacifico.ttf" />
+                        android:textSize="@dimen/_14sdp"
+                        android:visibility="visible" />
+
+                    <!--app:fontPath="fonts/Pacifico.ttf"-->
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -175,8 +193,9 @@
                         android:padding="@dimen/_2sdp"
                         android:text="days"
                         android:textColor="@color/red"
-                        android:textSize="@dimen/_10sdp"
-                        app:fontPath="fonts/Pacifico.ttf" />
+                        android:textSize="@dimen/_14sdp"
+                        android:visibility="gone" />
+                    <!--app:fontPath="fonts/Pacifico.ttf"-->
 
                     <TextView
                         android:id="@+id/txtHours"
@@ -186,8 +205,9 @@
                         android:padding="@dimen/_2sdp"
                         android:text="23"
                         android:textColor="@color/darkgreen"
-                        android:textSize="@dimen/_10sdp"
-                        app:fontPath="fonts/Pacifico.ttf" />
+                        android:textSize="@dimen/_14sdp"
+                        android:visibility="gone" />
+                    <!--app:fontPath="fonts/Pacifico.ttf"-->
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -196,8 +216,11 @@
                         android:padding="@dimen/_2sdp"
                         android:text="hours "
                         android:textColor="@color/red"
-                        android:textSize="@dimen/_10sdp"
-                        app:fontPath="fonts/Pacifico.ttf" />
+                        android:textSize="@dimen/_14sdp"
+                        android:visibility="gone" />
+
+
+                    <!--app:fontPath="fonts/Pacifico.ttf"-->
 
 
                 </LinearLayout>
@@ -213,6 +236,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/rlflashingNxtEvent"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_15sdp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -234,27 +260,28 @@
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/card_view_thoughts"
-                        android:layout_width="@dimen/_70sdp"
-                        android:layout_height="@dimen/_70sdp"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_60sdp"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:gravity="center"
                         app:cardBackgroundColor="@color/thoughtclr"
                         app:cardElevation="5dp">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="@dimen/_60sdp"
                             android:padding="@dimen/_10sdp"
                             android:src="@drawable/thought1" />
                     </android.support.v7.widget.CardView>
 
                     <TextView
+                        fontPath="fonts/HindVadodara-Bold.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_2sdp"
                         android:text="@string/thought"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_12sdp" />
 
                 </LinearLayout>
 
@@ -270,29 +297,30 @@
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/card_view_gallery"
-                        android:layout_width="@dimen/_70sdp"
-                        android:layout_height="@dimen/_70sdp"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_60sdp"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:gravity="center"
                         app:cardBackgroundColor="@color/galleryclr"
                         app:cardElevation="5dp">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/_10sdp"
-                            android:src="@drawable/gallery1" />
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="@dimen/_60sdp"
+                            android:background="#F61C0D"
+                            android:padding="@dimen/_12sdp"
+                            android:src="@drawable/video_icon" />
 
                     </android.support.v7.widget.CardView>
 
                     <TextView
+                        fontPath="fonts/HindVadodara-Bold.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_2sdp"
-                        android:text="@string/gallery"
+                        android:text="@string/video"
                         android:textColor="@color/black"
-
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_12sdp" />
 
                 </LinearLayout>
 
@@ -309,29 +337,29 @@
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/card_view_program"
-                        android:layout_width="@dimen/_70sdp"
-                        android:layout_height="@dimen/_70sdp"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_60sdp"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:gravity="center"
                         app:cardBackgroundColor="@color/programclr"
                         app:cardElevation="5dp">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/_10sdp"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="@dimen/_60sdp"
+                            android:padding="@dimen/_12sdp"
                             android:src="@drawable/program1" />
 
                     </android.support.v7.widget.CardView>
 
                     <TextView
+                        fontPath="fonts/HindVadodara-Bold.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_2sdp"
                         android:text="@string/program"
                         android:textColor="@color/black"
-
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_12sdp" />
 
 
                 </LinearLayout>
@@ -358,29 +386,29 @@
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/card_view_booking"
-                        android:layout_width="@dimen/_70sdp"
-                        android:layout_height="@dimen/_70sdp"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_60sdp"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:gravity="center"
                         app:cardBackgroundColor="@color/bookingclr"
                         app:cardElevation="3dp">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="@dimen/_60sdp"
                             android:padding="@dimen/_10sdp"
                             android:src="@drawable/booking1" />
 
                     </android.support.v7.widget.CardView>
 
                     <TextView
+                        fontPath="fonts/HindVadodara-Bold.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_2sdp"
                         android:text="@string/booking"
                         android:textColor="@color/black"
-
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_12sdp" />
 
                 </LinearLayout>
 
@@ -397,29 +425,29 @@
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/card_view_profile"
-                        android:layout_width="@dimen/_70sdp"
-                        android:layout_height="@dimen/_70sdp"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_60sdp"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:gravity="center"
                         app:cardBackgroundColor="@color/profileclr"
                         app:cardElevation="5dp">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="@dimen/_60sdp"
                             android:padding="@dimen/_10sdp"
                             android:src="@drawable/profile1" />
 
                     </android.support.v7.widget.CardView>
 
                     <TextView
+                        fontPath="fonts/HindVadodara-Bold.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_2sdp"
                         android:text="@string/profile"
                         android:textColor="@color/black"
-
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_12sdp" />
 
 
                 </LinearLayout>
@@ -437,29 +465,29 @@
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/card_view_chat"
-                        android:layout_width="@dimen/_70sdp"
-                        android:layout_height="@dimen/_70sdp"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_60sdp"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:gravity="center"
                         app:cardBackgroundColor="@color/chatclr"
                         app:cardElevation="5dp">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="@dimen/_60sdp"
                             android:padding="@dimen/_10sdp"
                             android:src="@drawable/chat1" />
 
                     </android.support.v7.widget.CardView>
 
                     <TextView
+                        fontPath="fonts/HindVadodara-Bold.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_2sdp"
                         android:text="@string/chat"
                         android:textColor="@color/black"
-
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_12sdp" />
 
 
                 </LinearLayout>
@@ -485,8 +513,8 @@
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/card_view_service"
-                        android:layout_width="@dimen/_70sdp"
-                        android:layout_height="@dimen/_70sdp"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_60sdp"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:gravity="center"
                         app:cardBackgroundColor="@color/serviceiconcolor"
@@ -502,12 +530,13 @@
                     </android.support.v7.widget.CardView>
 
                     <TextView
+                        fontPath="fonts/HindVadodara-Bold.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_1sdp"
                         android:text="@string/service"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_12sdp" />
 
                 </LinearLayout>
 
@@ -520,8 +549,8 @@
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/card_view_blog"
-                        android:layout_width="@dimen/_70sdp"
-                        android:layout_height="@dimen/_70sdp"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_60sdp"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:gravity="center"
                         app:cardBackgroundColor="@color/serviceiconcolor"
@@ -537,12 +566,13 @@
                     </android.support.v7.widget.CardView>
 
                     <TextView
+                        fontPath="fonts/HindVadodara-Bold.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_1sdp"
                         android:text="@string/blog"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_12sdp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -559,7 +589,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#D1E231"
+        android:background="#e4e2e2"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:itemTextColor="#000"

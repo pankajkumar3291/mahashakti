@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.mahashakti.Adapters.BlogAdapter;
@@ -35,6 +36,7 @@ public class BlogActivity extends AppCompatActivity implements ItemClickListener
     private RecyclerView.LayoutManager layoutManager;
     private BlogAdapter blogAdapter;
     private Context context;
+    private ImageView backArrow;
 
 
     ArrayList<Payload> list = new ArrayList<>();
@@ -76,6 +78,7 @@ public class BlogActivity extends AppCompatActivity implements ItemClickListener
         rvBlog.setLayoutManager(layoutManager);
         blogAdapter = new BlogAdapter(context, payload);
         rvBlog.setAdapter(blogAdapter);
+
         blogAdapter.setClickListener(this);
 
 
@@ -98,7 +101,7 @@ public class BlogActivity extends AppCompatActivity implements ItemClickListener
 
                         hud.dismiss();
 
-                        TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+//                        TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
                         recyclerviewInitializationHere(response.body().payload);
 
 
@@ -127,7 +130,6 @@ public class BlogActivity extends AppCompatActivity implements ItemClickListener
     private void pleaseWaitDilaog() {
 
 
-
         hud = KProgressHUD.create(BlogActivity.this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel("Please wait")
@@ -141,6 +143,15 @@ public class BlogActivity extends AppCompatActivity implements ItemClickListener
     private void findingIdsHere() {
 
         rvBlog = findViewById(R.id.rvBlog);
+
+        backArrow = findViewById(R.id.backArrow);
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                finish();
+            }
+        });
 
     }
 

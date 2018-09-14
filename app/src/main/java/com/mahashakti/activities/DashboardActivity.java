@@ -56,7 +56,13 @@ import com.sdsmdg.tastytoast.TastyToast;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -117,8 +123,8 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     TextView txtEndDate;
     @BindView(R.id.txtEventName)
     TextView txtEventName;
-    @BindView(R.id.txtDays)
-    TextView txtDays;
+    //    @BindView(R.id.txtDays)
+//    TextView txtDays;
     @BindView(R.id.txtHours)
     TextView txtHours;
     private CircleImageView profile_image;
@@ -132,12 +138,16 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
     private RelativeLayout rlflashingNxtEvent;
 
+    private TextView txtEventLocation;
+
 
     KProgressHUD hud;
 
     ArrayList<PayLoad> payLoadsServices = new ArrayList<>();
 
-    String userid;
+    public static String userid;
+    SharedPreferences preferences;
+    final static String PREFERENCE_NAME = "MAHASHAKTI PREFERENCE";
 
 
     @Override
@@ -150,6 +160,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         hud = new KProgressHUD(this);
 
         rlflashingNxtEvent = findViewById(R.id.rlflashingNxtEvent);
+        txtEventLocation = findViewById(R.id.txtEventLocation);
 
         userid = String.valueOf(sharedPrefsHelper.get(AppConstants.USER_ID, 0));
 
@@ -252,6 +263,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                         txtEventName.setText(response.body().payLoad.name);
                         txtStartDate.setText(response.body().payLoad.startDate);
                         txtEndDate.setText(response.body().payLoad.endDate);
+                        txtEventLocation.setText(response.body().payLoad.location);
 
 
                     }
@@ -378,7 +390,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         notifications.setGravity(Gravity.CENTER_VERTICAL);
         notifications.setTypeface(null, Typeface.BOLD);
         notifications.setTextColor(getResources().getColor(R.color.colorAccent));
-        notifications.setText("99+");
+//        notifications.setText("99+");
 
 
     }
@@ -604,6 +616,8 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                 }
                 lastClickTime = SystemClock.elapsedRealtime();
 
+//                TastyToast.makeText(getApplicationContext(), "We are working on it", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+
                 navigateToNextActivity(GalleryActivity.class, cardViewGallery);
 
 
@@ -637,33 +651,30 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                     @Override
                     public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
 
-//                        if (response.body() != null) {
+                        if (response.body() != null) {
 
-                        if (response.body().isSuccess) {
+                            if (response.body().isSuccess) {
 
-                            TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+//                                TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
 
-                            Picasso.with(context).load("http://softwareering.com/mahashakti/storage/app/" + response.body().payLoad.image).into(profile_image);
+                                Picasso.with(context).load("http://softwareering.com/mahashakti/storage/app/" + response.body().payLoad.image).into(profile_image);
 
+//                            String fileName = "http://softwareering.com/mahashakti/storage/app/" + response.body().payLoad.image;
 
-                            Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
-                            intent.putExtra("UserInfo", response.body().payLoad);
+                                Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
+                                intent.putExtra("UserInfo", response.body().payLoad);
 
-                            startActivity(intent);
+                                startActivity(intent);
 
 //                                navigateToNextActivity(ProfileActivity.class, cardViewProfile);
 
-                        } else {
+                            } else {
 
-                            TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
-
+                                TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                            }
                         }
 
-
                     }
-
-
-//                    }
 
                     @Override
                     public void onFailure(Call<UserInfo> call, Throwable t) {
@@ -671,7 +682,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                         System.out.println("DashboardActivity.onFailure " + t);
                     }
                 });
-
 
                 break;
 
@@ -707,16 +717,23 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                         {
                             if (response.body().isSuccess) {
 
-                                TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+//                                TastyToast.makeText(DashboardActivity.this, response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
 
                                 Intent intent = new Intent(DashboardActivity.this, ChatActivity.class);
                                 intent.putExtra("DisplayingUserChat", (Serializable) response.body().payload);
                                 startActivity(intent);
-//                                navigateToNextActivity(ChatActivity.class, cardViewChat);
+
 
                             } else {
 
-                                TastyToast.makeText(getApplicationContext(), "Ooops ! You are missing something..", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+
+                                Intent intent = new Intent(DashboardActivity.this, ChatActivity.class);
+
+                                startActivity(intent);
+
+
+                                TastyToast.makeText(DashboardActivity.this, response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                                hud.dismiss();
                             }
                         }
 
@@ -724,6 +741,9 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
                     @Override
                     public void onFailure(Call<DisplayingUserChat> call, Throwable t) {
+
+                        hud.dismiss();
+
                         System.out.println("DashboardActivity.onFailure " + t);
 
                     }
@@ -761,7 +781,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                     if (response.body().isSuccess) {
 
                         hud.dismiss();
-                        TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+//                        TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
 
                         Intent intent = new Intent(DashboardActivity.this, ServiceActivity.class);
                         intent.putExtra("serviceList", (Serializable) response.body().payLoad);

@@ -105,12 +105,12 @@
                 <com.alimuzaffar.lib.widgets.AnimatedEditText
 
                     android:id="@+id/edEmailForget"
-                    android:backgroundTint="@color/grey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:backgroundTint="@color/grey"
                     android:hint="@string/emailaddress"
                     android:inputType="textEmailAddress"
                     android:paddingBottom="@dimen/_10sdp"
@@ -136,7 +136,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_70sdp"
         android:layout_marginRight="@dimen/_70sdp"
-        android:layout_marginTop="@dimen/_315sdp"
+        android:layout_marginTop="@dimen/_305sdp"
         android:background="@drawable/roundbtnlogin"
         android:elevation="20dp"
         android:text="submit"

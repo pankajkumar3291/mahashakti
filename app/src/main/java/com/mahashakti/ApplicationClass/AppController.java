@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.stetho.Stetho;
 import com.mahashakti.R;
 import com.mahashakti.di.components.DaggerAppComponent;
@@ -44,6 +46,16 @@ public class AppController extends Application {
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+
+
+
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+
+
+
+
 
     }
 

@@ -48,7 +48,7 @@ public class HttpModule {
     public Retrofit provideRetrofit(OkHttpClient okHttpClient) {
 
         return new Retrofit.Builder()
-                .baseUrl("http://softwareering.com/mahashakti/public/api/api/")    // .baseUrl(BuildConfig.SERVER_URL)
+                .baseUrl("http://mahashaktiradiance.com/api/api/")    // .baseUrl(BuildConfig.SERVER_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

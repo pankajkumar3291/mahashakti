@@ -25,7 +25,7 @@ public class HttpModule {
 
     public static Retrofit getRetroFitClient() {
         return new Retrofit.Builder()
-                .baseUrl("http://softwareering.com/mahashakti/public/api/api/")
+                .baseUrl("http://mahashaktiradiance.com/api/api/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // Shahzeb added this to use RxJava
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
                 .client(getOkkHttpClient())

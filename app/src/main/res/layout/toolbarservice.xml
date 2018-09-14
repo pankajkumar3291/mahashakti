@@ -41,12 +41,14 @@
 
                 <TextView
                     android:id="@+id/toolbar_title_chat"
+                    fontPath="fonts/HindVadodara-Bold.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="SERVICE"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="@dimen/_13sdp"
+                    android:textStyle="bold" />
 
             </android.support.v7.widget.Toolbar>
 

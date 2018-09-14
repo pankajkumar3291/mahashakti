@@ -65,6 +65,8 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
+import static com.mahashakti.R.id.radioMale;
+
 public class ProfileActivity extends BaseActivity implements IPickResult {
 
 
@@ -118,7 +120,6 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
     private RadioButton radioSexButton;
 
     private String userId, email, phone, sex;
-
     private Uri imagePath;
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -126,7 +127,7 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
 
     private PayLoad UserInfoload = new PayLoad();
 
-    String userName, userEmail, userPhone, userGender, userImage;
+    String userName, userEmail, userPhone, userGender = null, userImage;
     Integer userID;
 
 
@@ -165,7 +166,6 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
         }
 
 
-
         // Shahzeb commented this code
 
 //        String fullname = sharedPrefsHelper.get(AppConstants.USER_NAME, "username");
@@ -177,11 +177,11 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
 
 // Actually if you want your entire layout pan up than you should use :
         // this will keep the keyboard closed and when opened it'll push your entire activity up.
+
         this.getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
 
-//         Shahzeb commented this code
         if (userPic.contains("facebook")) {
 
             Picasso.with(context)
@@ -197,66 +197,29 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
 
 
         }
-
-// Shahzeb commented this code
-//        edUserNameProfile.setText(fullname);
-//        edEmailAddressProfile.setText(emailId);
-//        edPhoneNumber.setText(phoneNo);
-
         edUserNameProfile.setText(userName);
         edEmailAddressProfile.setText(userEmail);
         edPhoneNumber.setText(userPhone);
-
-
-
+        edUserNameProfile.setEnabled(false);
+        edEmailAddressProfile.setEnabled(false);
 
 
         Bitmap thumb = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile("http://softwareering.com/mahashakti/storage/app/\" + UserInfoload.image"), 100, 100);
 
-//
-//        Transformation blurTransformation = new Transformation() {
-//            @Override
-//            public Bitmap transform(Bitmap source) {
-//                Bitmap blurred = Blur.fastblur(ProfileActivity.this.context, source, 10);
-//                source.recycle();
-//                return blurred;
-//            }
-//
-//            @Override
-//            public String key() {
-//                return "blur()";
-//            }
-//        };
-//
-//        Picasso.with(context)
-//                .load(String.valueOf(thumb)) // thumbnail url goes here
-//                .resize(100, 100)
-//                .transform(blurTransformation)
-//                .into(imageProfile, new Callback() {
-//                    @Override
-//                    public void onSuccess() {
-//                        Picasso.with(context)
-//                                .load("http://softwareering.com/mahashakti/storage/app/" + UserInfoload.image) // image url goes here
-//                                .resize(100, 100)
-//                                .into(imageProfile);
-//                    }
-//
-//                    @Override
-//                    public void onError() {
-//                    }
-//                });
-
-
         Picasso.with(context).load("http://softwareering.com/mahashakti/storage/app/" + UserInfoload.image).into(imageProfile);
 
         progressBar.setVisibility(View.GONE);
-        if (UserInfoload.sex.equalsIgnoreCase("Male")) {
 
-            radioMale.setChecked(true);
 
-        } else {
+        if (userGender != null) {
+            if (userGender.equalsIgnoreCase("Male")) {
 
-            radioFemale.setChecked(true);
+                radioMale.setChecked(true);
+
+            } else {
+
+                radioFemale.setChecked(true);
+            }
         }
 
 
@@ -290,6 +253,26 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
                 // get selected radio button from radioGroup
                 int selectedId = radioSex.getCheckedRadioButtonId();
 
+//                radioSex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//                    @Override
+//                    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+//                        radioGroup.getCheckedRadioButtonId();
+//
+//
+//                        switch (radioGroup.getCheckedRadioButtonId()) {
+//
+//                            case R.id.radioMale:
+//                                break;
+//
+//
+//                            case R.id.radioFemale:
+//                                break;
+//                        }
+//
+//                    }
+//                });
+
+
                 // find the radiobutton by returned id
                 radioSexButton = findViewById(selectedId);
 
@@ -298,9 +281,11 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
 
                 email = edEmailAddressProfile.getText().toString();
                 phone = edPhoneNumber.getText().toString().trim();
-                sex = String.valueOf(radioSexButton.getText());
+                sex = String.valueOf(radioSexButton.getText().toString());
+
 
                 updateProfileApi(userId, email, phone, sex, imagePath);
+                finish();
 
 
                 break;
@@ -338,7 +323,6 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
                             utility.setUserName(profileUpdateSuccess.payLoad.name);
                             utility.setUserEmail(profileUpdateSuccess.payLoad.email);
                             utility.setPhoneNo(profileUpdateSuccess.payLoad.phone);
-                            System.out.println("ProfileActivity.accept - - -" + profileUpdateSuccess.payLoad.phone);
 
                             utility.setSex(profileUpdateSuccess.payLoad.sex);
                             utility.setUserPic(profileUpdateSuccess.payLoad.image);

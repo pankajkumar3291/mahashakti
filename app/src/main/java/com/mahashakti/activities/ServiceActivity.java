@@ -60,9 +60,6 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.bhaisalman);
 
 
-
-
-
         if (getIntent() != null) {
             if (getIntent().hasExtra("serviceList")) {
                 eventSuccessArrayList = (ArrayList<PayLoad>) getIntent().getSerializableExtra("serviceList");
@@ -100,8 +97,6 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-
-
     private void initializeAdapterHere() {
 
         System.out.println("ServiceActivity.initializeAdapterHere - - - " + eventSuccessArrayList.size());
@@ -114,25 +109,16 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-
-
-
     private void findingIdsHere() {
         serviceRecyclerView = findViewById(R.id.serviceRecyclerView);
         imageBackarrowChat = findViewById(R.id.imageBackarrowChat);
     }
 
 
-
-
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
-
-
-
 
 
     @Override
@@ -150,8 +136,6 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
 
         }
     }
-
-
 
 
     @Override
@@ -175,7 +159,8 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
                         startActivity(intent);
 
                     } else {
-                        TastyToast.makeText(getApplicationContext(), "SOMETHING WENT WRONG", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                        hud.dismiss();
+                        TastyToast.makeText(getApplicationContext(), "No contents found", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
                     }
                 }
             }
@@ -194,7 +179,6 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
     private void pleaseWaitDilaog() {
 
 
-
         hud = KProgressHUD.create(ServiceActivity.this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel("Please wait")
@@ -202,7 +186,6 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
                 .setAnimationSpeed(2)
                 .setDimAmount(0.5f)
                 .show();
-
 
 
     }

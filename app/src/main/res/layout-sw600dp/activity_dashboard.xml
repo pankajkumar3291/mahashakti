@@ -60,7 +60,7 @@
                         android:textColor="@color/tomato"
                         android:textSize="@dimen/_12sdp"
                         app:fontPath="fonts/Pacifico.ttf"
-                        android:textStyle="bold" />
+                        fontPath="fonts/HindVadodara-Bold.ttf" />
 
 
                     <TextView
@@ -71,7 +71,7 @@
                         app:fontPath="fonts/Pacifico.ttf"
                         android:textColor="@color/darkgreen"
                         android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold" />
+                        fontPath="fonts/HindVadodara-Bold.ttf" />
 
 
                 </LinearLayout>

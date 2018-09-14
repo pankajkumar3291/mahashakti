@@ -81,7 +81,7 @@
                         android:layout_weight="1"
                         android:text="Take"
                         android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold" />
+                        fontPath="fonts/HindVadodara-Bold.ttf" />
 
 
                     <TextView
@@ -153,6 +153,7 @@
                         </LinearLayout>
 
                         <com.like.LikeButton
+                            android:visibility="gone"
                             android:id="@+id/button_favorite"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

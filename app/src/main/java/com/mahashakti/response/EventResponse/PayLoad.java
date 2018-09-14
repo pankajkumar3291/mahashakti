@@ -3,7 +3,9 @@ package com.mahashakti.response.EventResponse;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PayLoad {
+import java.io.Serializable;
+
+public class PayLoad implements Serializable{
 
 
 //    @SerializedName("id")
@@ -216,7 +218,7 @@ public class PayLoad {
 
     @SerializedName("totalSeat")
     @Expose
-    public Integer totalSeat;
+    public String  totalSeat;   // it was an integer i have changed it to String
 
     @SerializedName("eventShow")
     @Expose

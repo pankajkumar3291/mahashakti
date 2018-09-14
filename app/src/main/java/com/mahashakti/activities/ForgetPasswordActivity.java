@@ -9,10 +9,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.mahashakti.R;
+import com.mahashakti.httpNet.HttpModule;
+import com.mahashakti.response.forgetPassword.ForgetPassword;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ForgetPasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -88,16 +93,50 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
                 finish();
 
                 break;
+
             case R.id.btnSubmitForget:
 
                 if (edEmailForget.getText().toString().isEmpty()) {
-                    TastyToast.makeText(getApplicationContext(), "Please enter the emailid", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+
+
+                    TastyToast.makeText(getApplicationContext(), "Please enter a valid emailid", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+
                 } else {
-                    TastyToast.makeText(getApplicationContext(), "Checking...", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+
+                    HttpModule.provideRepositoryService().forgetPasswordAPI(edEmailForget.getText().toString()).enqueue(new Callback<ForgetPassword>() {
+                        @Override
+                        public void onResponse(Call<ForgetPassword> call, Response<ForgetPassword> response) {
+
+                            if (response.body() != null) {
+
+                                if (response.body().isSuccess) {
+
+//                                    edEmailForget.setText("");
+                                    edEmailForget.setText(null);
+
+
+                                    TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+
+                                } else {
+
+                                    TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ForgetPassword> call, Throwable t) {
+
+                            System.out.println("ForgetPasswordActivity.onFailure " + t);
+
+                        }
+                    });
                 }
                 break;
         }
 
-
     }
+
 }

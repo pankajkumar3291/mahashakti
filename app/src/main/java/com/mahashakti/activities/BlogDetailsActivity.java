@@ -6,12 +6,15 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.siyamed.shapeimageview.mask.PorterShapeImageView;
@@ -45,19 +48,22 @@ public class BlogDetailsActivity extends AppCompatActivity implements View.OnCli
     private BlogDetailsAdapter blogDetailsAdapter;
 
     private TextView tvCommentsBlog, tvPrototypeBlog;
-    private ImageView imgSendChatBlog;
-    private VerticalMarqueeTextView tvDescriptionBlog;
+    //    private ImageView imgSendChatBlog;
+    private TextView tvDescriptionBlog;
+    private RelativeLayout imgSendChatBlog;
 
     private EditText edChatBlog;
 
     private Payload listContets;
 
 
-    private PorterShapeImageView imgBlog;
-    private RainbowTextView tvTitleBlog;
+    private ImageView imgBlog;
+    private TextView tvTitleBlog;
+
+
+    private ImageView backArrow;
 
     List<PayLoad> loadList = new ArrayList<>();
-
 
 
     KProgressHUD hud;
@@ -90,8 +96,11 @@ public class BlogDetailsActivity extends AppCompatActivity implements View.OnCli
                 blogCommentAPICallingHere(listContets);
 
                 tvTitleBlog.setText(listContets.title);
-                tvDescriptionBlog.setText(listContets.description);
-                Picasso.with(context).load("http://softwareering.com/mahashakti/storage/app/" + listContets.imagePath)
+//                tvDescriptionBlog.setText(listContets.description);
+                tvDescriptionBlog.setText(Html.fromHtml(Html.fromHtml(listContets.description).toString()));
+                tvDescriptionBlog.setMovementMethod(new ScrollingMovementMethod());
+
+                Picasso.with(context).load("http://softwareering.com/mahashakti/storage/app/" + listContets.imagePath).resize(600, 300)
                         .into(imgBlog);
             }
         }
@@ -127,12 +136,13 @@ public class BlogDetailsActivity extends AppCompatActivity implements View.OnCli
                     if (response.body().isSuccess) {
 
 //                        hud.dismiss();
+                        TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
                         initializeAdapterHere(response.body().payLoad);
 
 //                        TastyToast.makeText(getApplicationContext(), "Success wala", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
 
                     } else {
-//                        TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                        TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
                     }
                 }
             }
@@ -160,8 +170,6 @@ public class BlogDetailsActivity extends AppCompatActivity implements View.OnCli
                 .show();
 
 
-
-
     }
 
     private void initializeAdapterHere(List<PayLoad> payLoad) {
@@ -186,6 +194,15 @@ public class BlogDetailsActivity extends AppCompatActivity implements View.OnCli
 
         imgSendChatBlog = findViewById(R.id.imgSendChatBlog);
         edChatBlog = findViewById(R.id.edChatBlog);
+        backArrow = findViewById(R.id.backArrow);
+
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                finish();
+            }
+        });
 
 
     }

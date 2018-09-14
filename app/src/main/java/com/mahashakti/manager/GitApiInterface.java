@@ -94,10 +94,9 @@ public interface GitApiInterface {
 
     //-----------------------9
     @FormUrlEncoded
-    @POST("createusersocial")
+    @POST("createSocialUser")
     Observable<CreateSocialSuccess> createusersocial(@Field("name") String Name,
-                                                     @Field("email") String Email,
-                                                     @Field("userfrom") String Userfrom);
+                                                     @Field("email") String Email); // @Field("userfrom") String Userfrom
 
     @GET("service")
     Observable<CreateServices> creatingService();

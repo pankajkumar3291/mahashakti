@@ -98,7 +98,7 @@
                 <!--android:textSize="@dimen/_10sdp" />-->
 
 
-                <com.alimuzaffar.lib.widgets.AnimatedEditText
+                <EditText
 
                     android:id="@+id/edUserName"
                     android:layout_width="match_parent"
@@ -142,7 +142,7 @@
                 <!--android:textSize="@dimen/_10sdp" />-->
 
 
-                <com.alimuzaffar.lib.widgets.AnimatedEditText
+                <EditText
 
                     android:id="@+id/edEmail"
                     android:layout_width="match_parent"
@@ -186,7 +186,7 @@
                 <!--android:textSize="@dimen/_10sdp" />-->
 
 
-                <com.alimuzaffar.lib.widgets.AnimatedEditText
+                <EditText
 
                     android:id="@+id/edPsword"
                     android:layout_width="match_parent"
@@ -230,7 +230,7 @@
                 <!--android:textSize="@dimen/_10sdp" />-->
 
 
-                <com.alimuzaffar.lib.widgets.AnimatedEditText
+                <EditText
 
                     android:id="@+id/edConfirmPsw"
                     android:layout_width="match_parent"
@@ -264,7 +264,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_70sdp"
         android:layout_marginRight="@dimen/_70sdp"
-        android:layout_marginTop="@dimen/_392sdp"
+        android:layout_marginTop="@dimen/_400sdp"
         android:background="@drawable/roundbtnlogin"
         android:elevation="20dp"
         android:text="@string/signup"

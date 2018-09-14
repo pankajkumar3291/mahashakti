@@ -10,23 +10,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/_10sdp"
         android:layout_toLeftOf="@id/blogCreatername"
         android:padding="5dp"
         android:singleLine="false"
         android:text="Blog Nane"
-        android:textColor="@color/white"
-        android:textSize="11dp" />
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14sdp" />
 
     <TextView
-        android:singleLine="false"
         android:id="@+id/blogCreatername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginLeft="10dp"
+        android:layout_marginRight="@dimen/_10sdp"
         android:padding="5dp"
+        android:singleLine="false"
         android:text="Blog Creater Name"
-        android:textColor="@color/white"
-        android:textSize="11dp" />
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14sdp" />
 
 </RelativeLayout>

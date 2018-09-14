@@ -1,5 +1,6 @@
 package com.mahashakti.activities;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -7,8 +8,10 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.mahashakti.Adapters.ParticularServiceInfoAdapter;
@@ -27,6 +30,7 @@ public class ParticularServiceInformationActivity extends AppCompatActivity {
 
     KProgressHUD hud;
 
+    private ImageView backArrow;
 
 
     @Override
@@ -45,7 +49,6 @@ public class ParticularServiceInformationActivity extends AppCompatActivity {
                 payLoadArrayList = (ArrayList<PayLoad>) getIntent().getSerializableExtra("creatingServiceForParticularOne");
             }
         }
-
 
 
         hud = new KProgressHUD(this);
@@ -85,6 +88,16 @@ public class ParticularServiceInformationActivity extends AppCompatActivity {
 
     private void findingIdsHere() {
         rvParticularService = findViewById(R.id.rvParticularService);
+        backArrow = findViewById(R.id.backArrow);
+
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                finish();
+
+            }
+        });
     }
 
 

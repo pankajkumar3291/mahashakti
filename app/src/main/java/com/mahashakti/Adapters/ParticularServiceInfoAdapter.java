@@ -55,9 +55,12 @@ public class ParticularServiceInfoAdapter extends RecyclerView.Adapter<Particula
         final PayLoad finalPayload = createServicePayload.get(position);
 
         holder.tvHeader.setText(finalPayload.name);
+
         String plainText = Html.fromHtml(finalPayload.contents).toString();
         holder.tvContents.setText(plainText);
-        Picasso.with(context).load("http://softwareering.com/mahashakti/storage/app/"+ finalPayload.imagePath).into(holder.imgBottom);
+        holder.tvContents.setMovementMethod(new ScrollingMovementMethod());
+
+        Picasso.with(context).load("http://softwareering.com/mahashakti/storage/app/" + finalPayload.imagePath).resize(400 , 300).into(holder.imgBottom);
 
     }
 
@@ -72,10 +75,10 @@ public class ParticularServiceInfoAdapter extends RecyclerView.Adapter<Particula
 
 
         private TextView tvHeader;
-        private VerticalMarqueeTextView tvContents;
+        private TextView tvContents;
 //        private ImageView imgBottom;
 
-        private PorterShapeImageView imgBottom;
+        private ImageView imgBottom;
 
         public ParticularServiceInfoViewHolder(View itemView) {
 

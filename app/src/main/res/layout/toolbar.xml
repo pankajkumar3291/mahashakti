@@ -48,7 +48,11 @@
                 android:layout_gravity="center"
                 android:text="Mahashakti"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_13sdp" />
+                android:textSize="@dimen/_15sdp"
+                fontPath="fonts/HindVadodara-Bold.ttf"
+
+
+                />
 
 
         </android.support.v7.widget.Toolbar>

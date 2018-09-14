@@ -17,6 +17,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -134,9 +135,15 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
 
             case R.id.loginFacebookButton:
 
+//
                 LoginManager.getInstance().logInWithReadPermissions(
                         this,
-                        Arrays.asList("user_friends", "email", "public_profile"));
+                        Arrays.asList("email"));
+
+
+//                LoginManager.getInstance().logInWithReadPermissions(
+//                        this,
+//                        Arrays.asList("publish_actions"));
 
                 LoginManager.getInstance().registerCallback(callbackManager,
                         new FacebookCallback<LoginResult>() {
@@ -185,38 +192,38 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
                             String email = response.getJSONObject().getString("email");
                             String firstName = response.getJSONObject().getString("first_name");
                             String lastName = response.getJSONObject().getString("last_name");
-                            String gender = response.getJSONObject().getString("gender");
+//                            String gender = response.getJSONObject().getString("gender");
 
-
-                            Profile profile = Profile.getCurrentProfile();
-                            String id = profile.getId();
-                            String link = profile.getLinkUri().toString();
-
-                            Log.i("Link", link);
-
-                            if (Profile.getCurrentProfile() != null) {
-
-                                Log.i("Login", "ProfilePic" + Profile.getCurrentProfile().getProfilePictureUri(200, 200));
-                                sharedPrefsHelper.put(AppConstants.PROFILE_PIC, String.valueOf(Profile.getCurrentProfile().getProfilePictureUri(200, 200)));
-
-                            }
-
-
-//                            String FIRSTNAMELASTNAME = firstName+lastName;
-                            sharedPrefsHelper.put(AppConstants.USER_NAME, firstName + " " + lastName);
-                            sharedPrefsHelper.put(AppConstants.EMAIL, email);
-                            sharedPrefsHelper.put(AppConstants.USER_SEX, gender);
-
-
-                            Log.i("Login" + "Email", email);
-                            Log.i("Login" + "FirstName", firstName);
-                            Log.i("Login" + "LastName", lastName);
-                            Log.i("Login" + "Gender", gender);
+//
+//                            Profile profile = Profile.getCurrentProfile();
+//                            String id = profile.getId();
+//                            String link = profile.getLinkUri().toString();
+//
+//                            Log.i("Link", link);
+//
+//                            if (Profile.getCurrentProfile() != null) {
+//
+//                                Log.i("Login", "ProfilePic" + Profile.getCurrentProfile().getProfilePictureUri(200, 200));
+//                                sharedPrefsHelper.put(AppConstants.PROFILE_PIC, String.valueOf(Profile.getCurrentProfile().getProfilePictureUri(200, 200)));
+//
+//                            }
+//
+//
+////                            String FIRSTNAMELASTNAME = firstName+lastName;
+//                            sharedPrefsHelper.put(AppConstants.USER_NAME, firstName + " " + lastName);
+//                            sharedPrefsHelper.put(AppConstants.EMAIL, email);
+//                            sharedPrefsHelper.put(AppConstants.USER_SEX, gender);
+//
+//
+//                            Log.i("Login" + "Email", email);
+//                            Log.i("Login" + "FirstName", firstName);
+//                            Log.i("Login" + "LastName", lastName);
+//                            Log.i("Login" + "Gender", gender);
 
 
                             String fullName = firstName + " " + lastName;
 
-                            compositeDisposable.add(apiService.createusersocial(fullName, email, "facebook")
+                            compositeDisposable.add(apiService.createusersocial(fullName, email)
                                     .subscribeOn(Schedulers.computation())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(new Consumer<CreateSocialSuccess>() {
@@ -224,7 +231,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
                                         public void accept(CreateSocialSuccess createSocialSuccess) throws Exception {
 
 
-                                            if (createSocialSuccess.isSuccess) {
+                                            if (createSocialSuccess.getIsSuccess()) {
 
 
                                                 sharedPrefsHelper.put(AppConstants.USER_ID, createSocialSuccess.getPayLoad().getId());
@@ -285,6 +292,10 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+
+
+                            System.out.println("MainActivity.onCompleted" + e);
+
                         }
                     }
                 });
@@ -340,7 +351,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
             sharedPrefsHelper.put(AppConstants.EMAIL, email);
 
 
-            compositeDisposable.add(apiService.createusersocial(personName, email, "google")
+            compositeDisposable.add(apiService.createusersocial(personName, email)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<CreateSocialSuccess>() {
@@ -348,7 +359,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
                         public void accept(CreateSocialSuccess createSocialSuccess) throws Exception {
 
 
-                            if (createSocialSuccess.getSuccess()) {
+                            if (createSocialSuccess.getIsSuccess()) {
 
                                 sharedPrefsHelper.put(AppConstants.USER_ID, createSocialSuccess.getPayLoad().getId());
 

@@ -3,7 +3,9 @@ package com.mahashakti.response.displayingAdminApproveChat;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Payload {
+import java.io.Serializable;
+
+public class Payload implements Serializable {
 
 
     @SerializedName("userId")

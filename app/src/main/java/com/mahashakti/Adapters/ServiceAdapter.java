@@ -1,6 +1,7 @@
 package com.mahashakti.Adapters;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,8 +30,6 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
     private ItemClickListener clickListener;
 
 
-
-
     public ServiceAdapter(Context context, ArrayList<PayLoad> eventSuccessArrayList) {
         this.context = context;
         this.payLoadsServiceAdapter = eventSuccessArrayList;
@@ -53,11 +52,11 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
 
         final PayLoad payLoad = payLoadsServiceAdapter.get(position);
         holder.first_texview.setText(payLoad.name);
-        Animation myAnimation = AnimationUtils.loadAnimation(context, R.anim.tv_animation);
-        holder.first_texview.startAnimation(myAnimation);
+//        Animation myAnimation = AnimationUtils.loadAnimation(context, R.anim.tv_animation);
+//        holder.first_texview.startAnimation(myAnimation);
 
 
-        Picasso.with(context).load("http://softwareering.com/mahashakti/storage/app/" + payLoad.icon).into(holder.first_ImageView);
+        Picasso.with(context).load("http://softwareering.com/mahashakti/storage/app/" + payLoad.icon).resize(400, 300).into(holder.first_ImageView);
         Integer serviceId = payLoad.id;
 
     }
@@ -73,12 +72,12 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
     }
 
 
-
     public class ServiceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private ImageView  second_ImageView, third_ImageView;
+        private ImageView second_ImageView, third_ImageView;
         private TextView first_texview, second_texview, third_texview;
-        private PorterImageView first_ImageView;
+        //        private PorterImageView first_ImageView;
+        private ImageView first_ImageView;
 
 
         public ServiceViewHolder(View itemView) {

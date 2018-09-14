@@ -10,6 +10,7 @@ import com.mahashakti.di.modules.SharedPrefsHelper;
 import com.mahashakti.manager.GitApiInterface;
 import com.mahashakti.response.CreateUserSuccess.CreateUserSuccess;
 import com.mahashakti.response.CreateUserSuccess.PayLoad;
+import com.sdsmdg.tastytoast.TastyToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class RegisterPresenter extends BasePresenter {
     private CompositeDisposable compositeDisposable;
 
     public RegisterPresenter(Context context, final RegisterPresenter.View view, GitApiInterface apiService, SharedPrefsHelper sharedPrefsHelper,
-                              String email, String pass ,String username) {
+                             String email, String pass, String username) {
         super((SignUpActivity) view);
 
         this.view = view;
@@ -38,7 +39,7 @@ public class RegisterPresenter extends BasePresenter {
         compositeDisposable = new CompositeDisposable();
 
 
-        compositeDisposable.add(apiService.createUser(email, pass , username)
+        compositeDisposable.add(apiService.createUser(email, pass, username)
                 .subscribeOn(io.reactivex.schedulers.Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<CreateUserSuccess>() {
@@ -59,7 +60,8 @@ public class RegisterPresenter extends BasePresenter {
                         if (createUserSuccess.isSuccess) {
 
 
-                            view.registerSuccessful(createUserSuccess.message);
+//                            view.registerSuccessful(createUserSuccess.message);
+                            view.registerSuccessful("Thanks for registering with us");
 
                             int UserId = createUserSuccess.payLoad.id;
                             String UserEmail = createUserSuccess.payLoad.email;
@@ -68,30 +70,41 @@ public class RegisterPresenter extends BasePresenter {
                             String UserTel = String.valueOf(createUserSuccess.payLoad.phone);
 
 
-
-
-
                         } else {
 
-                            System.out.println("RegisterPresenter.accept" + createUserSuccess.message);
-                            new AwesomeErrorDialog(context)
-                                    .setTitle("Error")
-                                    .setMessage(createUserSuccess.message)
-                                    .setColoredCircle(R.color.dialogErrorBackgroundColor)
-                                    .setDialogIconAndColor(R.drawable.ic_dialog_error, R.color.white)
-                                    .setCancelable(true).setButtonText(String.valueOf(R.string.dialog_ok_button))
-                                    .setButtonBackgroundColor(R.color.dialogErrorBackgroundColor)
-                                    .setButtonText("OK")
-                                    .setErrorButtonClick(new Closure() {
-                                        @Override
-                                        public void exec() {
-                                            // click
-                                        }
-                                    })
-                                    .show();
+                            pDialog.dismiss();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    TastyToast.makeText(context, createUserSuccess.message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                                    pDialog.dismiss();
+
+                                }
+                            });
+
+
+//                            System.out.println("RegisterPresenter.accept" + createUserSuccess.message);
+//                            new AwesomeErrorDialog(context)
+//                                    .setTitle("Error")
+//                                    .setMessage(createUserSuccess.message)
+//                                    .setColoredCircle(R.color.dialogErrorBackgroundColor)
+//                                    .setDialogIconAndColor(R.drawable.ic_dialog_error, R.color.white)
+//                                    .setCancelable(true).setButtonText(String.valueOf(R.string.dialog_ok_button))
+//                                    .setButtonBackgroundColor(R.color.dialogErrorBackgroundColor)
+//                                    .setButtonText("OK")
+//                                    .setErrorButtonClick(new Closure() {
+//                                        @Override
+//                                        public void exec() {
+//                                            // click
+//                                        }
+//                                    })
+//                                    .show();
 
                         }
                     }
+
+
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {

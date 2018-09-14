@@ -3,7 +3,9 @@ package com.mahashakti.activities;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mahashakti.AppConstants;
@@ -48,6 +50,9 @@ public class GalleryDetailActivity extends BaseActivity {
     ImageView imageGallery;
 
 
+    private RelativeLayout imageBackaroow;
+
+
     private @Nullable
     YouTubePlayer initializedYouTubePlayer;
 
@@ -61,15 +66,24 @@ public class GalleryDetailActivity extends BaseActivity {
 
         this.getLifecycle().addObserver(youTubePlayerView);
 
+        imageBackaroow = findViewById(R.id.imageBackaroow);
+        imageBackaroow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                finish();
+            }
+        });
+
 
         txtVideoTitle.setText("Video:- " + sharedPrefsHelper.get(AppConstants.VIDEO_TITLE, ""));
         txtImageTitle.setText(sharedPrefsHelper.get(AppConstants.IMAGE_TITLE, ""));
 
 
-        Picasso.with(context)
-                .load("http://softwareering.com/mahashakti/public/api/api/" + sharedPrefsHelper.get(AppConstants.IMAGE_URL, "")) // .load("http://mahashaktiradiance.com/" + sharedPrefsHelper.get(AppConstants.IMAGE_URL, ""))
-                .error(R.drawable.user)
-                .into(imageGallery);
+//        Picasso.with(context)
+//                .load("http://softwareering.com/mahashakti/public/api/api/" + sharedPrefsHelper.get(AppConstants.IMAGE_URL, "")) // .load("http://mahashaktiradiance.com/" + sharedPrefsHelper.get(AppConstants.IMAGE_URL, ""))
+//                .error(R.drawable.user)
+//                .into(imageGallery);
 
 
         youTubePlayerView.initialize(initializedYouTubePlayer -> {

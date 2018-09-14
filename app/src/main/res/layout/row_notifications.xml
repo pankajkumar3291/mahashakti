@@ -47,7 +47,7 @@
                     android:layout_height="match_parent"
                     android:text="NEW MESSAGE"
                     android:textSize="@dimen/_12sdp"
-                    android:textStyle="bold" />
+                    fontPath="fonts/HindVadodara-Bold.ttf" />
 
                 <TextView
                     android:id="@+id/txtMessageDesc"

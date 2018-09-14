@@ -55,36 +55,85 @@ public class CreateSocialSuccess {
 //    }
 
 
+//    @SerializedName("isSuccess")
+//    @Expose
+//    public Boolean isSuccess;
+//
+//    @SerializedName("isError")
+//    @Expose
+//    public Boolean isError;
+//
+//    @SerializedName("message")
+//    @Expose
+//    public String message;
+//
+//    @SerializedName("payLoad")
+//    @Expose
+//    public PayLoad payLoad;
+//
+//    public Boolean getSuccess() {
+//        return isSuccess;
+//    }
+//
+//    public void setSuccess(Boolean success) {
+//        isSuccess = success;
+//    }
+//
+//    public Boolean getError() {
+//        return isError;
+//    }
+//
+//    public void setError(Boolean error) {
+//        isError = error;
+//    }
+//
+//    public String getMessage() {
+//        return message;
+//    }
+//
+//    public void setMessage(String message) {
+//        this.message = message;
+//    }
+//
+//    public PayLoad getPayLoad() {
+//        return payLoad;
+//    }
+//
+//    public void setPayLoad(PayLoad payLoad) {
+//        this.payLoad = payLoad;
+//    }
+
+
     @SerializedName("isSuccess")
     @Expose
-    public Boolean isSuccess;
+    private Boolean isSuccess;
 
     @SerializedName("isError")
     @Expose
-    public Boolean isError;
+    private Boolean isError;
 
     @SerializedName("message")
     @Expose
-    public String message;
+    private String message;
 
     @SerializedName("payLoad")
     @Expose
-    public PayLoad payLoad;
+    private PayLoad payLoad;
 
-    public Boolean getSuccess() {
+    public Boolean getIsSuccess() {
         return isSuccess;
     }
 
-    public void setSuccess(Boolean success) {
-        isSuccess = success;
+    public void setIsSuccess(Boolean isSuccess) {
+        this.isSuccess = isSuccess;
     }
 
-    public Boolean getError() {
+    public Boolean getIsError() {
         return isError;
     }
 
-    public void setError(Boolean error) {
-        isError = error;
+    public void setIsError(Boolean isError) {
+        this.isError = isError;
     }
 
     public String getMessage() {

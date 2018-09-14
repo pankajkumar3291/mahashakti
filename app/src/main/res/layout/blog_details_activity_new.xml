@@ -24,7 +24,7 @@
         android:textColorHint="@color/black"
         android:textColorLink="@color/black"
         android:textSize="12sp"
-        android:textStyle="bold"
+        fontPath="fonts/HindVadodara-Bold.ttf"
         android:visibility="visible"
         app:colorSpace="150dp"
         app:colorSpeed="4dp" />
@@ -66,7 +66,7 @@
         android:text="Comments"
         android:textColor="@color/black"
         android:textSize="13sp"
-        android:textStyle="bold" />
+        fontPath="fonts/HindVadodara-Bold.ttf" />
 
 
     <android.support.v7.widget.RecyclerView

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -59,7 +60,7 @@ public class GalleryActivity extends BaseActivity {
         setSupportActionBar(topToolBar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        toolbar_title.setText("GALLERY");
+        toolbar_title.setText("VIDEO");
 
 
         compositeDisposable.add(apiService.getgalleryitems()
@@ -86,11 +87,12 @@ public class GalleryActivity extends BaseActivity {
 
 //                                    String videoTitle = payloadGalleryArrayList.get(position).d;
                                     String imageTitle = payloadGalleryArrayList.get(position).getDescription();
+                                    String plainText = Html.fromHtml(imageTitle).toString();
 //                                    String imageurl = payloadGalleryArrayList.get(position).getImage();
 
                                     sharedPrefsHelper.put(AppConstants.VIDEO_URL, videoURl);
 //                                    sharedPrefsHelper.put(AppConstants.VIDEO_TITLE, videoTitle);
-                                    sharedPrefsHelper.put(AppConstants.IMAGE_TITLE, imageTitle);
+                                    sharedPrefsHelper.put(AppConstants.IMAGE_TITLE, plainText);
 //                                    sharedPrefsHelper.put(AppConstants.IMAGE_URL, imageurl);
 
                                     startActivity(new Intent(context, GalleryDetailActivity.class));
