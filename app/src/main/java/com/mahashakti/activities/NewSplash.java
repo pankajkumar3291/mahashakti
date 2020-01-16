@@ -1,33 +1,27 @@
 package com.mahashakti.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.multidex.MultiDex;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.mahashakti.R;
-import com.mahashakti.baseactivity.BaseActivity;
 import com.mahashakti.sharedPreferences.UserDataUtility;
 
-public class SplashActivity extends BaseActivity {
+public class NewSplash extends AppCompatActivity {
 
-    // Splash screen timer
     private volatile boolean interrupt;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
 
-        setTheme(R.style.SplashTheme_Launcher);
-        super.onCreate(savedInstanceState);
         hidingStatusBar();
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.splash_new);
 
 
-//        // fullscreen
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Thread timer = new Thread() {
             public void run() {
                 try {
@@ -38,7 +32,7 @@ public class SplashActivity extends BaseActivity {
 
                     if (!interrupt) {
 
-                        if (UserDataUtility.getLogin(SplashActivity.this)) {  //true
+                        if (UserDataUtility.getLogin(NewSplash.this)) {  //true
 
                             Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
                             startActivity(intent);
@@ -46,6 +40,7 @@ public class SplashActivity extends BaseActivity {
                             return;
 
                         } else {  //false
+
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -55,13 +50,14 @@ public class SplashActivity extends BaseActivity {
             }
         };
         timer.start();
+
+
     }
 
+
     private void hidingStatusBar() {
-        // fullscreen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
     @Override
@@ -75,12 +71,4 @@ public class SplashActivity extends BaseActivity {
         super.onBackPressed();
         interrupt = true;
     }
-
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
-    }
-
 }

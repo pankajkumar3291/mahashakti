@@ -56,7 +56,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
 //        holder.first_texview.startAnimation(myAnimation);
 
 
-        Picasso.with(context).load("http://softwareering.com/mahashakti/storage/app/" + payLoad.icon).resize(400, 300).into(holder.first_ImageView);
+        Picasso.with(context).load("http://smartit.ventures/mahash/public/" + payLoad.icon).resize(400, 300).into(holder.first_ImageView);
         Integer serviceId = payLoad.id;
 
     }

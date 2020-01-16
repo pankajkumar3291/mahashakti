@@ -91,15 +91,14 @@ public class AdapterThought extends RecyclerView.Adapter<AdapterThought.MyHolder
 
         String apiImagePath = payload.imagePath;
         System.out.println("AdapterThought.onBindViewHolder" + apiImagePath);
-        String serverUrl = "http://softwareering.com/mahashakti/";
 
         Picasso.with(view.getContext())
-                .load("http://softwareering.com/mahashakti/storage/app/" + payload.imagePath )
+                .load("http://smartit.ventures/mahash/public/" + payload.imagePath)
                 .error(R.drawable.user)
                 .into(holder.imageThought);
 
-
-
+        // before
+//        http://softwareering.com/mahashakti/storage/app/
 
 
         // Shahzeb commented this code

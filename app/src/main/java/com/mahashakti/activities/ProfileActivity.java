@@ -191,10 +191,9 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
         } else {
 
             Picasso.with(context)
-                    .load("http://softwareering.com/mahashakti/storage/app/" + userPic) // .load("http://mahashaktiradiance.com/" + userPic)
+                    .load("http://smartit.ventures/mahash/public/" + userPic) // .load("http://mahashaktiradiance.com/" + userPic)
                     .error(R.drawable.user)
                     .into(imageProfile);
-
 
         }
         edUserNameProfile.setText(userName);
@@ -204,26 +203,27 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
         edEmailAddressProfile.setEnabled(false);
 
 
-        Bitmap thumb = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile("http://softwareering.com/mahashakti/storage/app/\" + UserInfoload.image"), 100, 100);
+        Bitmap thumb = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile("http://smartit.ventures/mahash/public/\" + UserInfoload.image"), 100, 100);
 
-        Picasso.with(context).load("http://softwareering.com/mahashakti/storage/app/" + UserInfoload.image).into(imageProfile);
+        Picasso.with(context).load("http://smartit.ventures/mahash/public/" + UserInfoload.image).into(imageProfile);
+
+//        Hawk.put("PROFILE_IMAGE", "http://smartit.ventures/mahash/public/" + UserInfoload.image);
 
         progressBar.setVisibility(View.GONE);
 
 
         if (userGender != null) {
             if (userGender.equalsIgnoreCase("Male")) {
-
                 radioMale.setChecked(true);
 
             } else {
-
                 radioFemale.setChecked(true);
             }
         }
 
 
     }
+
 
 
     @Override
@@ -253,26 +253,6 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
                 // get selected radio button from radioGroup
                 int selectedId = radioSex.getCheckedRadioButtonId();
 
-//                radioSex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//                    @Override
-//                    public void onCheckedChanged(RadioGroup radioGroup, int i) {
-//                        radioGroup.getCheckedRadioButtonId();
-//
-//
-//                        switch (radioGroup.getCheckedRadioButtonId()) {
-//
-//                            case R.id.radioMale:
-//                                break;
-//
-//
-//                            case R.id.radioFemale:
-//                                break;
-//                        }
-//
-//                    }
-//                });
-
-
                 // find the radiobutton by returned id
                 radioSexButton = findViewById(selectedId);
 
@@ -283,10 +263,9 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
                 phone = edPhoneNumber.getText().toString().trim();
                 sex = String.valueOf(radioSexButton.getText().toString());
 
-
                 updateProfileApi(userId, email, phone, sex, imagePath);
-                finish();
 
+                finish();
 
                 break;
 
@@ -326,7 +305,6 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
 
                             utility.setSex(profileUpdateSuccess.payLoad.sex);
                             utility.setUserPic(profileUpdateSuccess.payLoad.image);
-
 
 //                            utility.setUserPic(profileUpdateSuccess.getPayLoad().getUpdatedAt());
 //                            utility.setUserPic(profileUpdateSuccess.getPayLoad().getCreatedAt());
@@ -430,10 +408,7 @@ public class ProfileActivity extends BaseActivity implements IPickResult {
 
             imageProfile.setImageBitmap(pickResult.getBitmap());
 
-            //r.getPath();
         } else {
-            //Handle possible errors
-            //TODO: do what you have to do with r.getError();
             Toast.makeText(this, pickResult.getError().getMessage(), Toast.LENGTH_LONG).show();
         }
 

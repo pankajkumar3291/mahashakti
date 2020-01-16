@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,12 +16,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.github.siyamed.shapeimageview.mask.PorterShapeImageView;
-import com.hanks.htextview.rainbow.RainbowTextView;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.mahashakti.Adapters.BlogDetailsAdapter;
 import com.mahashakti.R;
-import com.mahashakti.VerticalMarqueeTextView;
 import com.mahashakti.httpNet.HttpModule;
 import com.mahashakti.response.commentByBlog.CommentByBlog;
 import com.mahashakti.response.commentByBlog.PayLoad;
@@ -100,7 +96,7 @@ public class BlogDetailsActivity extends AppCompatActivity implements View.OnCli
                 tvDescriptionBlog.setText(Html.fromHtml(Html.fromHtml(listContets.description).toString()));
                 tvDescriptionBlog.setMovementMethod(new ScrollingMovementMethod());
 
-                Picasso.with(context).load("http://softwareering.com/mahashakti/storage/app/" + listContets.imagePath).resize(600, 300)
+                Picasso.with(context).load("http://smartit.ventures/mahash/public/" + listContets.imagePath).resize(600, 300)
                         .into(imgBlog);
             }
         }

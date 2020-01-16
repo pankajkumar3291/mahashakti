@@ -109,6 +109,7 @@ public class BlogActivity extends AppCompatActivity implements ItemClickListener
 
 
                     } else {
+                        hud.dismiss();
                         TastyToast.makeText(getApplicationContext(), "SOMETHING WENT WRONG", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
 
                     }

@@ -90,7 +90,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
 
     //Awesome dialog library
-    implementation 'com.github.blennerSilva:AwesomeDialog:2.0.5'
+    implementation 'com.github.blennerSilva:AwesomeDialog:2.0.6'
 
     //Droid dialog library
     implementation 'com.github.droidbyme:DroidDialog:c6decc7167'

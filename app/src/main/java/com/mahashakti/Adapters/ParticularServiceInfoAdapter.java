@@ -60,7 +60,7 @@ public class ParticularServiceInfoAdapter extends RecyclerView.Adapter<Particula
         holder.tvContents.setText(plainText);
         holder.tvContents.setMovementMethod(new ScrollingMovementMethod());
 
-        Picasso.with(context).load("http://softwareering.com/mahashakti/storage/app/" + finalPayload.imagePath).resize(400 , 300).into(holder.imgBottom);
+        Picasso.with(context).load("http://smartit.ventures/mahash/public/" + finalPayload.imagePath).resize(400, 300).into(holder.imgBottom);
 
     }
 

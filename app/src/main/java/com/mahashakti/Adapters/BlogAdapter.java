@@ -30,7 +30,6 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
     ArrayList<Payload> payloads = new ArrayList<>();
 
 
-
     private ItemClickListenerForBlogDetails listenerForBlogDetails;
 
 
@@ -67,10 +66,12 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
         final Payload createBlogpayload = payloads.get(position);
 
         holder.tvTitle.setText(createBlogpayload.title);
-        Picasso.with(context).load("http://softwareering.com/mahashakti/storage/app/" + createBlogpayload.imagePath).into(holder.blogImage);
+        Picasso.with(context).load("http://smartit.ventures/mahash/public/" + createBlogpayload.imagePath).into(holder.blogImage);
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.swing_up_left);
 //        Animation animation = AnimationUtils.loadAnimation(context, R.anim.swing_up_right);
         holder.cardView.startAnimation(animation);
+
+//        http://mahashaktiradiance.com/storage/app/
 
 
     }
@@ -85,7 +86,6 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
     public void setClickListener(ItemClickListenerForBlogDetails itemClickListener) {
         this.listenerForBlogDetails = itemClickListener;
     }
-
 
 
     public class BlogViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -112,7 +112,8 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
         @Override
         public void onClick(View view) {
 
-            if (listenerForBlogDetails != null) listenerForBlogDetails.onClick(view, getAdapterPosition());
+            if (listenerForBlogDetails != null)
+                listenerForBlogDetails.onClick(view, getAdapterPosition());
         }
     }
 }

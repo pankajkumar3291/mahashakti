@@ -33,13 +33,12 @@ import java.util.regex.Pattern;
 public class CustomGrid extends BaseAdapter {
 
 
-
     private Context mContext;
-//    private  ArrayList<PayLoad> payloadGalleryArrayList = new ArrayList<>();
-    private  ArrayList<Payload> payloadGalleryArrayList = new ArrayList<>();
+    //    private  ArrayList<PayLoad> payloadGalleryArrayList = new ArrayList<>();
+    private ArrayList<Payload> payloadGalleryArrayList = new ArrayList<>();
 
 
-    public CustomGrid(Context mContext,ArrayList<Payload> payloadGalleryArrayList) {
+    public CustomGrid(Context mContext, ArrayList<Payload> payloadGalleryArrayList) {
         this.mContext = mContext;
         this.payloadGalleryArrayList = payloadGalleryArrayList;
 
@@ -72,16 +71,16 @@ public class CustomGrid extends BaseAdapter {
         Payload payloadGallery = payloadGalleryArrayList.get(position);
 
 
-        if(convertView ==null){
+        if (convertView == null) {
 
             grid = new View(mContext);
-            grid = inflater.inflate(R.layout.grid_item,null);
+            grid = inflater.inflate(R.layout.grid_item, null);
 
-           // TextView textView = grid.findViewById(R.id.txtGalleryTitle);
+            // TextView textView = grid.findViewById(R.id.txtGalleryTitle);
             ImageView imageView = grid.findViewById(R.id.grid_item_iv);
 
 
-           // textView.setText(payloadGallery.getImagedesc());
+            // textView.setText(payloadGallery.getImagedesc());
 
             /*Picasso.with(mContext)
                     .load("http://mahashaktiradiance.com/" + getYoutubeThumbnailUrlFromVideoUrl(payloadGallery.getVideourl()))
@@ -90,12 +89,18 @@ public class CustomGrid extends BaseAdapter {
 
 
             Picasso.with(mContext)
-                    .load(getYoutubeThumbnailUrlFromVideoUrl("http://softwareering.com/mahashakti/public/api/api/" +payloadGallery.getVideoPath()))
-                    .error(R.drawable.user)
+                    .load(getYoutubeThumbnailUrlFromVideoUrl("http://mahashaktiradiance.com/api/api/" + payloadGallery.getVideoPath()))
+                    .error(R.drawable.mahashakti_app_icon)
                     .into(imageView);
 
-        }
-        else {
+
+            // test
+//            Picasso.with(mContext)
+//                    .load(getYoutubeThumbnailUrlFromVideoUrl("http://softwareering.com/mahashakti/public/api/api/" +payloadGallery.getVideoPath()))
+//                    .error(R.drawable.user)
+//                    .into(imageView);
+
+        } else {
 
             grid = convertView;
         }
@@ -103,9 +108,8 @@ public class CustomGrid extends BaseAdapter {
     }
 
 
-
     public static String getYoutubeThumbnailUrlFromVideoUrl(String videoUrl) {
-        String imgUrl = "http://img.youtube.com/vi/"+getYoutubeVideoIdFromUrl(videoUrl) + "/0.jpg";
+        String imgUrl = "http://img.youtube.com/vi/" + getYoutubeVideoIdFromUrl(videoUrl) + "/0.jpg";
         return imgUrl;
     }
 
@@ -123,16 +127,11 @@ public class CustomGrid extends BaseAdapter {
     }
 
 
-
-
-
     public static Bitmap retriveVideoFrameFromVideo(String videoPath)
-            throws Throwable
-    {
+            throws Throwable {
         Bitmap bitmap = null;
         MediaMetadataRetriever mediaMetadataRetriever = null;
-        try
-        {
+        try {
             mediaMetadataRetriever = new MediaMetadataRetriever();
             if (Build.VERSION.SDK_INT >= 14)
                 mediaMetadataRetriever.setDataSource(videoPath, new HashMap<String, String>());
@@ -140,25 +139,19 @@ public class CustomGrid extends BaseAdapter {
                 mediaMetadataRetriever.setDataSource(videoPath);
             //   mediaMetadataRetriever.setDataSource(videoPath);
             bitmap = mediaMetadataRetriever.getFrameAtTime();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new Throwable(
                     "Exception in retriveVideoFrameFromVideo(String videoPath)"
                             + e.getMessage());
 
-        }
-        finally
-        {
-            if (mediaMetadataRetriever != null)
-            {
+        } finally {
+            if (mediaMetadataRetriever != null) {
                 mediaMetadataRetriever.release();
             }
         }
         return bitmap;
     }
-
 
 
 }

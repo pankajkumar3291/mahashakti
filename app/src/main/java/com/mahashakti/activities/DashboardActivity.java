@@ -52,6 +52,7 @@ import com.mahashakti.response.displayingUserChat.DisplayingUserChat;
 import com.mahashakti.response.upcomingEvent.UpcomingEvent;
 import com.mahashakti.response.userInfo.UserInfo;
 import com.mahashakti.sharedPreferences.UserDataUtility;
+import com.orhanobut.hawk.Hawk;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.squareup.picasso.Picasso;
 
@@ -154,9 +155,14 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        ButterKnife.bind(this);
 
         context = this;
+        ButterKnife.bind(this);
+
+        Hawk.init(context).build();
+
+
+
         hud = new KProgressHUD(this);
 
         rlflashingNxtEvent = findViewById(R.id.rlflashingNxtEvent);
@@ -185,6 +191,12 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
+
+//        profile_image.setImageBitmap(Hawk.get("PROFILE_IMAGE"));
+
+//        Picasso.with(context).load(String.valueOf(Hawk.get("PROFILE_IMAGE"))).into(profile_image);
+
+
         hud.dismiss();
     }
 
@@ -327,9 +339,13 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         } else {
 
             Picasso.with(context)
-                    .load("http://softwareering.com/mahashakti/storage/app/" + userPic)  // .load("http://mahashaktiradiance.com/" + userPic)
+                    .load("http://smartit.ventures/mahash/public/" + userPic)  // .load("http://mahashaktiradiance.com/" + userPic)
                     .error(R.drawable.user)
                     .into(profile_image);
+
+//
+//            http://softwareering.com/mahashakti/storage/app/
+
 
         }
 
@@ -343,7 +359,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                     String userPic = ((ImageProfileEvent) o).getImageUrl();
 
                     Picasso.with(context)
-                            .load("http://softwareering.com/mahashakti/storage/app/" + userPic) // .load("http://mahashaktiradiance.com/" + userPic)
+                            .load("http://smartit.ventures/mahash/public/" + userPic) // .load("http://mahashaktiradiance.com/" + userPic)
                             .error(R.drawable.user)
                             .into(profile_image);
 
@@ -636,7 +652,11 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                     return;
                 }
                 lastClickTime = SystemClock.elapsedRealtime();
-                navigateToNextActivity(BookingActivity.class, cardViewBooking);
+
+
+                TastyToast.makeText(getApplicationContext(), "Coming soon", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+
+//                navigateToNextActivity(BookingActivity.class, cardViewBooking);
 
 
                 break;
@@ -657,7 +677,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
 //                                TastyToast.makeText(getApplicationContext(), response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
 
-                                Picasso.with(context).load("http://softwareering.com/mahashakti/storage/app/" + response.body().payLoad.image).into(profile_image);
+                                Picasso.with(context).load("http://smartit.ventures/mahash/public/" + response.body().payLoad.image).into(profile_image);
 
 //                            String fileName = "http://softwareering.com/mahashakti/storage/app/" + response.body().payLoad.image;
 
@@ -732,7 +752,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                                 startActivity(intent);
 
 
-                                TastyToast.makeText(DashboardActivity.this, response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+//                                TastyToast.makeText(DashboardActivity.this, response.body().message, TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
                                 hud.dismiss();
                             }
                         }

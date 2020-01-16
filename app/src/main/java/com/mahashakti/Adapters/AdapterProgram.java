@@ -95,9 +95,12 @@ public class AdapterProgram extends RecyclerView.Adapter<AdapterProgram.MyHolder
         holder.txtTimeEnd.setText(eventPayload.endTime);
 
 
+        // http://softwareering.com/mahashakti/storage/app/ before
         Picasso.with(view.getContext())
-                .load("http://softwareering.com/mahashakti/storage/app/" + eventPayload.imagePath)
+                .load("http://smartit.ventures/mahash/public/" + eventPayload.imagePath)
                 .into(holder.imageProgram);
+
+        // http://mahashaktiradiance.com/storage/app/
 
 
         holder.btnChat.setOnClickListener(new View.OnClickListener() {
